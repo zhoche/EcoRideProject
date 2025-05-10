@@ -1,0 +1,40 @@
+//PALETTE COULEURS — ÉcoResponsable
+$color-primary: #1a3533;      // Vert cèdre
+$color-accent: #d8d800;    // Vert lumineux
+$color-dark: #333333;         // Texte sombre - Antracite
+$color-light: #fffdfc;        // Fond global - Blanc cassé
+$color-positive: #6fb586;      // Vert (optionnel)
+$color-error: #c55c58;        // Rouge (optionnel)
+$color-secondary-1: #f0efec;       // Beige clair
+$color-secondary-2: #646e78;       // Bleu gris
+$color-secondary-3: #9094ff;       // Violet
+$color-secondary-4: #f5ca62;       // Jaune
+$color-secondary-5: #c4991f;       // Ocre
+$color-secondary-6: #cccccc;       // Gris 
+
+
+//TYPOGRAPHIE
+$font-family-base: 'Figtree', 'Helvetica Neue', sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.6;
+
+//GRILLE & RYTHME
+$spacing-xs: 0.5rem;
+$spacing-sm: 1rem;
+$spacing-md: 2rem;
+$spacing-lg: 3rem;
+
+//BORDURES & RAYONS
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 16px;
+
+//ÉLÉVATION / OMBRES
+$shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.05);
+$shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+
+//BREAKPOINTS
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
