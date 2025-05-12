@@ -1,0 +1,107 @@
+@import '../styles/variables';
+@import '../styles/typography';
+@import '../styles/buttons';
+
+ // ========== HEADER ==========
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+  
+  .header {
+    padding: 1rem 2rem;
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: row;
+}
+  
+.header-text{
+    display: flex;
+    align-content: center;
+    align-items: center;
+    gap: 2rem;
+}
+
+
+    .logo {
+      height: 35px;
+    }
+    
+    .nav {
+      display: flex;
+      gap: 2rem;
+  
+      a {
+        text-decoration: none;
+        color: $color-dark;
+        font-weight: 500;
+  
+        &:hover {
+          text-decoration: none;
+          font-weight: 700;
+          cursor: pointer;
+        }
+      }
+    }
+  
+    .auth-buttons {
+      display: flex;
+      gap: 1rem;
+    }
+  
+  
+  main {
+    flex: 1;
+  }
+  
+  footer {
+    background: $color-primary;
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: white;
+  }
+  
+
+  .burger-menu {
+    display: none;
+  
+    img {
+      height: 45px;
+      cursor: pointer;
+    }
+  }
+
+
+
+  // ========== RESPONSIVE HEADER ==========
+
+@media (max-width: $breakpoint-md) {
+    .header {
+      flex-direction: row;
+      align-items: flex-start;
+      gap: 1rem;
+      align-items: center;
+    }
+  
+    @media (max-width: $breakpoint-md) {
+  .nav,
+  .auth-buttons {
+    display: none;
+  }
+
+  .burger-menu {
+    display: flex;
+    margin-left: auto;
+    align-items: center;
+  }
+
+}
+  }
+  
