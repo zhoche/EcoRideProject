@@ -1,0 +1,61 @@
+@use '../../styles/variables' as v;
+@use '../../styles/typography' as t;
+@use '../../styles/buttons' as b;
+
+.search-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border-radius: 50px;
+    background: white;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    width: fit-content;
+    margin: auto;
+  }
+  
+  .search-input {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    border: 1px solid v.$color-secondary-6;
+    border-radius: 40px;
+    padding: 8px 16px;
+    background-color: #fff;
+  }
+  
+  .search-input input,
+  .search-input select {
+    border: none;
+    outline: none;
+    font-size: 16px;
+    color: v.$color-secondary-6;
+    background-color: transparent;
+  }
+  
+  .search-input input[type="date"] {
+    padding: 0;
+  }
+  
+  .icon {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .search-button {
+    background-color: v.$color-primary;
+    color: v.$color-accent;
+    border: none;
+    border-radius: 40px;
+    padding: 12px 24px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.3s ease;
+  }
+  
+  .search-button:hover {
+    background-color: v.$color-accent;
+    color: v.$color-primary;
+  }
+  
