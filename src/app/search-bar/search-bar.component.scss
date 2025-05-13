@@ -2,10 +2,13 @@
 
 .eco-search {
   width: 100%;
-  max-width: 100%;
-  padding: $spacing-sm;
-  background-color: $color-light;
-
+  position: absolute;
+  top: 25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+  padding: $spacing-lg
+}
   .search-bar {
     display: flex;
     flex-wrap: wrap;
@@ -23,6 +26,9 @@
     @include respond-to(md) {
       flex-direction: column;
       align-items: stretch;
+      padding: $spacing-md;
+      border-radius: $radius-lg;
+
     }
   }
 
@@ -67,4 +73,4 @@
     width: 20px;
     height: 20px;
   }
-}
+
