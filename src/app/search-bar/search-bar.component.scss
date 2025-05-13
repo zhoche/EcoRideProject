@@ -28,8 +28,13 @@
       align-items: stretch;
       padding: $spacing-md;
       border-radius: $radius-lg;
-
     }
+
+    @include respond-to(custom-1044) {
+      padding: $spacing-md;
+      border-radius: $radius-md;
+    }
+    
   }
 
   .search-input {

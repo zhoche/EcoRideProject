@@ -17,6 +17,7 @@ $color-secondary-6: #cccccc;       // Gris
 $breakpoint-sm: 576px;
 $breakpoint-md: 820px;
 $breakpoint-lg: 992px;
+$breakpoint-1044: 1044px;
 $breakpoint-xl: 1200px;
 
 // SPACING
@@ -162,5 +163,7 @@ a {
     @media (max-width: $breakpoint-lg) { @content; }
   } @else if $breakpoint == xl {
     @media (max-width: $breakpoint-xl) { @content; }
+  } @else if $breakpoint == custom-1044 {
+    @media (max-width: $breakpoint-1044) { @content; }
   }
 }
