@@ -16,8 +16,15 @@
   height: 30vh;
   border-radius: $radius-lg;
   overflow: hidden;
-  margin-bottom: 14rem; // espace réservé sous la banner
+  margin-bottom: 4rem; // espace réservé sous la banner
 
+  @include respond-to(custom-1044) {
+    margin-bottom: 8rem; // espace réservé sous la banner
+  }
+
+  @include respond-to(md) {
+    margin-bottom: 14rem; // espace réservé sous la banner
+  }
 
   .hero {
     width: 100%;
@@ -82,4 +89,81 @@
       }
     }
   }
+  }
+
+
+
+
+  // ========== TEXTE INTRO ==========
+
+  .text-intro {
+    text-align: center;
+    margin-left: $spacing-xl;
+    margin-right: $spacing-xl;
+    margin-bottom: $spacing-xxl;
+
+    @include respond-to(sm) {
+    margin-left: $spacing-sm;
+    margin-right: $spacing-sm;
+    }
+
+    h4 {
+      color: $color-secondary-2;
+    }
+
+    h2 {
+      font-weight: 500;
+    }
+
+  }
+
+
+
+
+  // ========== CARD CONTAINER ==========
+
+  .cards-container {
+    display: flex;
+    background-color: $color-secondary-1;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    margin-bottom: 2em;
+
+    h4 {
+      color: $color-secondary-2;
+      margin-bottom: -13px;
+
+    }
+
+    h2 {
+      margin-bottom: 1em;
+    }
+
+    h3 {
+      font-weight: 600;
+      margin-bottom: -10px;
+      margin-top: 4px;
+    }
+
+  }
+
+  .card-icon {
+    width: 40px;
+  }
+
+  
+
+  .card-1, .card-2, .card-3 {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+    border-radius: $radius-lg;
+    border: 1px solid $color-secondary-2;
+
+    @include respond-to(sm) {
+      width: 100%;
+      max-width: 100%;
+      margin-bottom: $spacing-lg;
+    }
   }
