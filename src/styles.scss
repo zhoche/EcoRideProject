@@ -1,0 +1,166 @@
+//PALETTE COULEURS — ÉcoResponsable
+$color-primary: #1a3533;      // Vert cèdre
+$color-accent: #d8d800;    // Vert lumineux
+$color-dark: #333333;         // Texte sombre - Antracite
+$color-light: #fffdfc;        // Fond global - Blanc cassé
+$color-positive: #6fb586;      // Vert (optionnel)
+$color-error: #c55c58;        // Rouge (optionnel)
+$color-secondary-1: #f0efec;       // Beige clair
+$color-secondary-2: #646e78;       // Bleu gris
+$color-secondary-3: #9094ff;       // Violet
+$color-secondary-4: #f5ca62;       // Jaune
+$color-secondary-5: #c4991f;       // Ocre
+$color-secondary-6: #cccccc;       // Gris 
+
+
+// BREAKPOINTS
+$breakpoint-sm: 576px;
+$breakpoint-md: 820px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// SPACING
+$spacing-xs: 0.25rem;
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 1.5rem;
+$spacing-xl: 2rem;
+$spacing-xxl: 3rem;
+
+// RADIUS
+$radius-sm: 8px;
+$radius-md: 16px;
+$radius-lg: 24px;
+$radius-full: 40px;
+
+// TYPO
+$font-main: 'Figtree', sans-serif;
+
+* {
+  box-sizing: border-box;
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  font-family: $font-main;
+  font-size: 16px;
+  color: $color-dark;
+  background: $color-light;
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6, p, a, input, select, button {
+  font-family: $font-main;
+}
+
+// TITRES
+h1, .h1 {
+  font-size: 2.5rem;
+  font-weight: 600;
+  line-height: 1.2;
+  margin-bottom: $spacing-md;
+}
+
+h2, .h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1.3;
+  margin-bottom: $spacing-sm;
+}
+
+h3, .h3 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: $spacing-sm;
+}
+
+h4, .h4 {
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-bottom: $spacing-xs;
+}
+
+h5, .h5 {
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-bottom: $spacing-xs;
+}
+
+p, .text {
+  font-size: 1rem;
+  margin-bottom: $spacing-sm;
+}
+
+.small {
+  font-size: 0.875rem;
+  color: darken($color-dark, 20%);
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// BOUTONS
+.btn {
+  display: inline-block;
+  padding: $spacing-sm $spacing-lg;
+  border-radius: $radius-full;
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-outline {
+  background: #fff;
+  color: $color-dark;
+  border: 1.8px solid $color-secondary-6;
+  text-decoration: none;
+
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-accent;
+    text-decoration: none;
+  }
+}
+
+.btn-filled {
+  background-color: $color-accent;
+  color: $color-primary;
+  border: none;
+  text-decoration: none;
+
+  &:hover {
+    background-color: $color-primary;
+    color: $color-accent;
+    text-decoration: none;
+  }
+}
+
+// MIXINS RESPONSIVE
+@mixin respond-to($breakpoint) {
+  @if $breakpoint == sm {
+    @media (max-width: $breakpoint-sm) { @content; }
+  } @else if $breakpoint == md {
+    @media (max-width: $breakpoint-md) { @content; }
+  } @else if $breakpoint == lg {
+    @media (max-width: $breakpoint-lg) { @content; }
+  } @else if $breakpoint == xl {
+    @media (max-width: $breakpoint-xl) { @content; }
+  }
+}

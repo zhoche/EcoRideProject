@@ -1,61 +1,70 @@
-@use '../../styles/variables' as v;
-@use '../../styles/typography' as t;
-@use '../../styles/buttons' as b;
+@use 'styles' as *;
 
-.search-bar {
+.eco-search {
+  width: 100%;
+  max-width: 100%;
+  padding: $spacing-sm;
+  background-color: $color-light;
+
+  .search-bar {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: 12px;
-    padding: 12px;
-    border-radius: 50px;
-    background: white;
+    justify-content: center;
+    gap: $spacing-sm;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: $spacing-sm;
+    background: $color-light;
+    border-radius: $radius-full;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
-    width: fit-content;
-    margin: auto;
+
+    @include respond-to(md) {
+      flex-direction: column;
+      align-items: stretch;
+    }
   }
-  
+
   .search-input {
     display: flex;
     align-items: center;
-    gap: 8px;
-    border: 1px solid v.$color-secondary-6;
-    border-radius: 40px;
-    padding: 8px 16px;
+    gap: $spacing-xs;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    padding: $spacing-xs $spacing-md;
     background-color: #fff;
+    flex: 1;
+
+    @include respond-to(md) {
+      width: 100%;
+    }
   }
-  
+
   .search-input input,
   .search-input select {
+    flex: 1;
     border: none;
     outline: none;
-    font-size: 16px;
-    color: v.$color-secondary-6;
+    font-size: 1rem;
+    color: $color-dark;
     background-color: transparent;
+    min-width: 0;
   }
-  
-  .search-input input[type="date"] {
-    padding: 0;
+
+  .search-button {
+    @extend .btn;
+    @extend .btn-filled;
+    padding: $spacing-sm $spacing-lg;
+    white-space: nowrap;
+
+    @include respond-to(md) {
+      width: 100%;
+    }
   }
-  
+
   .icon {
     width: 20px;
     height: 20px;
   }
-  
-  .search-button {
-    background-color: v.$color-primary;
-    color: v.$color-accent;
-    border: none;
-    border-radius: 40px;
-    padding: 12px 24px;
-    font-size: 16px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background 0.3s ease;
-  }
-  
-  .search-button:hover {
-    background-color: v.$color-accent;
-    color: v.$color-primary;
-  }
-  
+}
