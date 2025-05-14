@@ -2,12 +2,11 @@
 
 .eco-search {
   width: 100%;
-  position: absolute;
-  top: 25rem;
+  position: relative;
   left: 50%;
   transform: translateX(-50%);
   z-index: 3;
-  padding: $spacing-lg
+
 }
   .search-bar {
     display: flex;
