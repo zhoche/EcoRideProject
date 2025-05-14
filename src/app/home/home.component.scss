@@ -3,6 +3,7 @@
     display: block;
     padding-left: $spacing-xl;
     padding-right: $spacing-xl;
+    overflow-x: hidden;
   
     @include respond-to(sm) {
       padding-left: $spacing-lg;
@@ -25,11 +26,11 @@
     object-position: center;
     display: block;
 
-    @include respond-to(sm) {
-        width: 120%;
-        height: 130%;
-        margin-top: -90px;
-        display: flex;
+    @include respond-to(md) {
+      width: 140%;
+      height: 100%;
+      object-fit: cover;
+      object-position: 10% 50%;
       }
   }
 
@@ -60,8 +61,10 @@
       margin: 0;
 
       @include respond-to(sm) {
-        font-size: 3rem;
+        font-size: 2.5rem;
+        line-height: 1;
         padding: 0 $spacing-md;
+        font-weight: 600;
       }
     }
   }
@@ -76,11 +79,14 @@
     text-align: center;
     margin-left: $spacing-xl;
     margin-right: $spacing-xl;
-    margin-bottom: $spacing-xxl;
+    margin-bottom: 70px;
+    margin-top: 70px;
 
     @include respond-to(sm) {
     margin-left: $spacing-sm;
     margin-right: $spacing-sm;
+    margin-top: 70px;
+    margin-bottom: 60px;
     }
 
     h4 {
@@ -122,7 +128,7 @@
 
 
 
-  // ========== FEATURES CONTAINER ==========
+  // ========== FEATURES SECTION ==========
 
   
 .feature-section {
@@ -130,11 +136,15 @@
   border-radius: $radius-lg;
   padding: $spacing-xl;
   margin: $spacing-xl auto;
+  margin-bottom: 120px;
   text-align: left;
+  box-sizing: border-box;
+  width: 100%;
+  overflow-x: hidden;
 
 
   @include respond-to(sm) {
-    padding: $spacing-sm $spacing-lg;
+    padding: $spacing-lg $spacing-md;
   }
 
   h4 {
@@ -181,9 +191,11 @@
   flex-direction: column;
   gap: $spacing-sm;
   transition: box-shadow 0.2s ease;
+  width: 100%;
+  box-sizing: border-box;
 
   &:hover {
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+    box-shadow: 5px 5px 0px rgba(216, 216, 0, 4);
   }
 
   .icon-wrapper {
@@ -211,3 +223,155 @@
 }
 
 
+
+
+// ========== COMMITMENT SECTION ==========
+.text-content {
+  flex: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: $color-dark;
+    margin: 0;
+  }
+
+  h4 {
+    font-weight: 500;
+    color: $color-secondary-2;
+    margin-bottom: $spacing-xs;
+  }
+
+  .btn {
+    align-self: flex-start;
+
+    @include respond-to(md) {
+      align-self: center;
+    }
+  }
+}
+
+.image-wrapper {
+  flex: 1;
+  max-width: 480px;
+  height: 460px; // fixe la même hauteur pour toutes les images
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-lg;
+    display: block;
+  }
+
+  @include respond-to(md) {
+    max-width: 100%;
+    height: auto; // adaptatif sur mobile
+
+    img {
+      height: auto;
+    }
+  }
+}
+
+
+.commitment-section {
+  display: flex;
+  flex-direction: column;
+  gap: 90px;
+  padding: $spacing-xl;
+
+  @include respond-to(md) {
+    padding: $spacing-lg;
+  }
+
+  @include respond-to(sm) {
+    padding: $spacing-sm;
+  }
+}
+
+
+
+.commitment-bloc-1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4em;
+  height: 400px;
+
+  
+  @include respond-to(md) {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+
+  @include respond-to(sm) {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    margin-bottom: 40px;
+  }
+}
+
+.commitment-bloc-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-xl;
+  flex-direction: row-reverse;
+  
+  @include respond-to(md) {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    margin-bottom: 40px;
+    margin-top: 60px;
+  }
+
+  @include respond-to(sm) {
+    flex-direction: column;
+    text-align: center;
+    gap: 6px;
+    margin-bottom: 40px;
+    
+  }
+}
+
+.image-wrapper {
+  flex: 1;
+  width: 100%;
+  max-width: 480px;
+
+  img {
+    width: 100%;
+    object-fit: cover;
+    border-radius: $radius-lg;
+    display: block;
+  }
+
+  @include respond-to(md) {
+    max-width: 100%;
+    height: auto; // adaptatif sur mobile
+  }
+}
+
+//ANIMATION DES IMAGES
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+  will-change: transform, opacity;
+
+  &.in-view {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
