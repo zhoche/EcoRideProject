@@ -105,7 +105,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
   toggles.forEach(toggle => {
     toggle.addEventListener('click', () => {
+      // Fermer tous les autres
+      toggles.forEach(other => {
+        if (other !== toggle) {
+          other.classList.remove('active');
+          const answer = other.nextElementSibling as HTMLElement;
+          if (answer) {
+            answer.style.maxHeight = '0';
+            answer.style.padding = '0';
+          }
+        }
+      });
+
+      // Activer celui qu'on a cliqué
       toggle.classList.toggle('active');
+      const answer = toggle.nextElementSibling as HTMLElement;
+
+      if (toggle.classList.contains('active')) {
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+        answer.style.padding = '0 0 1rem 0';
+      } else {
+        answer.style.maxHeight = '0';
+        answer.style.padding = '0';
+      }
     });
   });
 });
