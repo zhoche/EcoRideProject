@@ -42,7 +42,7 @@
     gap: $spacing-xs;
     border: 1px solid $color-secondary-6;
     border-radius: $radius-full;
-    padding: $spacing-xs $spacing-md;
+    padding: 0.8rem $spacing-md;
     background-color: #fff;
     flex: 1;
 
@@ -65,7 +65,7 @@
   .search-button {
     @extend .btn;
     @extend .btn-filled;
-    padding: $spacing-sm $spacing-lg;
+    padding: 0.8 $spacing-lg;
     white-space: nowrap;
 
     @include respond-to(md) {

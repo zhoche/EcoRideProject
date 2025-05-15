@@ -477,8 +477,8 @@
       margin-bottom: 0;
       margin-top: 2rem;
 
-      strong {
-        font-weight: 700;
+      data-suffix {
+        color: white;
       }
     }
 
@@ -490,3 +490,120 @@
     }
   }
 
+
+
+// ========== FAQ SECTION ==========
+
+.faq-section {
+  background: $color-light;
+  padding: 3rem 1rem;
+
+  .faq-wrapper {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .faq-header {
+    margin-bottom: 2rem;
+
+    h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: $color-dark;
+    }
+
+    p {
+      color: $color-secondary-2;
+      font-size: 1.1rem;
+    }
+  }
+
+  .faq-item {
+    border-top: 1px solid #ddd;
+
+    &:last-of-type {
+      border-bottom: 1px solid #ddd;
+    }
+
+    .faq-toggle {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 1.2rem 0;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: $color-dark;
+      cursor: pointer;
+
+      .faq-icon {
+        background: $color-accent;
+        color: $color-dark;
+        width: 36px;
+        height: 36px;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        font-size: 1.8rem;
+        font-weight: 100;
+        transition: transform 0.3s ease;
+        flex-shrink: 0; // ✅ empêche le bouton de se déformer
+      }
+
+      &.active .faq-icon {
+        transform: rotate(45deg); // ➕ devient ➖
+      }
+    }
+    
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+      padding: 0 0;
+    }
+
+    .faq-question {
+      @include respond-to(sm) {
+        text-align: left;
+        padding-right: 0.5rem;
+      }
+    }
+
+    .faq-toggle.active + .faq-answer {
+      max-height: 500px;
+      padding: 0 0 2rem 0;
+    }
+  }
+
+
+  .faq-toggle.active {
+  margin: 0;
+  }
+
+
+  .faq-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 3rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    h2 {
+      font-weight: 700;
+      font-size: 1.6rem;
+      color: $color-dark;
+    }
+
+    @include respond-to(md) {
+      flex-direction: column;
+      text-align: left;
+
+      .btn {
+        width: 100%;
+      }
+    }
+  }
+}

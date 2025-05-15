@@ -96,3 +96,16 @@ document.addEventListener('DOMContentLoaded', () => {
   counters.forEach(counter => observer.observe(counter));
   
 });
+
+
+
+//BOUTONS FAQ
+document.addEventListener('DOMContentLoaded', () => {
+  const toggles = document.querySelectorAll('.faq-toggle');
+
+  toggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+    });
+  });
+});
