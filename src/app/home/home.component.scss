@@ -375,3 +375,88 @@
     transform: translateY(0);
   }
 }
+
+
+
+
+//========== IMPACT SECTION / CHIFFRES CLES ==========
+
+
+.impact-section {
+  background: url('/images/bg-forest.jpg') center bottom no-repeat;
+  background-size: cover;
+  padding: 5rem 0rem;
+  position: relative;
+  z-index: 0;
+
+  @include respond-to(md) {
+   padding: 1rem 0rem;
+  }
+
+  // Couche sombre arrondie
+  .impact-wrapper {
+    background-color: $color-primary;
+    border-radius: 2rem;
+    padding: 4rem 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: white;
+
+    @include respond-to(md) {
+      padding: 2rem 1rem;
+     }
+  }
+
+  .impact-title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0;
+
+    @include respond-to(md) {
+      font-size: 1.5rem;
+    }
+  }
+
+  h4 {
+    font-weight: 500;
+    color: $color-secondary-2;
+    margin-bottom: $spacing-xs;
+    margin-top: $spacing-sm;
+  }
+
+  .impact-stats {
+    display: flex;
+    justify-content: center;
+    gap: 4rem;
+    flex-wrap: wrap;
+    text-align: center;
+
+    @include respond-to(md) {
+      gap: 1rem;
+    }
+  }
+
+  .impact-stat {
+    flex: 1 1 150px;
+
+    .impact-value {
+      font-size: 4rem;
+      font-weight: 700;
+      color: $color-accent;
+      margin-bottom: 0;
+      margin-top: 2rem;
+
+      strong {
+        font-weight: 700;
+      }
+    }
+
+    .impact-label {
+      display: block;
+      margin-top: $spacing-xs;
+      font-size: 1.1rem;
+      color: rgba((white), 0.7);
+    }
+  }
+}
