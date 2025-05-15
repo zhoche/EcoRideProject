@@ -9,6 +9,12 @@
       padding-left: $spacing-lg;
       padding-right: $spacing-lg;
     }
+
+    .impact-section {
+      margin-left: -32px;
+      margin-right: -32px;
+      // (équivalent au padding détecté dans ta capture)
+    }
   }
 
 .hero-banner {
@@ -381,20 +387,33 @@
 
 //========== IMPACT SECTION / CHIFFRES CLES ==========
 
-
 .impact-section {
-  background: url('/images/bg-forest.jpg') center bottom no-repeat;
-  background-size: cover;
-  padding: 5rem 0rem;
   position: relative;
-  z-index: 0;
+  padding: 5rem 0;
+  margin: 0;
+  overflow: hidden;
 
   @include respond-to(md) {
-   padding: 1rem 0rem;
+    padding: 1rem 0;
+
   }
 
-  // Couche sombre arrondie
+  .background {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background-size: cover;
+    z-index: 0;
+    pointer-events: none;
+   
+  
+  }
+
   .impact-wrapper {
+    position: relative;
+    z-index: 1;
     background-color: $color-primary;
     border-radius: 2rem;
     padding: 4rem 2rem;
@@ -403,10 +422,21 @@
     text-align: center;
     color: white;
 
+    @include respond-to(xl) {
+      margin-right: $spacing-xl;
+      margin-left: $spacing-xl;
+    }
+
     @include respond-to(md) {
       padding: 2rem 1rem;
-     }
+    }
   }
+}
+
+
+
+
+
 
   .impact-title {
     font-size: 1.8rem;
@@ -459,4 +489,4 @@
       color: rgba((white), 0.7);
     }
   }
-}
+

@@ -50,3 +50,49 @@ document.addEventListener('DOMContentLoaded', () => {
 
   elements.forEach(el => observer.observe(el));
 });
+
+
+
+//ANIMATION CHIFFRES CLES 
+document.addEventListener('DOMContentLoaded', () => {
+  const counters = document.querySelectorAll<HTMLElement>('.impact-value');
+
+  const animateCounters = () => {
+    counters.forEach(counter => {
+      const target = +counter.getAttribute('data-target')!;
+      const rawText = counter.textContent || '';
+      const suffix = rawText.replace(/[0-9]/g, '');
+
+      console.log(`→ ${target}${suffix}`); // debug
+
+      let current = 0;
+      const increment = target / 100;
+
+      const updateCount = () => {
+        current += increment;
+        if (current < target) {
+          counter.textContent = Math.floor(current) + suffix;
+          requestAnimationFrame(updateCount);
+        } else {
+          counter.textContent = target + suffix;
+        }
+      };
+
+      updateCount();
+    });
+  };
+
+  let hasAnimated = false;
+
+
+  //Afficher l'animation uniquement au scroll 
+  const observer = new IntersectionObserver(entries => {
+    if (!hasAnimated && entries.some(e => e.isIntersecting)) {
+      animateCounters();
+      hasAnimated = true;
+    }
+  }, { threshold: 0.4 });
+  
+  counters.forEach(counter => observer.observe(counter));
+  
+});
