@@ -615,3 +615,28 @@
     }
   }
 }
+
+
+//BANDEAU TOP-FOOTER
+.bandeau-blanc-arrondi {
+  width: 100vw;
+  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  height: 80px;
+  background-color: $color-light;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  position: relative;
+  z-index: 10;
+  margin-bottom: -40px;
+}
+
+.section-verte {
+  background-color: $color-primary;
+  position: relative;
+  z-index: 1;
+  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
+}
+
