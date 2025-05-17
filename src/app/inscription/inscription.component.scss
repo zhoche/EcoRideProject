@@ -1,21 +1,26 @@
 @use 'styles' as *;
 
 .login-page {
-  position: relative;       // pour que .login-img puisse être en absolute
-  display: flex;
-  align-items: center;      // centrer verticalement le formulaire
-  width: 100vw;
-  height: 75vh;
-  overflow: hidden;
+    position: relative;
+    display: flex;
+    align-items: center;        // centrer verticalement la carte
+    width: 100vw;
+    height: 100vh;              // plein écran
+    padding: 4rem 4rem;              // marge intérieure identique haut/bas/gauche/droite
+    box-sizing: border-box;     // inclure le padding dans les dimensions
+    overflow: hidden;
 
   .login-card {
     position: relative;
     z-index: 2;
-    flex: 0 0 600px;
-    padding: 48px;
+    flex: 0 0 700px;           // largeur fixe à 400px
+    display: flex;
+    flex-direction: column;    // pour pouvoir centrer verticalement le contenu si besoin
+    justify-content: center;   // centrer le form dans la carte
     background: #fff;
     border-radius: $radius-lg;
-    margin-left: 5%;
+    padding: 36px 48px;
+    box-sizing: border-box;
 
 
     h1 {
@@ -118,27 +123,44 @@
 
   .login-img {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    top: 0; right: 0; bottom: 0; left: 0;
     z-index: 1;
 
     img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
     }
   }
 }
+@include respond-to(sm) {
+    .login-page {
+      flex-direction: column;
+      height: auto;   // laisse défiler si le contenu dépasse
+      padding: 1rem;  // on peut réduire le padding sur mobile
+    }
+    .login-card {
+      flex: none;
+      width: 100%;
+      height: auto;
+      margin-bottom: 2rem;
+    }
+    .login-img {
+      display: none;
+    }
+  }
 
-@media (max-width: 768px) {
-  .login-page {
+  @include respond-to(md) {
+    .login-page {
     flex-direction: column;
-    height: auto;
+     height: auto;
+        }
+        .login-img {
+         display: none;
+        }
   }
-  .login-img {
-    display: none;
-  }
-}
+
+
+
+
