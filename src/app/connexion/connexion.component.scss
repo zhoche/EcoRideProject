@@ -1,22 +1,19 @@
 @use 'styles' as *;
 
-// on enlève max-width et on passe en plein écran
 .login-page {
   position: relative;      // pour que .login-img puisse être en absolute
   display: flex;
   align-items: center;     // vertical centering du formulaire
-  width: 100vw;            // plein écran en largeur
-  height: 600px;
-  background: #fff;        // pour masquer l'image à gauche du formulaire
-  overflow: hidden;        // pour les bords arrondis du formulaire
+  width: 100vw;  
+  height: 75vh;           
+  overflow: hidden;      
 }
 
-// on s'assure que le formulaire reste au-dessus de l'image
 .login-card {
   position: relative;
   z-index: 2;
-  flex: 0 0 400px;
-  padding: 48px;
+  flex: 0 0 480px;
+  padding: $spacing-xl;
   background-color: $color-light;
   border-radius: $radius-md;
   margin-left: 5%;
@@ -25,6 +22,7 @@
 .login-card h1 {
     font-size: 2rem;
     margin-bottom: 32px;
+    margin-top: 5px;
     color: #333;
   }
   
@@ -47,19 +45,6 @@
     border-radius: 24px;
   }
   
-  .btn-primary {
-    display: inline-block;
-    background: $color-light;
-    color: $color-dark;
-    padding: 14px 24px;
-    font-size: 1rem;
-    font-weight: 600;
-    border: none;
-    border-radius: 24px;
-    cursor: pointer;
-    margin-top: 8px;
-  }
-  
   .register-link {
     margin-top: 16px;
     font-size: 0.9rem;
@@ -67,22 +52,24 @@
   }
   
   .register-link a {
-    color: var(--color-dark);
+    color: $color-dark;
     text-decoration: none;
     font-weight: 600;
   }
+
+
 // positionnement full-screen de l'image
 .login-img {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
-  left: 0;                 // couvre toute la section
+  left: 0;                 
   z-index: 1;
 }
 
 .login-img img {
-  width: 100vw;            // largeur du viewport
+  width: 100vw;            
   height: 100%;
   object-fit: cover;
   display: block;
