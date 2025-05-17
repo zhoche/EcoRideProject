@@ -1,0 +1,306 @@
+@use 'styles' as *;
+:host {
+    display: block;
+    overflow-x: hidden;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  
+    @include respond-to(sm) {
+      padding-left: $spacing-lg;
+      padding-right: $spacing-lg;
+    }
+
+  }
+
+
+  // page layout
+.search-page {
+    display: flex;
+    padding: 2rem 2rem 0rem 2rem;
+    background: $color-secondary-1;
+    box-sizing: border-box;
+  
+    // sidebar filtres
+    .filters {
+      width: 240px;
+      margin-right: 2rem;
+  
+      .filters-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: baseline;
+            /* margin-bottom: 1rem; */
+            gap: 4em;
+        }
+  
+        h2 {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+  
+        .clear-all {
+          font-size: 0.9rem;
+          color: $color-dark;
+          text-decoration: none;
+        }
+      }
+  
+      .filter-group {
+        margin-bottom: 1.2rem;
+  
+        & + .filter-group {
+            border-top: 1px solid #59616A; 
+            padding-top: 10px;     
+          }
+
+        h3 {
+          font-size: 1rem;
+          font-weight: 600;
+          margin-bottom: 0.7rem;
+          margin-top: 0.7rem;
+        }
+  
+        ul {
+          list-style: none;
+          padding-inline-start: 24px;
+  
+          li {
+            margin-bottom: 0.75rem;
+  
+            label {
+              display: flex;
+              align-items: start;
+              font-size: 0.95rem;
+              color: $color-dark;
+  
+              input {
+                opacity: 0;
+                position: absolute;
+              }
+              
+              //BUTTON RADIO
+              .custom-radio {
+                flex: none; 
+                width: 1rem;
+                height: 1rem;
+                border: 2px solid $color-secondary-2;
+                border-radius: 50%;
+                margin-right: 0.75rem;
+                box-sizing: border-box;
+              }
+  
+              input:checked + .custom-radio {
+                background: $color-accent;
+                border-color: $color-secondary-2;
+              }
+            }
+          }
+  
+          &:not(:last-child) {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 1rem;
+          }
+
+          // Checkbox customisée
+        .custom-checkbox {
+            width: 1rem;
+            height: 1rem;
+            border: 2px solid $color-secondary-2;
+            border-radius: 4px;  // carré légèrement arrondi
+            margin-right: 0.75rem;
+            flex: none;
+            box-sizing: border-box;
+        }
+        
+        // Quand la case est cochée…
+        input[type="checkbox"]:checked + .custom-checkbox {
+            background: $color-accent;
+            border-color: $color-secondary-2;
+            position: relative;
+        }
+        
+        // Petit “✓” centré dans la case
+        input[type="checkbox"]:checked + .custom-checkbox::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            color: $color-primary;
+            font-size: 0.8rem;
+        }
+  
+        }
+      }
+    }
+  
+    // zone résultats
+    .results {
+      flex: 1;
+  
+      .results-header {
+        margin-bottom: 1.5rem;
+  
+        h2 {
+          font-size: 1.25rem;
+          font-weight: 600;
+  
+          .route {
+            margin-left: 0.5rem;
+            color: $color-dark;
+          }
+        }
+      }
+  
+      .result-list {
+        list-style: none;
+  
+        .result-card {
+          background: #fff;
+          border: 2px solid transparent;
+          border-radius: $radius-lg;
+          margin-bottom: 1rem;
+          overflow: hidden;
+  
+          &.active {
+            border-color: $color-light;
+          }
+          &.disabled {
+            opacity: 0.4;
+          }
+  
+          .route-info {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            position: relative;
+  
+            .time-block {
+              text-align: center;
+              flex: 1;
+  
+              .time {
+                font-size: 1rem;
+                font-weight: 600;
+              }
+              .location {
+                font-size: 0.85rem;
+                color: #666;
+              }
+            }
+  
+            .timeline {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              flex: 1;
+              justify-content: center;
+              font-size: 0.85rem;
+              color: #666;
+  
+              .dot {
+                width: 0.6rem;
+                height: 0.6rem;
+                background: $color-dark;
+                border-radius: 50%;
+              }
+              .bar {
+                flex: none;
+              }
+            }
+          }
+  
+          .card-details {
+            display: flex;
+            align-items: center;
+            padding: 0 1.5rem 1rem;
+            gap: 1rem;
+  
+            .driver {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+  
+              img {
+                width: 2.5rem;
+                height: 2.5rem;
+                border-radius: 50%;
+              }
+              .name {
+                font-weight: 600;
+              }
+              .rating {
+                margin-left: 0.25rem;
+              }
+            }
+  
+            .extras {
+              flex: 1;
+              font-size: 0.9rem;
+              color: #666;
+            }
+  
+            .price {
+              font-weight: 600;
+              &.highlight {
+                color: $color-light;
+              }
+              &.full {
+                font-size: 1rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+  
+  // RESPONSIVE
+  @include respond-to(sm) {
+    .search-page {
+      flex-direction: column;
+      padding: 1rem;
+  
+      .filters {
+        width: 100%;
+        margin-right: 0;
+        margin-bottom: 1rem;
+      }
+      .results {
+        .result-card {
+          .route-info, .card-details {
+            padding-left: 1rem;
+            padding-right: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+
+
+  //BANDEAU TOP-FOOTER
+.bandeau-blanc-arrondi {
+    width: 100vw;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    height: 80px;
+    background-color: $color-secondary-1;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  
+    position: relative;
+    z-index: 10;
+    margin-bottom: -40px;
+  }
+  
+  .section-verte {
+    background-color: $color-primary;
+    position: relative;
+    z-index: 1;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
+  }
+  
+  

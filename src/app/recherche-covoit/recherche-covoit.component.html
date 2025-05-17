@@ -1,0 +1,241 @@
+<app-search-bar></app-search-bar>
+
+  <section class="search-page">
+    <!-- Sidebar filtres -->
+    <aside class="filters">
+      <div class="filters-header">
+        <h2>Filtres</h2>
+        <a href="#" class="clear-all">Tout effacer</a>
+      </div>
+      
+      <div class="filter-group">
+        <h3>Trier par</h3>
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="sort" checked />
+              <span class="custom-radio"></span>
+              Départ le plus tôt
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="sort" />
+              <span class="custom-radio"></span>
+              Prix le plus bas
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="sort" />
+              <span class="custom-radio"></span>
+              Voiture électrique
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3>Heure de départ</h3>
+        <ul>
+          <li>
+            <label>
+              <input type="radio" name="time" />
+              <span class="custom-radio"></span>
+              Jusqu’à 12 h00
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="time" />
+              <span class="custom-radio"></span>
+              12 h00 – 18 h00
+            </label>
+          </li>
+          <li>
+            <label>
+              <input type="radio" name="time" />
+              <span class="custom-radio"></span>
+              Après 18 h00
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3>Confiance & sécurité</h3>
+        <ul>
+          <li>
+            <label>
+                <input type="checkbox" name="trust" value="verified" />
+                <span class="custom-checkbox"></span>
+                Profil vérifié
+                </label>
+          </li>
+          <li>
+            <label>
+            <input type="checkbox" name="trust" value="women" />
+              <span class="custom-checkbox"></span>
+              Femmes seulement
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <div class="filter-group">
+        <h3>Services & équipement</h3>
+        <ul>
+          <li>
+            <label>
+            <input type="checkbox" name="service" value="max2" />
+              <span class="custom-checkbox"></span>
+              Max. 2 à l’arrière
+            </label>
+          </li>
+          <li>
+            <label>
+            <input type="checkbox" name="service" value="smoking" />
+              <span class="custom-checkbox"></span>
+              Fumeur autorisé
+            </label>
+          </li>
+          <li>
+            <label>
+            <input type="checkbox" name="service" value="pets" />
+             <span class="custom-checkbox"></span>
+              Animal de compagnie autorisé
+            </label>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!-- Résultats -->
+    <main class="results">
+      <header class="results-header">
+        <h2>
+          Aujourd’hui 
+          <span class="route">Auch > Toulouse</span>
+        </h2>
+      </header>
+
+      <ul class="result-list">
+        <!-- Carte active -->
+        <li class="result-card active">
+          <div class="route-info">
+            <div class="time-block">
+              <div class="time">10 h 20</div>
+              <div class="location">Auch</div>
+            </div>
+            <div class="timeline">
+              <span class="dot"></span>
+              <span class="bar">1 h 00</span>
+              <span class="dot"></span>
+            </div>
+            <div class="time-block">
+              <div class="time">11 h 20</div>
+              <div class="location">Toulouse</div>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="driver">
+              <img src="images/Profil_Anthony.png" alt="Anthony" />
+              <span class="name">Anthony</span>
+              <span class="rating">★ 4,7</span>
+            </div>
+            <div class="extras">Animaux de compagnie autorisées, non-fumeur</div>
+            <div class="price highlight">5 €</div>
+          </div>
+        </li>
+
+        <!-- Carte normale -->
+        <li class="result-card">
+          <div class="route-info">
+            <div class="time-block">
+              <div class="time">11 h 00</div>
+              <div class="location">Auch</div>
+            </div>
+            <div class="timeline">
+              <span class="dot"></span>
+              <span class="bar">1 h 00</span>
+              <span class="dot"></span>
+            </div>
+            <div class="time-block">
+              <div class="time">12 h 00</div>
+              <div class="location">Toulouse</div>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="driver">
+              <img src="images/Profil_Sandra.png" alt="Sandra" />
+              <span class="name">Sandra</span>
+              <span class="rating">★ 4,2</span>
+            </div>
+            <div class="extras">Femmes seulement</div>
+            <div class="price">7 €</div>
+          </div>
+        </li>
+
+        <!-- Carte complète -->
+        <li class="result-card disabled">
+          <div class="route-info">
+            <div class="time-block">
+              <div class="time">14 h 00</div>
+              <div class="location">Auch</div>
+            </div>
+            <div class="timeline">
+              <span class="dot"></span>
+              <span class="bar">1 h 00</span>
+              <span class="dot"></span>
+            </div>
+            <div class="time-block">
+              <div class="time">15 h 00</div>
+              <div class="location">Toulouse</div>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="driver">
+              <img src="images/Profil_Gauthier.png" alt="Gauthier" />
+              <span class="name">Gauthier</span>
+              <span class="rating">★ 4,9</span>
+            </div>
+            <div class="extras">Max. 2 à l’arrière</div>
+            <div class="price full">Complet</div>
+          </div>
+        </li>
+
+        <!-- Carte normale -->
+        <li class="result-card">
+          <div class="route-info">
+            <div class="time-block">
+              <div class="time">18 h 20</div>
+              <div class="location">Auch</div>
+            </div>
+            <div class="timeline">
+              <span class="dot"></span>
+              <span class="bar">1 h 00</span>
+              <span class="dot"></span>
+            </div>
+            <div class="time-block">
+              <div class="time">19 h 20</div>
+              <div class="location">Toulouse</div>
+            </div>
+          </div>
+          <div class="card-details">
+            <div class="driver">
+              <img src="images/Profil_Herve.png" alt="Hervé" />
+              <span class="name">Hervé</span>
+              <span class="rating">★ 4,5</span>
+            </div>
+            <div class="extras"></div>
+            <div class="price">5 €</div>
+          </div>
+        </li>
+      </ul>
+    </main>
+  </section>
+
+
+<!-- BANDEAU TOP FOOTER -->
+<section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>
+<section class="section-verte"></section>
