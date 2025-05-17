@@ -1,0 +1,100 @@
+@use 'styles' as *;
+
+// on enlève max-width et on passe en plein écran
+.login-page {
+  position: relative;      // pour que .login-img puisse être en absolute
+  display: flex;
+  align-items: center;     // vertical centering du formulaire
+  width: 100vw;            // plein écran en largeur
+  height: 600px;
+  background: #fff;        // pour masquer l'image à gauche du formulaire
+  overflow: hidden;        // pour les bords arrondis du formulaire
+}
+
+// on s'assure que le formulaire reste au-dessus de l'image
+.login-card {
+  position: relative;
+  z-index: 2;
+  flex: 0 0 400px;
+  padding: 48px;
+  background-color: $color-light;
+  border-radius: $radius-md;
+  margin-left: 5%;
+}
+ 
+.login-card h1 {
+    font-size: 2rem;
+    margin-bottom: 32px;
+    color: #333;
+  }
+  
+  .input-group {
+    margin-bottom: 24px;
+  }
+  
+  .input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .input-group input {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 24px;
+  }
+  
+  .btn-primary {
+    display: inline-block;
+    background: $color-light;
+    color: $color-dark;
+    padding: 14px 24px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  
+  .register-link {
+    margin-top: 16px;
+    font-size: 0.9rem;
+    color: #666;
+  }
+  
+  .register-link a {
+    color: var(--color-dark);
+    text-decoration: none;
+    font-weight: 600;
+  }
+// positionnement full-screen de l'image
+.login-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;                 // couvre toute la section
+  z-index: 1;
+}
+
+.login-img img {
+  width: 100vw;            // largeur du viewport
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+// responsive mobile inchangé
+@media (max-width: 768px) {
+  .login-page {
+    flex-direction: column;
+    height: auto;
+  }
+  .login-img {
+    display: none;
+  }
+}
