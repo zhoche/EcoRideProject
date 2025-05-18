@@ -9,5 +9,11 @@ import { SearchBarComponent } from '../search-bar/search-bar.component';
   styleUrl: './recherche-covoit.component.scss'
 })
 export class RechercheCovoitComponent {
+  showFilters = false;
 
+  toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
 }
+
+

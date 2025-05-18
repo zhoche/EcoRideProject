@@ -20,6 +20,7 @@
     padding: 2rem 2rem 0rem 2rem;
     background: $color-secondary-1;
     box-sizing: border-box;
+    position: relative;
   
     // sidebar filtres
     .filters {
@@ -134,6 +135,8 @@
         }
       }
     }
+
+  
   
     //RESULTATS
 // zone résultats principale
@@ -182,6 +185,12 @@
           padding: 1rem 1.5rem 0.5em; 
           gap: 20rem;
   
+
+            @include respond-to(lg) {
+                gap: 3rem;
+                }
+
+
           .route-info {
             display: flex;
             align-items: center;
@@ -275,6 +284,10 @@
               font-size: 2.6rem;
               font-weight: 600;
               color: $color-dark;
+
+              &.full {
+                font-size: 1.8rem; // ← ici on réduit la taille
+              }
             }
           }
         }
@@ -355,6 +368,9 @@
       }
     }
   }
+
+
+  
   
   // RESPONSIVE
   @include respond-to(sm) {
@@ -376,6 +392,24 @@
           }
         }
       }
+    }
+  }
+
+  @include respond-to(sm) {
+    .search-page {
+      width: 100vw;                                 
+      margin-left: calc(-1 * (100vw - 100%) / 2);   
+      padding: $spacing-lg;                                   
+      box-sizing: border-box;
+    }
+  
+    .results {
+      width: 100%;
+    }
+  
+    .result-card {
+      border-radius: $radius-md 0 0 $radius-md;     
+      margin-bottom: 1rem;
     }
   }
 
@@ -403,5 +437,87 @@
     margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
     padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
   }
+
+
+  // Toggle Filters
+// Par défaut, desktop – on cache le toggle et on affiche la sidebar
+.filters-header {
+    .filters-toggle {
+      display: none;
+      cursor: pointer;
+    }
+  }
+  aside.filters {
+    display: block !important;
+    position: static;
+    width: 260px;
+    box-shadow: none;
+    background: transparent;
+    padding: 0;
+  }
   
+  // MOBILE & TABLET (<= sm)
+  @include respond-to(sm) {
   
+    // toggle visible
+    .filters-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+  
+      h2 {
+        display: flex;
+        align-items: center;
+        font-size: 1.25rem;
+        .filters-toggle {
+          display: inline-block;    // ← on l’affiche ici
+          margin-left: 0.5rem;
+          font-size: 1.25rem;
+          line-height: 1;
+          transition: transform 0.2s;
+        }
+      }
+      .clear-all {
+        font-size: 0.9rem;
+        color: $color-dark;
+        text-decoration: none;
+      }
+    }
+  
+    // sidebar masquée par défaut
+    aside.filters {
+        display: none !important;
+  
+      &.open {
+        display: block !important;
+        position: absolute;
+        top: 4rem;                
+        left: 0;
+        background-color: #888;
+        width: 100%;
+
+        z-index: 999;             
+        max-height: calc(100vh - 4rem);
+        overflow-y: auto;
+      }
+    }
+  } 
+  
+  // DESKTOP (>= md) : on recache le toggle et on réaffiche toujours la sidebar
+  @include respond-to(md) {
+    .filters-header {
+      .filters-toggle {
+        display: none;
+      }
+    }
+    aside.filters {
+      display: block !important;
+      position: static !important;
+      width: 260px;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      overflow: visible;
+    }
+  }

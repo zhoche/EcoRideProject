@@ -2,9 +2,10 @@
 
   <section class="search-page">
     <!-- Sidebar filtres -->
-    <aside class="filters">
+    <aside class="filters" [class.open]="showFilters">
+        
       <div class="filters-header">
-        <h2>Filtres</h2>
+        <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
         <a href="#" class="clear-all">Tout effacer</a>
       </div>
       
@@ -179,91 +180,152 @@
               </div>
             </div>
           </li>
+
+          <!-- 2ème carte : Sandra -->
+<li class="result-card">
+    <!-- INFO TRAJET -->
+    <div class="card-header">
+      <div class="route-info">
+        <div class="time-block departure">
+          <span class="time">11h00</span>
+          <span class="location">Auch</span>
+        </div>
+        <div class="timeline">
+          <span class="dot"></span>
+          <span class="bar">
+            <span class="duration">1h00</span>
+          </span>
+          <span class="dot"></span>
+        </div>
+        <div class="time-block arrival">
+          <span class="time">12h00</span>
+          <span class="location">Toulouse</span>
+        </div>
+      </div>
+      <div class="credit-info">
+        <img src="images/Credit.png" alt="credit" class="credit-icon" />
+        <span class="credit-value">7</span>
+      </div>
+    </div>
+  
+    <!-- SÉPARATEUR HORIZONTAL -->
+    <hr class="card-separator" />
+  
+    <!-- DÉTAILS DU CHAUFFEUR -->
+    <div class="card-details">
+      <div class="driver">
+        <div class="avatar-wrapper">
+          <img src="images/Profil_Sandra.png" alt="Sandra" class="avatar" />
+        </div>
+        <span class="name">Sandra</span>
+        <span class="rating">
+          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
+          <span class="rating-value">4,2</span>
+        </span>
+      </div>
+      <div class="divider-vertical"></div>
+      <div class="extras">Femmes seulement</div>
+    </div>
+  </li>
+  
+  <!-- 3ème carte : Gauthier (Complet) -->
+  <li class="result-card disabled">
+    <!-- INFO TRAJET -->
+    <div class="card-header">
+      <div class="route-info">
+        <div class="time-block departure">
+          <span class="time">14h00</span>
+          <span class="location">Auch</span>
+        </div>
+        <div class="timeline">
+          <span class="dot"></span>
+          <span class="bar">
+            <span class="duration">1h00</span>
+          </span>
+          <span class="dot"></span>
+        </div>
+        <div class="time-block arrival">
+          <span class="time">15h00</span>
+          <span class="location">Toulouse</span>
+        </div>
+      </div>
+      <div class="credit-info">
+        <span class="credit-value full">Complet</span>
+      </div>
+    </div>
+  
+    <!-- SÉPARATEUR HORIZONTAL -->
+    <hr class="card-separator" />
+  
+    <!-- DÉTAILS DU CHAUFFEUR -->
+    <div class="card-details">
+      <div class="driver">
+        <div class="avatar-wrapper">
+          <img src="images/Profil_Gauthier.png" alt="Gauthier" class="avatar" />
+          <img
+            src="images/Picto_Verifier.svg"
+            alt="Profil vérifié"
+            class="verified-icon"
+          />
+        </div>
+        <span class="name">Gauthier</span>
+        <span class="rating">
+          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
+          <span class="rating-value">4,9</span>
+        </span>
+      </div>
+      <div class="divider-vertical"></div>
+      <div class="extras">Max. 2 à l’arrière</div>
+    </div>
+  </li>
+  
+  <!-- 4ème carte : Hervé -->
+  <li class="result-card">
+    <!-- INFO TRAJET -->
+    <div class="card-header">
+      <div class="route-info">
+        <div class="time-block departure">
+          <span class="time">18h20</span>
+          <span class="location">Auch</span>
+        </div>
+        <div class="timeline">
+          <span class="dot"></span>
+          <span class="bar">
+            <span class="duration">1h00</span>
+          </span>
+          <span class="dot"></span>
+        </div>
+        <div class="time-block arrival">
+          <span class="time">19h20</span>
+          <span class="location">Toulouse</span>
+        </div>
+      </div>
+      <div class="credit-info">
+        <img src="images/Credit.png" alt="credit" class="credit-icon" />
+        <span class="credit-value">5</span>
+      </div>
+    </div>
+  
+    <!-- SÉPARATEUR HORIZONTAL -->
+    <hr class="card-separator" />
+  
+    <!-- DÉTAILS DU CHAUFFEUR -->
+    <div class="card-details">
+      <div class="driver">
+        <div class="avatar-wrapper">
+          <img src="images/Profil_Herve.png" alt="Hervé" class="avatar" /></div>
+        <span class="name">Hervé</span>
+        <span class="rating">
+          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
+          <span class="rating-value">4,5</span>
+        </span>
+      </div>
+      <div class="divider-vertical"></div>
+      <div class="extras"></div>
+    </div>
+  </li>
+  
           
-
-        <!-- Carte normale -->
-        <li class="result-card">
-          <div class="route-info">
-            <div class="time-block">
-              <div class="time">11 h 00</div>
-              <div class="location">Auch</div>
-            </div>
-            <div class="timeline">
-              <span class="dot"></span>
-              <span class="bar">1 h 00</span>
-              <span class="dot"></span>
-            </div>
-            <div class="time-block">
-              <div class="time">12 h 00</div>
-              <div class="location">Toulouse</div>
-            </div>
-          </div>
-          <div class="card-details">
-            <div class="driver">
-              <img src="images/Profil_Sandra.png" alt="Sandra" />
-              <span class="name">Sandra</span>
-              <span class="rating">★ 4,2</span>
-            </div>
-            <div class="extras">Femmes seulement</div>
-            <div class="price">7 €</div>
-          </div>
-        </li>
-
-        <!-- Carte complète -->
-        <li class="result-card disabled">
-          <div class="route-info">
-            <div class="time-block">
-              <div class="time">14 h 00</div>
-              <div class="location">Auch</div>
-            </div>
-            <div class="timeline">
-              <span class="dot"></span>
-              <span class="bar">1 h 00</span>
-              <span class="dot"></span>
-            </div>
-            <div class="time-block">
-              <div class="time">15 h 00</div>
-              <div class="location">Toulouse</div>
-            </div>
-          </div>
-          <div class="card-details">
-            <div class="driver">
-              <img src="images/Profil_Gauthier.png" alt="Gauthier" />
-              <span class="name">Gauthier</span>
-              <span class="rating">★ 4,9</span>
-            </div>
-            <div class="extras">Max. 2 à l’arrière</div>
-            <div class="price full">Complet</div>
-          </div>
-        </li>
-
-        <!-- Carte normale -->
-        <li class="result-card">
-          <div class="route-info">
-            <div class="time-block">
-              <div class="time">18 h 20</div>
-              <div class="location">Auch</div>
-            </div>
-            <div class="timeline">
-              <span class="dot"></span>
-              <span class="bar">1 h 00</span>
-              <span class="dot"></span>
-            </div>
-            <div class="time-block">
-              <div class="time">19 h 20</div>
-              <div class="location">Toulouse</div>
-            </div>
-          </div>
-          <div class="card-details">
-            <div class="driver">
-              <img src="images/Profil_Herve.png" alt="Hervé" />
-              <span class="name">Hervé</span>
-              <span class="rating">★ 4,5</span>
-            </div>
-            <div class="extras"></div>
-            <div class="price">5 €</div>
-          </div>
-        </li>
       </ul>
     </main>
   </section>
