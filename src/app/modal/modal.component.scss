@@ -1,0 +1,59 @@
+@use 'styles' as *;
+
+/* Overlay semi-transparent */
+.modal-backdrop {
+    position: fixed;
+    inset: 0;                  // top:0; right:0; bottom:0; left:0
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+  }
+  
+  /* Fenêtre de la modale */
+  .modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #fff;
+    border-radius: $radius-md;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    z-index: 1001;
+    overflow: hidden;
+  }
+  
+  /* En-tête */
+  .modal-header {
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+  
+    .modal-close {
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      line-height: 1;
+      cursor: pointer;
+    }
+  }
+  
+  /* Corps */
+  .modal-body {
+    padding: 1rem;
+    overflow-y: auto;
+    flex: 1;
+  }
+  
+  /* Pied */
+  .modal-footer {
+    padding: 1rem;
+    border-top: 1px solid #eee;
+    text-align: right;
+  }
+  

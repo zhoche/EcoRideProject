@@ -1,0 +1,26 @@
+<!-- Fond semi-transparent -->
+<div
+  class="modal-backdrop"
+  *ngIf="visible"
+  (click)="onBackdropClick()"
+></div>
+
+<!-- Conteneur de la modale -->
+<div class="modal" *ngIf="visible">
+  <header class="modal-header">
+    <!-- Titre injecté depuis le parent -->
+    <ng-content select="[modal-title]"></ng-content>
+    <!-- Bouton de fermeture -->
+    <button class="modal-close" (click)="close.emit()">×</button>
+  </header>
+
+  <section class="modal-body">
+    <!-- Corps injecté depuis le parent -->
+    <ng-content select="[modal-body]"></ng-content>
+  </section>
+
+  <footer class="modal-footer">
+    <!-- Footer injecté depuis le parent -->
+    <ng-content select="[modal-footer]"></ng-content>
+  </footer>
+</div>
