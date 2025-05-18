@@ -135,126 +135,226 @@
       }
     }
   
-    // zone résultats
-    .results {
-      flex: 1;
+    //RESULTATS
+// zone résultats principale
+.results {
+    flex: 1;
   
-      .results-header {
-        margin-bottom: 1.5rem;
+    // en-tête de la liste
+    .results-header {
+      margin-bottom: 1.5rem;
   
-        h2 {
-          font-size: 1.25rem;
-          font-weight: 600;
+      h2 {
+        font-size: 1.25rem;
+        font-weight: 600;
   
-          .route {
-            margin-left: 0.5rem;
-            color: $color-dark;
-          }
+        .route {
+          color: $color-secondary-2;
         }
       }
+    }
   
-      .result-list {
-        list-style: none;
+    // liste des cartes
+    .result-list {
+      list-style: none;
+      padding: 0;
   
-        .result-card {
-          background: #fff;
-          border: 2px solid transparent;
-          border-radius: $radius-lg;
-          margin-bottom: 1rem;
-          overflow: hidden;
+      .result-card {
+        background: #fff;
+        border: 2px solid transparent;
+        border-radius: $radius-md;
+        margin-bottom: 1rem;
+        overflow: hidden;
   
-          &.active {
-            border-color: $color-light;
-          }
-          &.disabled {
-            opacity: 0.4;
-          }
+        &.active {
+          border-color: $color-light;
+        }
+        &.disabled {
+          opacity: 0.4;
+        }
+  
+        // —— HEADER DE LA CARTE ——
+        .card-header {
+          display: flex;
+          align-items: center;
+          flex: 1;
+          justify-content: space-between;
+          padding: 1rem 1.5rem 0.5em; 
+          gap: 20rem;
   
           .route-info {
             display: flex;
             align-items: center;
-            padding: 1rem 1.5rem;
-            position: relative;
+            flex: 1;
+            margin-left: 0;
   
             .time-block {
-              text-align: center;
-              flex: 1;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                flex: 0 0 auto; 
+  
+              &.departure {
+                align-items: flex-end;
+                padding-right: 1rem;
+              }
+              &.arrival {
+                align-items: flex-start;
+                padding-left: 1rem;
+              }
   
               .time {
-                font-size: 1rem;
+                font-size: 1.3rem;
                 font-weight: 600;
+                color: $color-dark;
               }
               .location {
-                font-size: 0.85rem;
+                font-size: 1rem;
                 color: #666;
+                margin-top: 0.25rem;
               }
             }
   
             .timeline {
+                flex: 1;                         // prend toute la largeur dispo
+                position: relative;              // pour le positionnement absolu de .bar
+                display: flex;
+                align-items: center;
+                justify-content: space-between;  // espace équitable entre les deux points
+            
+                // barre grise sous les points
+                .bar {
+                  position: absolute;
+                  top: 50%;
+                  left: 0;
+                  right: 0;
+                  height: 0.5rem;
+                  background: #E0E0E0;
+                  border-radius: 1rem;
+                  transform: translateY(-50%);   // centrer parfaitement la barre
+                  z-index: 1;                     // sous les points
+                }
+            
+                // points noirs
+                .dot {
+                  position: relative;             // pour passer au-dessus de .bar
+                  z-index: 2;
+                  flex-shrink: 0;
+                  width: 0.6rem;
+                  height: 0.6rem;
+                  background: $color-dark;
+                  border-radius: 50%;
+                }
+            
+                // durée sous la barre
+                .duration {
+                  position: absolute;
+                  top: 100%;
+                  left: 50%;
+                  transform: translate(-50%, 0.25rem);
+                  font-size: 0.75rem;
+                  color: #888;
+                  white-space: nowrap;
+                  z-index: 1;
+                }
+              }
+          }
+  
+          .credit-info {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+  
+            .credit-icon {
+              width: 1.7rem;
+              height: 1.7rem;
+              object-fit: contain;
+              margin-right: 0.15rem;
+            }
+            .credit-value {
+              font-size: 2.6rem;
+              font-weight: 600;
+              color: $color-dark;
+            }
+          }
+        }
+  
+        // —— BAS DE LA CARTE ——
+        .card-details {
+          display: flex;
+          align-items: center;
+          padding: 0 1.5rem 0.6rem;
+  
+          .driver {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+  
+            .avatar-wrapper {
+              position: relative;
+              width: 3rem;
+              height: 3rem;
+              flex: none;
+  
+              .avatar {
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+              .verified-icon {
+                position: absolute;
+                bottom: 0;
+                right: 0;
+                width: 1rem;
+                height: 1rem;
+              }
+            }
+  
+            .name {
+              font-weight: 600;
+            }
+  
+            // Note pilote
+            .rating {
               display: flex;
               align-items: center;
-              gap: 0.5rem;
-              flex: 1;
-              justify-content: center;
-              font-size: 0.85rem;
-              color: #666;
+              font-size: 1rem;
+              color: $color-dark;
   
-              .dot {
-                width: 0.6rem;
-                height: 0.6rem;
-                background: $color-dark;
-                border-radius: 50%;
+              .rating-icon {
+                width: 1rem;
+                height: 1rem;
+                object-fit: contain;
+                margin-right: 0.25rem;
               }
-              .bar {
-                flex: none;
+              .rating-value {
+                line-height: 1;
               }
             }
           }
   
-          .card-details {
-            display: flex;
-            align-items: center;
-            padding: 0 1.5rem 1rem;
-            gap: 1rem;
+          .extras {
+            flex: 1;
+            color: #666;
+            border-left: 1px solid #D1D1D1;
+            padding-left: 1rem;
+            margin-left: 1rem;
+          }
   
-            .driver {
-              display: flex;
-              align-items: center;
-              gap: 0.5rem;
-  
-              img {
-                width: 2.5rem;
-                height: 2.5rem;
-                border-radius: 50%;
-              }
-              .name {
-                font-weight: 600;
-              }
-              .rating {
-                margin-left: 0.25rem;
-              }
+          .price {
+            font-weight: 600;
+            &.highlight {
+              color: $color-light;
             }
-  
-            .extras {
-              flex: 1;
-              font-size: 0.9rem;
-              color: #666;
-            }
-  
-            .price {
-              font-weight: 600;
-              &.highlight {
-                color: $color-light;
-              }
-              &.full {
-                font-size: 1rem;
-              }
+            &.full {
+              font-size: 1rem;
             }
           }
         }
       }
     }
-
+  }
   
   // RESPONSIVE
   @include respond-to(sm) {
@@ -269,7 +369,8 @@
       }
       .results {
         .result-card {
-          .route-info, .card-details {
+          .card-header,
+          .card-details {
             padding-left: 1rem;
             padding-right: 1rem;
           }
