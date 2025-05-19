@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
   standalone: true, 
   imports: [CommonModule],
   templateUrl: './modal.component.html',
-  styleUrl: './modal.component.scss'
+  styleUrl: './modal.component.scss',
+  encapsulation: ViewEncapsulation.None,
 })
 export class ModalComponent {
 
@@ -14,9 +15,6 @@ export class ModalComponent {
   @Input() visible = false;
   /** Emet un événement pour fermer */
   @Output() close = new EventEmitter<void>();
-
-  onBackdropClick() {
-    this.close.emit();
-  }
+  onBackdropClick() {this.close.emit();}
 
 }

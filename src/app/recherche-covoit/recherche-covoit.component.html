@@ -1,18 +1,185 @@
 <app-search-bar></app-search-bar>
 
+
+
+<!-- POP UP DETAILS TRAJET -->
 <!-- <button (click)="openTripDetail()">Voir le détail</button> -->
 
 <app-modal [visible]="showTripDetail" (close)="closeTripDetail()">
-  <h3 modal-title>Détails du trajet</h3>
+    <!-- 1. Titre de la modale -->
+    <h3 modal-title>
+      Aujourd'hui
+      <span class="drive-title">Auch &gt; Toulouse</span>
+    </h3>
+  
+    <!-- 2. Contenu principal -->
+    <div modal-body>
+      <section class="trip-detail">
+        <!-- ==== Driver card ==== -->
+        <div class="driver-card">
+          <div class="driver-header">
+            <div class="driver-info">
+              <div class="avatar-wrapper">
+                <img
+                  src="images/Profil_Anthony.png"
+                  alt="Anthony"
+                  class="avatar"
+                />
+                <img
+                  src="images/Picto_Verifier.svg"
+                  alt="✓"
+                  class="verified-icon"
+                />
+              </div>
+              <span class="name">Anthony</span>
+              <div class="divider-vertical"></div>
+              <span class="rating">
+                <img
+                  src="images/Picto_Etoile.svg"
+                  alt="★"
+                  class="rating-icon"
+                />
+                <span class="rating-value">4,7</span>
+                <span class="reviews">– 43 avis</span>
+              </span>
+              <div class="divider-vertical"></div>
+              <span class="verified-text">
+                <img
+                  src="images/Picto_Verifier.svg"
+                  alt="✓"
+                  class="badge-icon"
+                />
+                Profil vérifié
+              </span>
+            </div>
+          </div>
+  
+          <hr class="card-separator" />
+  
+          <ul class="features-list">
+            <li>
+              <img
+                src="images/Modal_Picto_Pref.svg"
+                alt=""
+                class="feature-icon"
+              />
+              Animaux de compagnie autorisées, non-fumeur
+            </li>
+            <li>
+              <img
+                src="images/Modal_Picto_Vehicule.svg"
+                alt=""
+                class="feature-icon"
+              />
+              Volkswagen ID.3 – Gris foncé
+            </li>
+            <li>
+              <img
+                src="images/Modal_Picto_Electrique.svg"
+                alt=""
+                class="feature-icon"
+              />
+              Véhicule électrique
+            </li>
+          </ul>
+  
+          <button class="btn btn-outline message-btn">
+            Envoyer un message
+          </button>
+        </div>
+  
+        <!-- ==== Booking column ==== -->
+        <div class="booking-column">
+          <!-- itinéraire vertical -->
+          <div class="route-vertical-card">
+            <div class="route-vertical">
+              <div class="time-block departure">
+                <span class="time">10h20</span>
+                <span class="location">Auch</span>
+                <span class="address">
+                  4 Pl. Allées Dencheraud
+                  <img
+                    src="images/Modal_Picto_Map.svg"
+                    alt=""
+                    class="map-icon"
+                  />
+                </span>
+              </div>
+              <div class="connector">
+                <span class="dot"></span>
+                <span class="bar"></span>
+                <span class="dot"></span>
+              </div>
+              <div class="time-block arrival">
+                <span class="time">11h20</span>
+                <span class="location">Toulouse</span>
+                <span class="address">
+                  Gare Matabiau
+                  <img
+                    src="images/Modal_Picto_Map.svg"
+                    alt=""
+                    class="map-icon"
+                  />
+                </span>
+              </div>
+            </div>
+          </div>
+  
+          <!-- toggle passagers + dropdown -->
+          <div class="passenger-wrapper">
+            <div class="passenger-toggle" (click)="togglePassengerDropdown()">
+              <span class="passenger-count">
+                <img
+                  src="images/Modal_Picto_Passager.svg"
+                  alt=""
+                  class="passenger-icon"
+                />
+                {{ selectedPassengers }} passager{{ selectedPassengers > 1 ? 's' : '' }}
+              </span>
+              <span class="toggle-icon">▾</span>
+            </div>
+  
+            <ul
+              class="passenger-list"
+              *ngIf="showPassengerDropdown"
+            >
+              <li
+                *ngFor="let p of passengerOptions"
+                (click)="selectPassengers(p)"
+                [class.active]="p === selectedPassengers"
+              >
+              {{ p }} passager{{ p > 1 ? 's' : '' }}
+              </li>
+            </ul>
+          </div>
+  
+          <!-- footer réservation -->
+          <div class="booking-footer">
+            <img
+              src="images/Credit.png"
+              alt="€"
+              class="credit-icon"
+            />
+            <span class="credit-value">5</span>
+            <button class="btn btn-filled reserve-btn">
+              Réserver ce trajet
+            </button>
+          </div>
+        </div>
+      </section>
+    </div>
+  
+    <!-- 3. Pied de la modale : bouton fermer -->
+    <div modal-footer>
+      <button class="btn-outline" (click)="closeTripDetail()">
+        Fermer
+      </button>
+    </div>
+  </app-modal>
+  
 
-  <div modal-body>
-    <!-- Coller ici ta section .trip-detail (driver-card + booking-column) -->
-  </div>
 
-  <div modal-footer>
-    <button class="btn-outline" (click)="closeTripDetail()">Fermer</button>
-  </div>
-</app-modal>
+
 
 
 
@@ -349,6 +516,11 @@
       </ul>
     </main>
   </section>
+
+
+
+
+
 
 
 <!-- BANDEAU TOP FOOTER -->
