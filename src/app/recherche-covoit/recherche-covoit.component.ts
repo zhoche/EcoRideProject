@@ -19,8 +19,6 @@ export class RechercheCovoitComponent {
   }
 
 
- 
-
 
    // DROPDOWN PASSAGERS
    passengerOptions = [1, 2, 3, 4];
@@ -38,22 +36,31 @@ export class RechercheCovoitComponent {
 
 
 
-   // ETAPE 2 RESERVATION
+   // PROCESS RESERVATION
    showTripDetail = false;
-   step = 1;                       // ← on initialise à l’étape 1
-   openTripDetail() {
-     this.showTripDetail = true;
-     this.step = 1;                // repartir toujours à l’étape 1
-   }
-   closeTripDetail() {
-     this.showTripDetail = false;
-   }
-   goToStep(n: number) {
-    console.log('→ step =', n);
-     this.step = n;
-     
-   }
-   
+  step = 1;
+
+  // ouvre la modale, toujours à l’étape 1
+  openTripDetail() {
+    this.step = 1;
+    this.showTripDetail = true;
+  }
+
+  // ferme + reset
+  closeTripDetail() {
+    this.showTripDetail = false;
+    this.step = 1;
+  }
+
+  goToStep(n: number) {
+    console.log(`goToStep appelé : ${this.step} → ${n}`);
+    this.step = n;
+
+  }
+
+  confirmReservation() {
+    this.step = 3;
+  }
 }
 
 

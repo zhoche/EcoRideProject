@@ -260,14 +260,27 @@
 
       <!-- bouton confirmer -->
       <div class="confirm-footer">
-        <button class="btn btn-filled confirm-btn">
-          Confirmer la réservation
-        </button>
+        <button
+        class="btn btn-filled confirm-btn"
+        (click)="goToStep(3)">Confirmer la réservation</button>
+    </div>
+    </section>
+  </ng-container>
+
+
+  <ng-container *ngIf="step === 3">
+    <section class="reservation-complete">
+    <img src="images/Trajet_Confirme.png" alt="✓" class="confirmation-icon" />
+      <h2>Votre trajet est confirmé !</h2>
+      <p>Merci pour votre réservation sur EcoRide. Nous avons bien enregistré votre demande. 
+        <br>Un e-mail de confirmation vient de vous être envoyé avec tous les détails de votre trajet.</p>
+      <div class="complete-footer">
+        <button class="btn btn-filled" (click)="closeTripDetail()">Compris, merci !</button>
       </div>
     </section>
   </ng-container>
-</div>
 
+</div>
 
   <!-- FOOTER POPUP (step 2) -->
   <div modal-footer *ngIf="step === 2">

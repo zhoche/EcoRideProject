@@ -108,8 +108,10 @@
 
           .avatar-wrapper {
             position: relative;
-            width: 3rem;
-            height: 3rem;
+            width: 100%;     
+            height: auto;     
+            max-width: 3rem;  
+            border-radius: 50%;
 
             .avatar {
               width: 100%;
@@ -167,6 +169,7 @@
             }
           }
         }
+        
       }
 
       .card-separator {
@@ -419,7 +422,121 @@
   }
 }
 
+@include respond-to(sm) {
+  .modal {
+    overflow: auto;
+  }
 
+  .modal-header,
+  .modal-footer {
+    padding: 1rem;
+  }
+
+  .modal-body {
+    padding: 1rem;
+  }
+
+  /* Étape 1 : détails du trajet */
+  .trip-detail {
+    display: block !important;  // plus de grid
+    margin: 0 !important;
+
+    .driver-card,
+    .booking-column {
+      width: 100%;
+      margin-bottom: 1.5rem;
+    }
+
+    .booking-column {
+      padding: 0;
+      .route-vertical-card {
+        margin-bottom: 1rem;
+      }
+      .passenger-wrapper {
+        margin-bottom: 1rem;
+      }
+      .booking-footer {
+        justify-content: center;
+      }
+    }
+
+    
+  }
+
+  /* Réduire les marges intérieures des cards */
+  .driver-card,
+  .route-vertical-card {
+    padding: 1rem !important;
+  }
+
+  /* Ajuster la taille du bouton réserver */
+  .reserve-btn {
+    width: 100%;
+    text-align: center;
+    padding: 0.75rem 0;
+  }
+
+
+  .route-vertical-card {
+    /* Prend toute la largeur en mobile */
+    width: 100% !important;
+    padding: 1rem !important;
+  }
+
+  .route-vertical {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start;
+    gap: 0.75rem;
+
+    .time-block,
+    .connector {
+      width: 100% !important;
+    }
+
+    .time-block {
+      /* recentrer le texte */
+      text-align: left;
+
+      .time {
+        font-size: 1rem;
+      }
+      .location,
+      .address {
+        font-size: 0.85rem;
+      }
+    }
+  }
+
+  .driver-card {
+    .driver-info {
+      display: flex !important;
+      flex-direction: column !important;
+      align-items: flex-start !important;
+      gap: 0.5rem !important;
+      
+      /* Redimensionne un peu l’avatar pour mobile */
+      .avatar-wrapper {
+        width: 2.5rem !important;
+        height: 2.5rem !important;
+      }
+    }
+
+    /* Recentre les badges/notes et add un petit espace */
+    .rating,
+    .verified-text {
+      /* on les laisse en ligne, mais on les aligne à gauche */
+      align-self: flex-start;
+    }
+
+    /* Recalcule la ligne de séparation un peu plus courte */
+    .card-separator {
+      margin: 0.75rem 0 !important;
+    }
+  }
+
+
+}
 
 /////////////////////////////////////////////// ETAPE 2 ///////////////////////////////////////////
 
@@ -622,5 +739,42 @@
       grid-template-columns: 1fr; 
     }
   }
+  .recap-trip {
+    .route-vertical {
+      display: grid !important;
+      grid-template-columns: max-content 1fr max-content !important;
+    }
+  }
 }
 
+
+
+
+/////////////////////////////////////////////// ETAPE 3 ///////////////////////////////////////////
+.reservation-complete {
+  text-align: center;
+  padding: 2rem 1.5rem;
+
+  h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    margin-top: 0.8rem;
+  }
+
+  p {
+    color: #666;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+  }
+
+  // bouton Fermer
+  .btn-filled {
+    @extend .btn-filled;
+  }
+}
+
+.confirmation-icon {
+  width: 6rem;
+  height: 6rem;
+}
