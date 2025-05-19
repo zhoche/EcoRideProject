@@ -19,12 +19,7 @@ export class RechercheCovoitComponent {
   }
 
 
-  //DETAILS VOYAGE
-  showTripDetail = false;
-  openTripDetail() { this.showTripDetail = true; }
-  closeTripDetail() { this.showTripDetail = false; }
-
-
+ 
 
 
    // DROPDOWN PASSAGERS
@@ -40,6 +35,25 @@ export class RechercheCovoitComponent {
      this.selectedPassengers = count;
      this.showPassengerDropdown = false;
    }
+
+
+
+   // ETAPE 2 RESERVATION
+   showTripDetail = false;
+   step = 1;                       // ← on initialise à l’étape 1
+   openTripDetail() {
+     this.showTripDetail = true;
+     this.step = 1;                // repartir toujours à l’étape 1
+   }
+   closeTripDetail() {
+     this.showTripDetail = false;
+   }
+   goToStep(n: number) {
+    console.log('→ step =', n);
+     this.step = n;
+     
+   }
+   
 }
 
 

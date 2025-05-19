@@ -1,60 +1,70 @@
 <app-search-bar></app-search-bar>
 
-
-
-<!-- POP UP DETAILS TRAJET -->
-<!-- <button (click)="openTripDetail()">Voir le détail</button> -->
-
 <app-modal [visible]="showTripDetail" (close)="closeTripDetail()">
-    <!-- 1. Titre de la modale -->
-    <h3 modal-title>
-      Aujourd'hui
-      <span class="drive-title">Auch &gt; Toulouse</span>
-    </h3>
+
+    <!-- HEADER POPUP -->
+    <div modal-header class="header-content">
+    <!-- Fil d’Ariane (breadcrumb) : uniquement sur l’étape 2 -->
+    <a *ngIf="step === 2" class="btn-back" (click)="goToStep(1)">‹ Détails du trajet</a>
   
-    <!-- 2. Contenu principal -->
+      <!-- Titre -->
+      <h3 modal-title>
+        {{ step === 1 ? "Aujourd'hui" : "Vérifiez vos informations de réservation" }}
+        <span *ngIf="step === 1" class="drive-title">Auch &gt; Toulouse</span>
+      </h3>
+
+      <button class="modal-close" (click)="closeTripDetail()">✕</button>
+
+    </div>
+  
+
+  
+    <!--BODY POPUP -->
     <div modal-body>
-      <section class="trip-detail">
-        <!-- ==== Driver card ==== -->
-        <div class="driver-card">
-          <div class="driver-header">
-            <div class="driver-info">
-              <div class="avatar-wrapper">
-                <img
-                  src="images/Profil_Anthony.png"
-                  alt="Anthony"
-                  class="avatar"
-                />
-                <img
-                  src="images/Picto_Verifier.svg"
-                  alt="✓"
-                  class="verified-icon"
-                />
-              </div>
-              <span class="name">Anthony</span>
-              <div class="divider-vertical"></div>
-              <span class="rating">
-                <img
-                  src="images/Picto_Etoile.svg"
-                  alt="★"
-                  class="rating-icon"
-                />
-                <span class="rating-value">4,7</span>
-                <span class="reviews">– 43 avis</span>
-              </span>
-              <div class="divider-vertical"></div>
-              <span class="verified-text">
-                <img
-                  src="images/Picto_Verifier.svg"
-                  alt="✓"
-                  class="badge-icon"
-                />
-                Profil vérifié
-              </span>
-            </div>
-          </div>
   
-          <hr class="card-separator" />
+      <!-- Étape 1 : détails du trajet -->
+      <ng-container *ngIf="step === 1">
+        <section class="trip-detail">
+  
+            <div class="driver-card">
+                <div class="driver-header">
+                  <div class="driver-info">
+                    <div class="avatar-wrapper">
+                      <img
+                        src="images/Profil_Anthony.png"
+                        alt="Anthony"
+                        class="avatar"
+                      />
+                      <img
+                        src="images/Picto_Verifier.svg"
+                        alt="✓"
+                        class="verified-icon"
+                      />
+                    </div>
+                    <span class="name">Anthony</span>
+                    <div class="divider-vertical"></div>
+                    <span class="rating">
+                      <img
+                        src="images/Picto_Etoile.svg"
+                        alt="★"
+                        class="rating-icon"
+                      />
+                      <span class="rating-value">4,7</span>
+                      <span class="reviews">– 43 avis</span>
+                    </span>
+                    <div class="divider-vertical"></div>
+                    <span class="verified-text">
+                      <img
+                        src="images/Picto_Verifier.svg"
+                        alt="✓"
+                        class="badge-icon"
+                      />
+                      Profil vérifié
+                    </span>
+                  </div>
+                </div>
+
+                <hr class="card-separator" />
   
           <ul class="features-list">
             <li>
@@ -90,7 +100,6 @@
   
         <!-- ==== Booking column ==== -->
         <div class="booking-column">
-          <!-- itinéraire vertical -->
           <div class="route-vertical-card">
             <div class="route-vertical">
               <div class="time-block departure">
@@ -107,7 +116,9 @@
               </div>
               <div class="connector">
                 <span class="dot"></span>
-                <span class="bar"></span>
+                <span class="bar">
+                  <span class="duration">1h00</span>
+                </span>
                 <span class="dot"></span>
               </div>
               <div class="time-block arrival">
@@ -125,7 +136,7 @@
             </div>
           </div>
   
-          <!-- toggle passagers + dropdown -->
+            <!-- toggle passagers + dropdown -->
           <div class="passenger-wrapper">
             <div class="passenger-toggle" (click)="togglePassengerDropdown()">
               <span class="passenger-count">
@@ -153,33 +164,120 @@
             </ul>
           </div>
   
-          <!-- footer réservation -->
-          <div class="booking-footer">
-            <img
-              src="images/Credit.png"
-              alt="€"
-              class="credit-icon"
-            />
+            <!-- BOUTON “Réserver ce trajet” passe à step 2 -->
+        <div class="booking-footer">
+            <img src="images/Credit.png" class="credit-icon" alt="€">
             <span class="credit-value">5</span>
-            <button class="btn btn-filled reserve-btn">
-              Réserver ce trajet
-            </button>
-          </div>
+            <button class="btn btn-filled reserve-btn" (click)="goToStep(2)">Réserver ce trajet</button>
         </div>
-      </section>
-    </div>
+          </div> <!-- /.booking-column -->
+        </section>
+      </ng-container>
   
-    <!-- 3. Pied de la modale : bouton fermer -->
-    <div modal-footer>
-      <button class="btn-outline" (click)="closeTripDetail()">
-        Fermer
-      </button>
-    </div>
+      
+<!-- ===== ÉTAPE 2 : CONFIRMATION ===== -->
+<ng-container *ngIf="step === 2">
+    <section class="reservation-summary">
+      <h4>Vérifiez vos informations de réservation</h4>
+
+      <div class="summary-grid">
+        <!-- Récapitulatif du trajet -->
+        <div class="summary-card recap-trip">
+          <h5>Récapitulatif du trajet</h5>
+          <small>Jeudi 20 mai</small>
+          <!-- on réutilise la même carte verticale -->
+          <div class="route-vertical-card">
+            <div class="route-vertical">
+
+                <div class="connector">
+                    <span class="dot"></span>
+                    <span class="bar"></span>
+                    <span class="dot"></span>
+                  </div>
+        
+              <div class="time-block departure">
+                <span class="time">10h20</span>
+                <span class="location">Auch</span>
+                <span class="address">
+                  4 Pl. Allées Dencheraud
+                  <img src="images/Modal_Picto_Map.svg" class="map-icon" alt="" />
+                </span>
+              </div>
+          
+              <div class="time-block arrival">
+                <span class="time">11h20</span>
+                <span class="location">Toulouse</span>
+                <span class="address">
+                  Gare Matabiau
+                  <img src="images/Modal_Picto_Map.svg" class="map-icon" alt="" />
+                </span>
+              </div>
+          
+        
+            </div>
+          </div>
+          
+      
+        </div>
+
+        <!-- Récapitulatif du prix -->
+        <div class="summary-card recap-price">
+            <h5>Récapitulatif du prix</h5>
+            <small>Pour {{ selectedPassengers }} passager{{ selectedPassengers>1?'s':'' }}</small>
+          
+            <div class="price-grid">
+              <span>Prix total</span>
+              <span>
+                <img src="images/Credit.png" class="credit-icon" alt="€" />
+                <span class="credit-value">5</span>
+              </span>
+          
+              <!-- Séparateur -->
+              <hr class="divider" />
+          
+              <span>Crédits disponibles</span>
+              <span>
+                <img src="images/Credit.png" class="credit-icon" alt="€" />
+                <span class="credit-value available">68</span>
+              </span>
+          
+              <button class="btn btn-outline add-credits-btn">
+                Ajouter des crédits
+              </button>
+            </div>
+          </div>
+
+
+        <!-- Message au conducteur -->
+        <div class="summary-card message-driver">
+          <h5>Un message au conducteur ?</h5>
+          <textarea
+            rows="6"
+            placeholder="Bonjour, je viens de réserver votre trajet…"
+          ></textarea>
+        </div>
+      </div>
+
+      <!-- bouton confirmer -->
+      <div class="confirm-footer">
+        <button class="btn btn-filled confirm-btn">
+          Confirmer la réservation
+        </button>
+      </div>
+    </section>
+  </ng-container>
+</div>
+
+
+  <!-- FOOTER POPUP (step 2) -->
+  <div modal-footer *ngIf="step === 2">
+    <button class="btn-outline" (click)="closeTripDetail()">Annuler</button>
+  </div>
+  
   </app-modal>
   
 
-
-
+<!--------------------------------------------------------------------------------------------------------------------------->
 
 
 
