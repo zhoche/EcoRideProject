@@ -1,0 +1,64 @@
+<section class="ride-validated">
+    <!-- Illustration + titre + message -->
+    <div class="ride-validated__header">
+      <img
+        src="images/Car_3D.png"
+        alt="Voiture EcoRide"
+        class="ride-validated__image"
+      />
+      <h1 class="ride-validated__title">Merci d’avoir voyagé avec EcoRide !</h1>
+      <p>
+        Votre trajet vient de se terminer. Nous espérons que tout s’est bien passé.  
+        Avant de finaliser, vous pouvez nous faire part de votre ressenti :
+      </p>
+    </div>
+  
+    <!-- Formulaire de feedback -->
+    <form class="ride-validated__form">
+      <!-- Note par étoiles -->
+      <div class="ride-validated__field ride-validated__rating">
+        <h5>Notez votre expérience</h5>
+        <div class="rating-stars">
+          <!-- Remplacez ces spans par vos SVG ou composants étoiles cliquables -->
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+          <span class="star">&#9734;</span>
+        </div>
+      </div>
+  
+      <!-- Commentaire texte -->
+      <div class="ride-validated__field">
+        <h5 for="ride-comment">Un mot sur le trajet ?</h5>
+        <textarea
+          id="ride-comment"
+          class="ride-validated__textarea"
+          placeholder='Ex : "Chauffeur ponctuel et agréable, je recommande !"'
+          rows="6"
+        ></textarea>
+      </div>
+  
+      <!-- Actions -->
+      <div class="ride-validated__actions">
+        <button
+          type="button"
+          class="btn btn--outline btn--danger ride-validated__btn--problem"
+        >
+          Signaler un problème
+        </button>
+        <button
+          type="submit"
+          class="btn btn--solid btn--success ride-validated__btn--submit"
+        >
+          Valider et terminer
+        </button>
+      </div>
+    </form>
+  </section>
+  
+
+
+  <!-- BANDEAU TOP FOOTER -->
+<section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>
+<section class="section-verte"></section>

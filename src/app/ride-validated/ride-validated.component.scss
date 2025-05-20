@@ -1,0 +1,140 @@
+@use 'styles' as *;
+
+.ride-validated {
+  padding: $spacing-xl 0;
+  text-align: center;
+
+  &__header {
+    max-width: 600px;
+    margin: 0 auto $spacing-xl;
+  }
+
+  &__image {
+    width: 150px;
+    height: auto;
+  }
+
+h1 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: $spacing-sm;
+    margin-top: 0;
+  }
+
+  &__form {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  &__field {
+    text-align: left;
+  }
+
+  h5 {
+    margin-top: 0;
+    margin-bottom: $spacing-sm;
+  }
+
+  /* Étoiles de rating */
+  .rating-stars {
+    display: flex;
+    gap: $spacing-xs;
+
+    .star {
+      font-size: 2rem;
+      color:  $color-secondary-6;        
+      cursor: pointer;
+      transition: color 0.2s;
+
+      &:hover,
+      &.selected {
+        color: $color-accent;   
+      }
+    }
+  }
+
+  &__textarea {
+    width: 100%;
+    padding: $spacing-md;
+    font-size: 1rem;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-md;
+    resize: vertical;
+    font-family: Figtree, sans-serif;
+    color: $color-dark;
+
+    &::placeholder {
+      color: $color-secondary-6;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: $spacing-md;
+    margin-top: $spacing-lg;
+  }
+
+  /* Bouton Signaler un problème (outline rouge) */
+  &__btn--problem {
+    @extend .btn-filled;
+    background-color: rgba($color-error, 0.1);
+    color: $color-error;
+    border: 1px solid $color-error;
+    flex: 1 1 auto;
+
+    &:hover {
+      background-color: $color-error;
+      color: white;
+    }
+  }
+
+  /* Bouton Valider et terminer (solid vert) */
+  &__btn--submit {
+    @extend .btn-filled;
+    flex: 1 1 auto;
+  }
+}
+
+/* Responsive pour mobile : empile verticalement */
+@media (max-width: $breakpoint-md) {
+  .ride-validated {
+    &__actions {
+      flex-direction: column;
+
+      button {
+        width: 100%;
+      }
+    }
+  }
+}
+
+
+
+
+//BANDEAU TOP-FOOTER
+.bandeau-blanc-arrondi {
+    width: 100vw;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    height: 40px;
+    background-color: $color-light;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  
+    position: relative;
+    z-index: 10;
+    margin-bottom: -40px;
+  }
+  
+  .section-verte {
+    background-color: $color-primary;
+    position: relative;
+    z-index: 1;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
+  }

@@ -9,6 +9,10 @@ import { RechercheCovoitComponent } from './recherche-covoit/recherche-covoit.co
 import { ModalComponent } from './modal/modal.component';
 import { ProfilePassengerModule } from './profile-passenger/profile-passenger.module';
 import { ProfilePassengerComponent } from './profile-passenger/profile-passenger.component';
+import { RideValidatedModule } from './ride-validated/ride-validated.module';
+import { RideValidatedComponent } from './ride-validated/ride-validated.component';
+
+
 
 export const routes: Routes = [
     { path: 'home' , component: HomeComponent },
@@ -18,4 +22,5 @@ export const routes: Routes = [
     { path: 'recherche-covoit' , component: RechercheCovoitComponent },
     { path: 'modal' , component: ModalComponent },
     { path: 'profile-passenger' , component: ProfilePassengerComponent },
+    { path: 'ride-validated' , component: RideValidatedComponent },
 ]
