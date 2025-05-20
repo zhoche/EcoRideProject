@@ -7,6 +7,8 @@ import { InscriptionModule } from './inscription/inscription.module';
 import { RechercheCovoitModule } from './recherche-covoit/recherche-covoit.module';
 import { RechercheCovoitComponent } from './recherche-covoit/recherche-covoit.component';
 import { ModalComponent } from './modal/modal.component';
+import { ProfilePassengerModule } from './profile-passenger/profile-passenger.module';
+import { ProfilePassengerComponent } from './profile-passenger/profile-passenger.component';
 
 export const routes: Routes = [
     { path: 'home' , component: HomeComponent },
@@ -15,4 +17,5 @@ export const routes: Routes = [
     { path: 'inscription' , component: InscriptionComponent },
     { path: 'recherche-covoit' , component: RechercheCovoitComponent },
     { path: 'modal' , component: ModalComponent },
+    { path: 'profile-passenger' , component: ProfilePassengerComponent },
 ]

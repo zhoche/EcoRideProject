@@ -1,0 +1,109 @@
+<!-- NAVIGATION PROFILE -->
+<nav class="profile-nav">
+    <ul class="profile-nav__list">
+      <li class="profile-nav__item profile-nav__item--active">
+        <a href="#aperçu">Aperçu global</a>
+      </li>
+      <li class="profile-nav__item">
+        <a href="#historique">Mon historique</a>
+      </li>
+      <li class="profile-nav__item">
+        <a href="#credits">Mes crédits</a>
+      </li>
+      <li class="profile-nav__item">
+        <a href="#preferences">Mes préférences</a>
+      </li>
+      <li class="profile-nav__item">
+        <a href="#compte">Mon compte</a>
+      </li>
+    </ul>
+    <button class="profile-nav__btn">Profil Passager</button>
+  </nav>
+  
+
+  <!-- TABLE RIDES -->
+  <section class="trips">
+    <h2 class="trips__title">Mes derniers trajets</h2>
+    <div class="trips__wrapper">
+      <table class="trips__table">
+        <thead class="trips__head">
+          <tr>
+            <th data-label="Ville de départ">Ville de départ</th>
+            <th data-label="Ville d’arrivée">Ville d’arrivée</th>
+            <th data-label="Date de trajet">Date de trajet</th>
+            <th data-label="Heure de trajet">Heure de trajet</th>
+            <th data-label="Conducteur">Conducteur</th>
+            <th data-label="Statut">Statut</th>
+            <th data-label="Actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="trips__body">
+          <tr>
+            <td data-label="Ville de départ">Auch</td>
+            <td data-label="Ville d’arrivée">Toulouse</td>
+            <td data-label="Date de trajet">20/05/2025</td>
+            <td data-label="Heure de trajet">10h20 – 11h20</td>
+            <td data-label="Conducteur">Anthony</td>
+            <td>
+              <span class="badge badge--success">En cours</span>
+            </td>
+            <td class="trips__actions">
+                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
+                </button>
+                <button data-label="Actions" class="btn-icon btn-icon--edit" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
+                </button>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="Ville de départ">Toulouse</td>
+            <td data-label="Ville d’arrivée">Auch</td>
+            <td data-label="Date de trajet">12/05/2025</td>
+            <td data-label="Heure de trajet">07h00 – 08h00</td>
+            <td data-label="Conducteur">Sandra</td>
+            <td>
+              <span class="badge badge--info">Terminé</span>
+            </td>
+            <td class="trips__actions">
+                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
+                </button>
+                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
+                </button>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="Ville de départ">Auch</td>
+            <td data-label="Ville d’arrivée">Toulouse</td>
+            <td data-label="Date de trajet">03/05/2025</td>
+            <td data-label="Heure de trajet">10h10 – 11h10</td>
+            <td data-label="Conducteur">Anthony</td>
+            <td>
+              <span class="badge badge--danger">Annulé</span>
+            </td>
+            <td class="trips__actions">
+                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
+                </button>
+                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
+                </button>
+            </td>
+          </tr>
+          <tr>
+            <td data-label="Ville de départ">Toulouse</td>
+            <td data-label="Ville d’arrivée">Aubiet</td>
+            <td data-label="Date de trajet">27/04/2025</td>
+            <td data-label="Heure de trajet">07h20 – 08h20</td>
+            <td data-label="Conducteur">Mathieu</td>
+            <td>
+              <span class="badge badge--info">Terminé</span>
+            </td>
+            <td class="trips__actions">
+                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
+                </button>
+                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
+                </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
