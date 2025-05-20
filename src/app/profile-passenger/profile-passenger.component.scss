@@ -74,7 +74,7 @@
   background-color: $color-secondary-1;
   margin-bottom: 2rem;
   margin-top: 2rem;
-
+  
   &__title {
     margin-bottom: $spacing-md;
     margin-top: 0;
@@ -88,6 +88,7 @@
     border-radius: $radius-lg;
     overflow: hidden;
     box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+
   }
 
   &__table {
@@ -109,6 +110,7 @@
     &:not(:last-child) {
       border-bottom: 1px solid $color-secondary-6;
     }
+
 
     td {
       padding: $spacing-md $spacing-lg;
@@ -391,4 +393,182 @@
     color: $color-dark;
     opacity: 0.7;
   }
+}
+
+
+
+
+//OVERVIEW CREDITS
+.overview-cards__item.credits {
+  box-shadow: none;
+}
+.credits {
+  padding: 0;
+
+  &__balance {
+    background-color: rgba($color-positive, 0.1);
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    display: flex;
+    justify-content: center;
+    margin-bottom: $spacing-lg;
+  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .credits__icon {
+      width: 52px;
+      height: 52px;
+    }
+
+    .credits__value {
+      font-size: 4rem;
+      font-weight: 600;
+      color: $color-positive;
+      line-height: 1;
+    }
+  }
+
+  &__history {
+    /* on reprend le style interne de vos cartes */
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border: none;
+  }
+
+  &__history-title {
+    margin: 0 0 $spacing-sm;
+    font-size: 18px;
+    font-weight: 400;
+    color: $color-secondary-2;
+  }
+
+  &__chart {
+    flex: 1;                       // prend tout l’espace restant
+    /* dimensions flexibles selon la librairie de graph choisie */
+    min-height: 120px;
+    position: relative;
+  }
+}
+
+/* Si vous voulez un placeholder statique en attendant la data, vous pouvez, 
+   par exemple, définir un SVG en background : 
+*/
+/*
+.credits__chart {
+  background: url('assets/images/credits-placeholder.svg') no-repeat center;
+  background-size: contain;
+}
+*/
+
+
+
+
+
+//PREFERENCES
+.preferences {
+
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+
+
+  &__list {
+    flex: 1;               // la liste prend tout l’espace disponible
+    overflow-y: auto; 
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: $spacing-md 0;
+    border-bottom: 1px solid $color-secondary-6;
+
+    &:first-child {
+      padding-top: 0;
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+  }
+
+  &__label {
+    font-size: 14px;
+    color: $color-dark;
+  }
+
+  &__delete-btn {
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background-color: white;
+
+    &:hover {
+      opacity: 0.8;
+        }
+
+    .preferences__delete-icon {
+      width: 30px;
+      height: 30px;
+    }
+  }
+
+  &__add-btn {
+    margin-top: auto; 
+    display: block;
+    width: fit-content;
+    margin: $spacing-lg auto 0;
+    padding: $spacing-sm $spacing-md;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-dark;
+    background-color: transparent;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+
+    &:hover {
+      background-color: $color-accent;
+      color: $color-primary;
+      border: none;
+    }
+  }
+}
+
+
+
+
+//BANDEAU TOP-FOOTER
+.bandeau-blanc-arrondi {
+  width: 100vw;
+  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  height: 40px;
+  background-color: $color-secondary-1;
+  border-bottom-left-radius: 40px;
+  border-bottom-right-radius: 40px;
+
+  position: relative;
+  z-index: 10;
+  margin-bottom: -40px;
+}
+
+.section-verte {
+  background-color: $color-primary;
+  position: relative;
+  z-index: 1;
+  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+  padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
 }

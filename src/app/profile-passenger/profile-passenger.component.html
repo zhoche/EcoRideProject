@@ -111,6 +111,7 @@
 
 
   <!-- OVERVIEWS CARDS -->
+  <!-- REVIEWS -->
   <section class="overview-cards">
     <div class="overview-cards__block">
       <h3 class="overview-cards__block-title">Mes avis reçus</h3>
@@ -161,20 +162,73 @@
             </li>
           </ul>
         </div>
-        
       </div>
     </div>
+
+
+
+
+<!-- CREDIT -->
     <div class="overview-cards__block">
       <h3 class="overview-cards__block-title">Mes crédits disponibles</h3>
       <div class="overview-cards__item">
-        <!-- Contenu de la carte -->
+        <div class="overview-cards__item credits">
+          <!-- Solde -->
+          <div class="credits__balance">
+            <div class="credits__amount">
+              <img
+                src="images/Credit.png"
+                alt="Eco-Ride"
+                class="credits__icon"
+              />
+              <span class="credits__value">124</span>
+            </div>
+          </div>
+      
+          <!-- Historique -->
+          <div class="credits__history">
+            <h4 class="credits__history-title">Historique</h4>
+            <div id="credits-chart" class="credits__chart">
+              <!-- votre graphique sera injecté ici -->
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="overview-cards__block">
-      <h3 class="overview-cards__block-title">Mes préférences</h3>
-      <div class="overview-cards__item">
-        <!-- Contenu de la carte -->
-      </div>
-    </div>
+
+
+
+
+<!-- PREFERENCES -->
+<div class="overview-cards__block">
+  <h3 class="overview-cards__block-title">Mes préférences</h3>
+  <div class="overview-cards__item preferences">
+    <ul class="preferences__list">
+      <li class="preferences__item">
+        <span class="preferences__label">Voiture électrique uniquement</span>
+        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
+
+      </li>
+      <li class="preferences__item">
+        <span class="preferences__label">Véhicule non-fumeur</span>
+        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
+
+      </li>
+      <li class="preferences__item">
+        <span class="preferences__label">Voiture électrique uniquement</span>
+        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
+      </li>
+    </ul>
+
+    <button type="button" class="preferences__add-btn">Ajouter une nouvelle préférence</button>
+  </div>
+</div>
+
   </section>
   
+
+
+
+  <!-- BANDEAU TOP FOOTER -->
+<section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>
+<section class="section-verte"></section>
