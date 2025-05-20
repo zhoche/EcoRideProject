@@ -275,3 +275,120 @@
       }
     }
   }
+
+
+
+
+//OVERVIEW CARDS
+
+.overview-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: $spacing-lg;
+  margin: $spacing-xl 0;
+
+  /* Chaque bloc titre + carte */
+  &__block {
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Titre au-dessus de la carte */
+  &__block-title {
+    margin: 0 0 $spacing-md;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-dark;
+  }
+
+  /* La carte elle-même */
+  &__item {
+    background-color: white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: 0 1px 4px rgba($color-dark, 0.05);
+    flex: 1;               // pour remplir le bloc si nécessaire
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+/* Responsive : colonnes → une seule */
+@media (max-width: $breakpoint-lg) {
+  .overview-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+
+
+//REVIEWS
+.reviews {
+  &__summary {
+    display: flex;
+    align-items: center;
+    margin-bottom: $spacing-md;
+
+    .reviews__average {
+      font-size: 32px;
+      font-weight: 600;
+      color: $color-dark;
+      margin-right: $spacing-sm;
+    }
+    .reviews__stars {
+      display: flex;
+      gap: $spacing-xs;
+
+      svg {
+        width: 24px;
+        height: 24px;
+      }
+    }
+    .reviews__count {
+      font-size: 16px;
+      color: $color-dark;
+      margin-left: $spacing-sm;
+    }
+  }
+
+  &__divider {
+    border: none;
+    border-top: 1px solid $color-secondary-6;
+    margin: $spacing-md 0;
+  }
+
+  &__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+}
+
+/* Chaque avis */
+.review {
+  &__stars {
+    display: flex;
+    gap: $spacing-xs;
+    margin-bottom: $spacing-xs;
+    margin-top: $spacing-md;
+
+    svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+
+  &__text {
+    margin: 0 0 $spacing-xs;
+    font-size: 14px;
+    line-height: 1.5;
+    color: $color-dark;
+  }
+
+  &__author {
+    font-size: 14px;
+    color: $color-dark;
+    opacity: 0.7;
+  }
+}
