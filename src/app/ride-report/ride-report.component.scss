@@ -1,6 +1,6 @@
 @use 'styles' as *;
 
-.ride-validated {
+.ride-report {
   padding: $spacing-xl;
   text-align: center;
 
@@ -11,52 +11,65 @@
 
   &__image {
     width: 150px;
-    height: auto;
+    margin-bottom: $spacing-sm;
   }
 
-h1 {
+  &__title {
     font-size: 2rem;
     font-weight: 600;
-    margin-bottom: $spacing-sm;
-    margin-top: 0;
+    margin: 0 0 $spacing-sm;
+    color: $color-dark;
   }
 
+
   &__form {
-    max-width: 600px;
+    max-width: 720px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
     gap: $spacing-lg;
-  }
-
-  &__field {
     text-align: left;
   }
 
-  h5 {
-    margin-top: 0;
-    margin-bottom: $spacing-sm;
-  }
-
-  /* Étoiles de rating */
-  .rating-stars {
+  &__row {
     display: flex;
-    gap: $spacing-xs;
+    gap: $spacing-lg;
 
-    .star {
-      font-size: 2rem;
-      color:  $color-secondary-6;        
-      cursor: pointer;
-      transition: color 0.2s;
-
-      &:hover,
-      &.selected {
-        color: $color-accent;   
-      }
+    @media (max-width: $breakpoint-md) {
+      flex-direction: column;
     }
   }
 
+  &__field {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__input {
+    padding: $spacing-sm $spacing-md;
+    font-size: 1rem;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    font-family: Figtree, sans-serif;
+    color: $color-dark;
+
+    &::placeholder {
+      color: $color-secondary-6;
+    }
+    width: 100%;
+    box-sizing: border-box;
+  }
+
   &__textarea {
+    // on reprend le style du ride-validated
     width: 100%;
     padding: $spacing-md;
     font-size: 1rem;
@@ -71,47 +84,47 @@ h1 {
     }
   }
 
-  &__actions {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: $spacing-md;
-    margin-top: $spacing-lg;
+  &__confidentiality {
+    font-size: 0.875rem;
+    color: $color-secondary-6;
+    line-height: 1.4;
+    margin: 0;
   }
 
-  /* Bouton Signaler un problème (outline rouge) */
-  &__btn--problem {
+  &__actions {
+    text-align: right;
+    margin-top: $spacing-sm;
+  }
+
+  &__submit-btn {
     @extend .btn-filled;
     background-color: rgba($color-error, 0.1);
     color: $color-error;
     border: 1px solid $color-error;
     flex: 1 1 auto;
+    border-radius: $radius-full;
+    padding: $spacing-md $spacing-lg;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: 600;
+
 
     &:hover {
       background-color: $color-error;
       color: white;
     }
   }
-
-  /* Bouton Valider et terminer (solid vert) */
-  &__btn--submit {
-    @extend .btn-filled;
-    flex: 1 1 auto;
-  }
 }
 
-/* Responsive pour mobile : empile verticalement */
-@media (max-width: $breakpoint-md) {
-  .ride-validated {
-    &__actions {
-      flex-direction: column;
 
-      button {
-        width: 100%;
-      }
-    }
+h5 {
+    margin-top: $spacing-xs;
+    margin-bottom: $spacing-sm;
   }
-}
+
+
+
+
 
 
 

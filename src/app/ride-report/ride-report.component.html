@@ -1,0 +1,52 @@
+<section class="ride-report">
+    <!-- Header -->
+    <div class="ride-report__header">
+      <img src="images/Car_3D_Signalement.png" alt="Voiture EcoRide avec point d’exclamation" class="ride-report__image"/>
+      <h1 class="ride-report__title">Signaler un problème lors de votre trajet</h1>
+      <p>
+        Nous sommes désolés d’apprendre que tout ne s’est pas déroulé comme prévu.<br />
+        Merci de prendre un instant pour nous décrire ce qui s’est passé.<br />
+        Votre retour est essentiel pour assurer la qualité et la sécurité de nos
+        trajets.
+      </p>
+    </div>
+  
+    <!-- Formulaire de signalement -->
+    <form class="ride-report__form">
+      <!-- Ligne 3 champs -->
+      <div class="ride-report__row">
+        <div class="ride-report__field">
+          <h5 for="report-date">Date du trajet</h5>
+          <input id="report-date" type="text" class="ride-report__input" placeholder="jj/mm/aaaa"/>
+        </div>
+        <div class="ride-report__field">
+          <h5 for="report-driver">Conducteur</h5>
+          <input id="report-driver" type="text" class="ride-report__input" placeholder="Pseudo"/>
+        </div>
+        <div class="ride-report__field">
+          <h5 for="report-origin">Ville de départ</h5>
+          <input id="report-origin" type="text" class="ride-report__input" placeholder="Ex : Paris"/>
+        </div>
+      </div>
+  
+      <!-- Description du problème -->
+      <div class="ride-report__field">
+        <h5 for="report-desc">Décrivez le problème rencontré</h5>
+        <textarea
+          id="report-desc" class="ride-report__textarea" placeholder="Exemples : retard important, comportement inapproprié, non-respect des préférences, véhicule non conforme, etc…"
+          rows="5"></textarea>
+      </div>
+  
+      <!-- Note de confidentialité -->
+      <p class="ride-report__confidentiality">Votre message est strictement confidentiel. Il sera traité par notre équipe dans les plus brefs délais.</p>
+  
+      <!-- Bouton d’envoi -->
+      <div class="ride-report__actions"><button type="submit" class="ride-report__submit-btn">Envoyer le signalement</button>
+      </div>
+    </form>
+  </section>
+  
+
+    <!-- BANDEAU TOP FOOTER -->
+<section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>
+<section class="section-verte"></section>

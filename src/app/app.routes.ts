@@ -11,7 +11,8 @@ import { ProfilePassengerModule } from './profile-passenger/profile-passenger.mo
 import { ProfilePassengerComponent } from './profile-passenger/profile-passenger.component';
 import { RideValidatedModule } from './ride-validated/ride-validated.module';
 import { RideValidatedComponent } from './ride-validated/ride-validated.component';
-
+import { RideReportModule } from './ride-report/ride-report.module';
+import { RideReportComponent } from './ride-report/ride-report.component';
 
 
 export const routes: Routes = [
@@ -23,4 +24,5 @@ export const routes: Routes = [
     { path: 'modal' , component: ModalComponent },
     { path: 'profile-passenger' , component: ProfilePassengerComponent },
     { path: 'ride-validated' , component: RideValidatedComponent },
+    { path: 'ride-report' , component: RideReportComponent },
 ]
