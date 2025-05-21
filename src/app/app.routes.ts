@@ -13,6 +13,10 @@ import { RideValidatedModule } from './ride-validated/ride-validated.module';
 import { RideValidatedComponent } from './ride-validated/ride-validated.component';
 import { RideReportModule } from './ride-report/ride-report.module';
 import { RideReportComponent } from './ride-report/ride-report.component';
+import { ProfileDriverModule } from './profile-driver/profile-driver.module';
+import { ProfileDriverComponent } from './profile-driver/profile-driver.component';
+import { ProfileEmployeModule } from './profile-employe/profile-employe.module';
+import { ProfileEmployeComponent } from './profile-employe/profile-employe.component';
 
 
 export const routes: Routes = [
@@ -25,4 +29,6 @@ export const routes: Routes = [
     { path: 'profile-passenger' , component: ProfilePassengerComponent },
     { path: 'ride-validated' , component: RideValidatedComponent },
     { path: 'ride-report' , component: RideReportComponent },
+    { path: 'profile-driver' , component: ProfileDriverComponent },
+    { path: 'profile-employe' , component: ProfileEmployeComponent },
 ]
