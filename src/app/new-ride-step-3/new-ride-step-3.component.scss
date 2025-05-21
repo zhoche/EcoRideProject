@@ -1,0 +1,171 @@
+@use 'styles' as *;
+
+.new-trip-step3 {
+  &__wrapper {
+    display: flex;
+    gap: $spacing-lg;
+    background: white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+    margin-top: 2rem;
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: column;
+      padding: $spacing-md;
+    }
+  }
+
+  
+  &__steps {
+    display: flex;
+    gap: $spacing-sm;
+  }
+  &__step {
+    flex: 1;
+    height: 4px;
+    background: $color-secondary-1;
+    border-radius: $radius-full;
+    &--done,
+    &--active {
+      background: $color-accent;
+    }
+  }
+
+
+  /* colonne gauche (form-col) */
+  &__form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+  }
+
+  /* colonne droite (image-col) */
+  &__image-col {
+    flex: 1.2;
+
+    @media (max-width: $breakpoint-lg) {
+      height: 200px;
+    }
+
+    & .new-trip-step3__image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: $radius-lg;
+    }
+  }
+  
+ 
+
+  /* Titre */
+  h3 {
+    font-size: 36px;
+    font-weight: 700;
+    margin-top: 0;
+    
+    @media (max-width: $breakpoint-lg) {
+        flex-direction: column;
+        margin-top: 1rem;
+      }
+      }
+
+  /* Sélection du tarif */
+  &__fare {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: $spacing-md;
+
+    &-btn {
+      width: 40px;
+      height: 40px;
+      border: 1px solid $color-secondary-6;
+      border-radius: $radius-full;
+      background: white;
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: background-color 0.2s;
+
+      &:hover {
+        background-color: $color-secondary-6;
+      }
+    }
+
+    &-amount {
+      font-size: 4rem;
+      font-weight: 600;
+      color: $color-primary;
+      min-width: 3ch;
+      text-align: center;
+    }
+  }
+
+  /* Note particulière */
+  &__field {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+  }
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-dark;
+  }
+  &__textarea {
+    width: 100%;
+    padding: $spacing-md;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-md;
+    resize: vertical;
+    font-family: Figtree, sans-serif;
+    color: $color-dark;
+    min-height: 150px;
+
+    &::placeholder {
+      color: $color-secondary-6;
+    }
+  }
+
+  /* Boutons d’actions */
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: $spacing-md;
+  }
+  &__back-btn {
+    background: transparent;
+    border: none;
+    color: $color-secondary-2;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+  
+  &__btn {
+    align-self: flex-end;
+    margin-top: auto;
+    padding: $spacing-md $spacing-xl;
+    background-color: $color-accent;
+    color: $color-dark;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-accent;
+    }
+
+    @media (max-width: $breakpoint-lg) {
+      align-self: stretch;
+    }
+  }
+}

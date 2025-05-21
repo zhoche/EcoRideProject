@@ -29,7 +29,10 @@
   <app-new-ride-step-1 *ngIf="currentStep === 1" (next)="nextStep()"></app-new-ride-step-1>
 
   <!-- Étape 2 -->
-  <app-new-ride-step-2 *ngIf="currentStep === 2" (back)="prevStep()"></app-new-ride-step-2>
+  <app-new-ride-step-2 *ngIf="currentStep === 2" (back)="prevStep()" (next)="nextStep()"></app-new-ride-step-2>
+
+ <!-- Étape 3 -->
+ <app-new-ride-step-3 *ngIf="currentStep === 3" (back)="prevStep()" (finish)="onFinish()"></app-new-ride-step-3>
 </section>
 
 

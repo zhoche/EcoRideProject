@@ -1,0 +1,41 @@
+<section class="new-trip-step3">
+    <div class="new-trip-step3__wrapper">
+      <!-- Colonne gauche -->
+      <div class="new-trip-step3__form-col">
+        <!-- Progress bar -->
+        <div class="new-trip-step3__steps">
+            <span class="new-trip-step3__step new-trip-step3__step--done"></span>
+            <span class="new-trip-step3__step new-trip-step3__step--done"></span>
+            <span class="new-trip-step3__step new-trip-step3__step--active"></span>
+          </div>
+  
+        <h3>Fixez votre prix</h3>
+  
+       <!-- 2) Sélection du tarif -->
+    <div class="new-trip-step3__fare">
+        <button type="button" class="new-trip-step3__fare-btn" (click)="decreaseFare()" aria-label="Réduire le tarif">&minus;</button>
+        <span class="new-trip-step3__fare-amount">{{ fare }}€</span>
+        <button type="button" class="new-trip-step3__fare-btn" (click)="increaseFare()" aria-label="Augmenter le tarif">&plus;</button>
+      </div>
+  
+      <!-- 3) Note particulière -->
+      <div class="new-trip-step3__field">
+        <label class="new-trip-step3__label">Note particulière</label>
+        <textarea id="comment" class="new-trip-step3__textarea" placeholder='Rédiger une note...' rows="6"></textarea>
+      </div>
+
+
+    <!-- Actions -->
+    <div class="new-trip-step3__actions">
+        <button type="button" class="new-trip-step3__back-btn" (click)="back.emit()">Retour</button>
+        <button type="button" class="new-trip-step3__btn" (click)="onSubmit()">Valider le nouveau trajet</button>
+        </div>
+    </div>
+  
+      <!-- Colonne droite : image -->
+      <div class="new-trip-step3__image-col">
+        <img src="images/Trajet_Prix.webp" alt="Visuel du véhicule" class="new-trip-step3__image"/>
+      </div>
+    </div>
+  </section>
+  
