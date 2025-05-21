@@ -1,0 +1,176 @@
+@use 'styles' as *;
+
+.new-trip-step2 {
+  &__wrapper {
+    display: flex;
+    gap: $spacing-lg;
+    background: white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+    margin-top: 2rem;
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: column;
+      padding: $spacing-md;
+    }
+  }
+
+  h3 {
+    font-size: 36px;
+    font-weight: 700;
+    
+    @media (max-width: $breakpoint-lg) {
+        flex-direction: column;
+        margin-top: 1rem;
+      }
+      }
+
+  /* Progress bar */
+  &__steps {
+    display: flex;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+  &__step {
+    flex: 1;
+    height: 4px;
+    background: $color-secondary-1;
+    border-radius: $radius-full;
+    &--done {
+      background: $color-accent;
+    }
+    &--active {
+      background: $color-accent;
+    }
+  }
+
+  &__heading {
+    margin: 0 0 $spacing-md;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $color-dark;
+  }
+
+  &__form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-md;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: $spacing-xs;
+  }
+
+  &__select {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    font-size: 1rem;
+    color: $color-dark;
+    background-color: white;
+    appearance: none;
+    background-repeat: no-repeat;
+    background-position: right $spacing-md center;
+  }
+
+  &__toggle-group {
+    display: flex;
+    gap: $spacing-sm;
+  }
+
+  &__toggle-btn {
+    padding: $spacing-sm $spacing-md;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    background: transparent;
+    font-size: 0.875rem;
+    color: $color-dark;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+
+    &.active {
+      background-color: $color-accent;
+      border-color: $color-accent;
+      color: $color-dark;
+    }
+  }
+
+  &__actions {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__back-btn {
+    background: transparent;
+    border: none;
+    color: $color-secondary-2;
+    font-size: 0.875rem;
+    cursor: pointer;
+  }
+
+  &__btn {
+    padding: $spacing-md $spacing-xl;
+    background-color: $color-accent;
+    color: $color-dark;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  &__image-col {
+    flex: 1.2;
+    @media (max-width: $breakpoint-lg) {
+      height: 200px;
+    }
+  }
+
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: $radius-lg;
+  }
+
+  &__add-vehicle-btn {
+    margin-top: $spacing-xs;
+    padding: $spacing-xs 0;
+    background: none;
+    border: none;
+    color: $color-secondary-2;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color 0.2s;
+    text-align: left; 
+
+    &:hover {
+      color: $color-primary;
+      text-decoration: none;
+    }
+  }
+}
+

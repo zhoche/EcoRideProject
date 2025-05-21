@@ -24,9 +24,13 @@
     <button class="profile-nav__btn">Profil Conducteur</button>
 </nav>
 
+<section class="new-ride-wizard">
+  <!-- Étape 1 -->
+  <app-new-ride-step-1 *ngIf="currentStep === 1" (next)="nextStep()"></app-new-ride-step-1>
 
-<app-new-ride-step-1></app-new-ride-step-1>
-
+  <!-- Étape 2 -->
+  <app-new-ride-step-2 *ngIf="currentStep === 2" (back)="prevStep()"></app-new-ride-step-2>
+</section>
 
 
 <!-- BANDEAU TOP FOOTER -->

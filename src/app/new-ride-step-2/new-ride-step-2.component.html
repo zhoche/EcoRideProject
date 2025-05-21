@@ -1,0 +1,63 @@
+<!-- <p>new-ride-step-2 works!</p>
+<button type="button" class="new-trip__btn" (click)="back.emit()">Retour</button>   -->
+
+
+<section class="new-trip-step2">
+    <div class="new-trip-step2__wrapper">
+      <!-- Colonne gauche -->
+      <div class="new-trip-step2__form-col">
+        <!-- Progress bar -->
+        <div class="new-trip-step2__steps">
+          <span class="new-trip-step2__step new-trip-step2__step--done"></span>
+          <span class="new-trip-step2__step new-trip-step2__step--active"></span>
+          <span class="new-trip-step2__step"></span>
+        </div>
+  
+        <h3>Parlons du véhicule</h3>
+  
+        <form class="new-trip-step2__form">
+          <!-- Sélection du véhicule -->
+          <div class="new-trip-step2__field">
+            <label class="new-trip-step2__label">Sélection du véhicule</label>
+            <select
+              class="new-trip-step2__select" [(ngModel)]="selectedVehicleId" name="vehicle">
+              <option value="" disabled selected>Sélectionner ou ajouter un nouveau véhicule</option>
+              <option *ngFor="let v of vehicles; trackBy: trackById" [value]="v.id">{{ v.label }}</option>
+            </select>
+
+            <button type="button" class="new-trip-step2__add-vehicle-btn">+ Ajouter un nouveau véhicule</button>
+          </div>
+  
+          <!-- Véhicule électrique ? -->
+          <div class="new-trip-step2__field">
+            <label class="new-trip-step2__label">Votre véhicule est-il électrique</label>
+            <div class="new-trip-step2__toggle-group">
+            <button type="button" class="new-trip-step2__toggle-btn" [class.active]="isElectric === true" (click)="toggleElectric(true)">Oui</button>
+            <button type="button" class="new-trip-step2__toggle-btn" [class.active]="isElectric === false" (click)="toggleElectric(false)">Non</button>
+            </div>
+          </div>
+  
+          <!-- Nombre de sièges -->
+          <div class="new-trip-step2__field">
+            <label class="new-trip-step2__label">Nombre de sièges disponibles</label>
+            <select class="new-trip-step2__select" [(ngModel)]="selectedSeats" name="seats">
+              <option value="" disabled selected>Sélectionner un nombre</option>
+              <option *ngFor="let n of seats; trackBy: trackByIndex" [value]="n">{{ n }}</option>
+            </select>
+          </div>
+  
+          <!-- Actions -->
+          <div class="new-trip-step2__actions">
+            <button type="button" class="new-trip-step2__back-btn" (click)="back.emit()">Retour</button>
+            <button type="button" class="new-trip-step2__btn" (click)="next.emit()">Suivant</button>
+          </div>
+        </form>
+      </div>
+  
+      <!-- Colonne droite : image -->
+      <div class="new-trip-step2__image-col">
+        <img src="images/Trajet_Vehicule.webp" alt="Visuel du véhicule" class="new-trip-step2__image"/>
+      </div>
+    </div>
+  </section>
+  

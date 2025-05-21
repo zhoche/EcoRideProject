@@ -4,11 +4,12 @@ import { NewRideComponent } from './new-ride.component';
 
 
 
+
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    NewRideComponent,
+    NewRideComponent
     ]
 })
 export class NewRideModule { }
