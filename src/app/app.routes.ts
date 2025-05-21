@@ -19,7 +19,8 @@ import { ProfileEmployeModule } from './profile-employe/profile-employe.module';
 import { ProfileEmployeComponent } from './profile-employe/profile-employe.component';
 import { ProfileAdminModule } from './profile-admin/profile-admin.module';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
-
+import { NewRideModule } from './new-ride/new-ride.module';
+import { NewRideComponent } from './new-ride/new-ride.component';
 
 
 export const routes: Routes = [
@@ -35,4 +36,5 @@ export const routes: Routes = [
     { path: 'profile-driver' , component: ProfileDriverComponent },
     { path: 'profile-employe' , component: ProfileEmployeComponent },
     { path: 'profile-admin' , component: ProfileAdminComponent },
+    { path: 'new-ride' , component: NewRideComponent },
 ]

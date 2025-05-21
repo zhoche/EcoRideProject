@@ -16,8 +16,6 @@
     background-color: $color-secondary-1; 
     font-family: Figtree, sans-serif;
     margin-top: 2rem;
-    margin-bottom: 2rem;
-
   }
   
   .profile-nav__list {
@@ -50,73 +48,23 @@
     background-color: $color-accent; 
     color: $color-dark;
     cursor: default;
-
   }
 
 
   
   .profile-nav__btn {
     padding: 12px 20px;
-    background-color: $color-secondary-5;
+    background-color: $color-positive;
     color: white;
     border: none;
     border-radius: $radius-md;
     font-size: 14px;
     font-weight: 500;
     transition: opacity 0.2s;
+
   }
 
   
-  .search-bar {
-    display: flex;
-    align-items: center;
-    width: 100%;  
-    max-width: 600px;       // ou la largeur que vous souhaitez
-    border: 1px solid $color-secondary-6;
-    border-radius: $radius-full;
-    padding: 0 $spacing-md;
-    background-color: $color-secondary-1;
-    box-sizing: border-box;
-  
-    &__input {
-      flex: 1;
-      border: none;
-      outline: none;
-      font-size: 1rem;
-      font-weight: 500;
-      color: $color-dark;
-      padding: $spacing-sm 0;
-      background-color: $color-secondary-1;
-
-  
-      &::placeholder {
-        color: $color-secondary-2;
-      }
-    }
-  
-    &__btn {
-      background: none;
-      border: none;
-      padding: $spacing-sm;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      flex: none;
-  
-      &:hover .search-bar__icon {
-        opacity: 0.75;
-      }
-    }
-  
-    &__icon {
-      width: 1rem;
-      height: 1rem;
-      display: block;
-      fill: $color-secondary-2;
-    }
-  }
-
 
 
 
@@ -153,59 +101,9 @@
           margin-bottom: $spacing-xs;
         }
       }
+    }
+}
 
-      .search-bar {   
-        order: 2;    
-        width: 100%;
-        margin-top: $spacing-xs;
-        margin-bottom: $spacing-md;
-      }
-    }
-      }
-
-
-
-//DATAS
-.chart-stats {
-    display: flex;
-    flex-direction: column;
-    gap: $spacing-xl;
-    margin: $spacing-xl 0;
-  
-    &__block {
-      /* chaque bloc prend toute la largeur */
-    }
-  
-    &__title {
-      margin-bottom: $spacing-md;
-      font-size: 18px;
-      font-weight: 600;
-      color: $color-dark;
-    }
-  
-    &__wrapper {
-      background-color: white;
-      border-radius: $radius-lg;
-      padding: $spacing-lg;
-      box-shadow: 0 2px 4px rgba($color-dark, 0.05);
-    }
-  
-    &__chart {
-      width: 100%;
-      /* hauteur à ajuster selon votre design ou la data */
-      height: 200px;
-      position: relative;
-    }
-  }
-  
-  /* Exemple de responsive si vous voulez réduire la hauteur sur mobile */
-  @media (max-width: $breakpoint-md) {
-    .chart-stats {
-      &__chart {
-        height: 150px;
-      }
-    }
-  }
 
 
 
@@ -213,7 +111,7 @@
 .bandeau-blanc-arrondi {
     width: 100vw;
     margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
-    height: 60px;
+    height: 40px;
     background-color: $color-secondary-1;
     border-bottom-left-radius: 40px;
     border-bottom-right-radius: 40px;

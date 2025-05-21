@@ -47,6 +47,8 @@
   .profile-nav__item--active a {
     background-color: $color-accent; 
     color: $color-dark;
+    cursor: default;
+
   }
 
 

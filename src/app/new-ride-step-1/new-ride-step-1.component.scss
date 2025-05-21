@@ -1,0 +1,182 @@
+@use 'styles' as *;
+
+.new-trip {
+  padding: $spacing-xl 0;
+
+  &__title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: $spacing-md;
+  }
+
+  h3 {
+font-size: 36px;
+font-weight: 700;
+
+@media (max-width: $breakpoint-lg) {
+    flex-direction: column;
+    margin-top: 1rem;
+  }
+  }
+
+  &__wrapper {
+    display: flex;
+    gap: $spacing-lg;
+    background: white;
+    border-radius: $radius-lg;
+    padding: $spacing-lg;
+    box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+
+    @media (max-width: $breakpoint-lg) {
+      flex-direction: column;
+    }
+  }
+
+  /* Progress bar */
+  &__steps {
+    display: flex;
+    gap: $spacing-sm;
+    margin-bottom: $spacing-md;
+  }
+  &__step {
+    flex: 1;
+    height: 4px;
+    background: $color-secondary-1;
+    border-radius: $radius-full;
+
+    &--active {
+      background: $color-accent;
+    }
+  }
+
+  &__heading {
+    margin: 0 0 $spacing-md;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: $color-dark;
+  }
+
+  /* Form column */
+  &__form-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    flex: 1;
+    margin-top: 2rem;
+  }
+
+  &__field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $color-dark;
+    margin-bottom: $spacing-xs;
+
+    span {
+      color: $color-secondary-2;
+      font-weight: 300;
+      font-size: 0.8rem;
+    }
+  }
+
+  &__input {
+    width: 100%;
+    padding: $spacing-md $spacing-md;
+    font-size: 1rem;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    font-family: Figtree, sans-serif;
+    color: $color-dark;
+
+    &::placeholder {
+      color: $color-secondary-6;
+    }
+  }
+
+  &__btn {
+    align-self: flex-end;
+    margin-top: auto;
+    padding: $spacing-md $spacing-xl;
+    background-color: $color-accent;
+    color: $color-dark;
+    font-size: 1rem;
+    font-weight: 600;
+    border: none;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: opacity 0.2s;
+
+    &:hover {
+        background-color: $color-primary;
+        color: $color-accent;
+    }
+
+    @media (max-width: $breakpoint-lg) {
+      align-self: stretch;
+    }
+  }
+
+  /* Map column */
+  &__map-col {
+    flex: 1.2;
+    position: relative;
+
+    @media (max-width: $breakpoint-lg) {
+      height: 300px;
+    }
+  }
+
+  &__map {
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    border-radius: $radius-md;
+    overflow: hidden;
+  }
+}
+
+
+
+@media (min-width: $breakpoint-lg) {
+    .new-trip {
+      /* 1) Wrapper moins « haute » */
+      &__wrapper {
+        padding: $spacing-xl;        // on descend d’un cran sur le padding
+        align-items: flex-start;     // empêche les colonnes de s’étirer mutuellement
+        gap: $spacing-md;            // réduit aussi le gap entre form et map
+      }
+  
+      /* 2) Form-col : on laisse le formulaire adapter sa hauteur */
+      &__form-col {
+        flex: 1 1 auto;
+      }
+  
+      /* 3) Map-col : on réduit la map */
+      &__map {
+        min-height: 250px;           // avant 400px, on le descend à 250px
+      }
+    }
+  }
+  
+  /* Option mobile : encore plus compact */
+  @media (max-width: $breakpoint-lg) {
+    .new-trip {
+      &__wrapper {
+        padding: $spacing-lg;        // un dernier cran de réduction
+      }
+      &__map {
+        min-height: 150px;
+      }
+    }
+  }

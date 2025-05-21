@@ -1,0 +1,52 @@
+<section class="new-trip">
+    <h2 class="new-trip__title">Nouveau trajet</h2>
+  
+    <div class="new-trip__wrapper">
+      <!-- Colonne de gauche : formulaire et navigation d’étapes -->
+      <div class="new-trip__form-col">
+        <!-- Progress bar -->
+        <div class="new-trip__steps">
+          <span class="new-trip__step new-trip__step--active"></span>
+          <span class="new-trip__step"></span>
+          <span class="new-trip__step"></span>
+        </div>
+  
+        <h3>Où partez-vous ?</h3>
+  
+        <form class="new-trip__form">
+          <div class="new-trip__field">
+            <label for="departure" class="new-trip__label">Adresse de départ</label>
+            <input id="departure" type="text" class="new-trip__input" placeholder="Allées Baylac 32000 AUCH"/>
+          </div>
+  
+          <div class="new-trip__field">
+            <label for="destination" class="new-trip__label">Adresse de destination</label>
+            <input id="destination" type="text" class="new-trip__input" placeholder="Pl. du Capitole 31000 TOULOUSE"/>
+          </div>
+  
+          <div class="new-trip__field">
+            <label for="stopover" class="new-trip__label">Ajouter une étape<span> (Facultatif)</span></label>
+            <input id="stopover" type="text" class="new-trip__input" placeholder="Adresse de l’étape"/>
+          </div>
+  
+          <div class="new-trip__field">
+            <label for="date" class="new-trip__label">Date de départ</label>
+            <input id="date" type="text" class="new-trip__input" placeholder="jj/mm/aaaa"/>
+          </div>
+  
+          <div class="new-trip__field">
+            <label for="time" class="new-trip__label">Heure de départ</label>
+            <input id="time" type="text" class="new-trip__input" placeholder="00:00"/>
+          </div>
+  
+          <button type="submit" class="new-trip__btn">Suivant</button>
+        </form>
+      </div>
+  
+      <!-- Colonne de droite : carte -->
+      <div class="new-trip__map-col">
+        <img src="images/Trajet_Map.png" alt="Aperçu du trajet entre Auch et Toulouse" class="new-trip__map"/>
+      </div>
+    </div>
+  </section>
+  
