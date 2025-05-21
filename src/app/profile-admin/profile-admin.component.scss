@@ -1,0 +1,231 @@
+@use 'styles' as *;
+
+:host {
+    display: block;
+    padding-left: $spacing-xl;
+    padding-right: $spacing-xl;
+    overflow-x: hidden;
+    background-color: $color-secondary-1;
+}
+
+// NAVIGATION PROFILE
+.profile-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: $color-secondary-1; 
+    font-family: Figtree, sans-serif;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+
+  }
+  
+  .profile-nav__list {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 6px;
+    background-color: white;
+    border-radius: $radius-full;
+  }
+  
+  .profile-nav__item a {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: $radius-full;
+    background-color: white;
+    color: $color-dark;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.2s;
+  }
+  
+  .profile-nav__item a:hover {
+    background-color: $color-primary;
+    color: $color-accent
+  }
+  
+  .profile-nav__item--active a {
+    background-color: $color-accent; 
+    color: $color-dark;
+  }
+
+
+  
+  .profile-nav__btn {
+    padding: 12px 20px;
+    background-color: $color-secondary-5;
+    color: white;
+    border: none;
+    border-radius: $radius-md;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+  }
+
+  
+  .search-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;  
+    max-width: 600px;       // ou la largeur que vous souhaitez
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    padding: 0 $spacing-md;
+    background-color: $color-secondary-1;
+    box-sizing: border-box;
+  
+    &__input {
+      flex: 1;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      font-weight: 500;
+      color: $color-dark;
+      padding: $spacing-sm 0;
+      background-color: $color-secondary-1;
+
+  
+      &::placeholder {
+        color: $color-secondary-2;
+      }
+    }
+  
+    &__btn {
+      background: none;
+      border: none;
+      padding: $spacing-sm;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex: none;
+  
+      &:hover .search-bar__icon {
+        opacity: 0.75;
+      }
+    }
+  
+    &__icon {
+      width: 1rem;
+      height: 1rem;
+      display: block;
+      fill: $color-secondary-2;
+    }
+  }
+
+
+
+
+/* ============ NAV RESPONSIVE ============ */
+@media (max-width: $breakpoint-md) {
+    .profile-nav {
+      flex-direction: column;
+      align-items: stretch;
+  
+      &__btn {
+        order: 0;             // bouton en premier
+        margin-bottom: $spacing-md;
+        width: 100%;
+      }
+
+      &__list {
+        order: 1;    
+           width: 100%;
+            margin-bottom: 1rem;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: $radius-lg;
+      }
+  
+      &__item {
+        a {
+          width: 100%;
+          text-align: center;
+          padding: $spacing-sm 0;
+        }
+        &:not(:last-child) {
+          margin-bottom: $spacing-xs;
+        }
+      }
+
+      .search-bar {   
+        order: 2;    
+        width: 100%;
+        margin-top: $spacing-xs;
+        margin-bottom: $spacing-md;
+      }
+    }
+      }
+
+
+
+//DATAS
+.chart-stats {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xl;
+    margin: $spacing-xl 0;
+  
+    &__block {
+      /* chaque bloc prend toute la largeur */
+    }
+  
+    &__title {
+      margin-bottom: $spacing-md;
+      font-size: 18px;
+      font-weight: 600;
+      color: $color-dark;
+    }
+  
+    &__wrapper {
+      background-color: white;
+      border-radius: $radius-lg;
+      padding: $spacing-lg;
+      box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+    }
+  
+    &__chart {
+      width: 100%;
+      /* hauteur à ajuster selon votre design ou la data */
+      height: 200px;
+      position: relative;
+    }
+  }
+  
+  /* Exemple de responsive si vous voulez réduire la hauteur sur mobile */
+  @media (max-width: $breakpoint-md) {
+    .chart-stats {
+      &__chart {
+        height: 150px;
+      }
+    }
+  }
+
+
+
+//BANDEAU TOP-FOOTER
+.bandeau-blanc-arrondi {
+    width: 100vw;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    height: 60px;
+    background-color: $color-secondary-1;
+    border-bottom-left-radius: 40px;
+    border-bottom-right-radius: 40px;
+  
+    position: relative;
+    z-index: 10;
+    margin-bottom: -40px;
+  }
+  
+  .section-verte {
+    background-color: $color-primary;
+    position: relative;
+    z-index: 1;
+    margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
+    padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
+  }
