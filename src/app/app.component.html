@@ -1,64 +1,7 @@
-<div class="wrapper">
-  <header class="header">
-      
-    <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+<app-header></app-header>
 
-    <div class="header-text">
-      <nav class="nav">
-        
-        <a routerLink="/search">Rechercher un covoit’</a>
-        <a routerLink="/support">Support</a>
-      </nav>
-
-      <div class="auth-buttons">
-        <a routerLink="/login" class="btn btn-outline">Se connecter</a>
-        <a routerLink="/signup" class="btn btn-filled">S’inscrire</a>
-      </div>
-
-      <!-- Icône burger pour mobile -->
-      <div class="burger-menu">
-        <img src="images/Menu.svg" alt="Menu" />
-      </div>
-
-    </div>
-
-  </header>
-  
-
+<main>
   <router-outlet></router-outlet>
+</main>
 
-
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-columns">
-        <div class="column">
-          <h4>Entreprise</h4>
-          <ul>
-            <li><a routerLink="/a-propos">À propos</a></li>
-            <li><a routerLink="/contact">Contact</a></li>
-          </ul>
-        </div>
-        <div class="column">
-          <h4>Assistance</h4>
-          <ul>
-            <li><a routerLink="/service-client">Service client</a></li>
-            <li><a routerLink="/faq">FAQ</a></li>
-          </ul>
-        </div>
-        <div class="column">
-          <h4>Légal</h4>
-          <ul>
-            <li><a routerLink="/mentions-legales">Mentions légales</a></li>
-          </ul>
-        </div>
-        
-          <img class="footer-logo" src="images/Logo_Blanc.svg" alt="Logo EcoRide" />
-
-      </div>
-  
-      <hr />
-  
-      <p class="copyright">© 2025 - Tous droits réservés.</p>
-    </div>
-  </footer>
-  
+<app-footer></app-footer>

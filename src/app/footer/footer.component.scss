@@ -1,0 +1,86 @@
+@use 'styles' as *;
+
+// ========== RESET GLOBAL ==========
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+// ========== FOOTER ==========
+.footer {
+    background-color: $color-primary;
+    color: white;
+    padding: $spacing-xxl $spacing-xxl;
+  
+    .footer-content {
+      margin: 0 auto;
+    }
+  
+    .footer-columns {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: $spacing-lg;
+      margin-bottom: $spacing-lg;
+  
+      .column {
+        text-align: left;
+  
+        h4 {
+          font-size: 1.1rem;
+          font-weight: bold;
+          margin-bottom: $spacing-sm;
+        }
+  
+        ul {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+  
+          li {
+            margin-bottom: $spacing-xs;
+            cursor: pointer;
+  
+            a {
+              text-decoration: none;
+              color: white;
+              font-size: 1rem;
+  
+              &:hover {
+                color: $color-accent;
+              }
+            }
+          }
+        }
+      }
+  
+      .footer-logo {
+        text-align: right;
+        height: 60px;
+        margin-bottom: $spacing-xs;
+  
+        p {
+          margin: 0;
+          font-size: 1rem;
+        }
+      }
+    }
+  
+    hr {
+      border: none;
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      margin-bottom: $spacing-sm;
+    }
+  
+    .copyright {
+      text-align: center;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      text-align: left;
+    }
+  }
+  
+  

@@ -23,6 +23,8 @@ import { NewRideModule } from './new-ride/new-ride.module';
 import { NewRideComponent } from './new-ride/new-ride.component';
 import { Error404Module } from './error-404/error-404.module';
 import { Error404Component } from './error-404/error-404.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 export const routes: Routes = [
