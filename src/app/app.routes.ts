@@ -21,6 +21,8 @@ import { ProfileAdminModule } from './profile-admin/profile-admin.module';
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
 import { NewRideModule } from './new-ride/new-ride.module';
 import { NewRideComponent } from './new-ride/new-ride.component';
+import { Error404Module } from './error-404/error-404.module';
+import { Error404Component } from './error-404/error-404.component';
 
 
 export const routes: Routes = [
@@ -37,4 +39,5 @@ export const routes: Routes = [
     { path: 'profile-employe' , component: ProfileEmployeComponent },
     { path: 'profile-admin' , component: ProfileAdminComponent },
     { path: 'new-ride' , component: NewRideComponent },
+    { path: 'error404' , component: Error404Component },
 ]
