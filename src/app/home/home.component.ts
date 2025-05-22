@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { RouterLink }     from '@angular/router';
+import { ViewportScroller } from '@angular/common';
 
 
 @Component({
@@ -11,7 +12,14 @@ import { RouterLink }     from '@angular/router';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
+  constructor(private vps: ViewportScroller) {}
 
+  goToSearch() {
+    const el = document.getElementById('search-bar');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
 }
 
 

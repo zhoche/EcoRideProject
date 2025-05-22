@@ -6,10 +6,12 @@
     </div>
 </div>
 
+<section id="search-bar">
 <app-search-bar></app-search-bar>
+</section>
+
 
 <!--INTRO-->
-
 <div class="text-intro">
 <h4>Voyagez mieux, dépensez moins, polluez moins</h4>
 <h2>Avec EcoRide, partagez vos trajets en toute simplicité et en <span class="underline-animate">
@@ -105,7 +107,9 @@
       <h2>Une communauté fiable et bienveillante</h2>
       <p>Chaque utilisateur s'engage à respecter nos valeurs. Nous vérifions les profils, modérons les avis, et privilégions les véhicules électriques.<br />
         Vous pouvez voyager sereinement, à petit prix.</p>
-      <a href="#" class="btn btn-filled">Réservez votre voyage</a>
+      <a href="#search-bar" class="btn btn-filled" (click)="goToSearch()">Réservez votre voyage</a>
+
+      
     </div>
   </div>
 
