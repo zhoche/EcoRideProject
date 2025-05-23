@@ -1,18 +1,36 @@
 @use 'styles' as *;
 
-.login-page {
-  position: relative;      // pour que .login-img puisse être en absolute
-  display: flex;
-  align-items: center;     // vertical centering du formulaire
-  width: 100vw;  
-  height: 75vh;           
-  overflow: hidden;      
+:host {
+  margin: 0;
+  padding: 0;
+  /* empêche tout débordement horizontal */
+  overflow-x: hidden;
+  width: 100%;
 }
+
+
+.login-page {
+  display: flex;
+  min-height: 100vh;      // pour pouvoir centrer verticalement
+  align-items: center;    // centre la login-card verticalement
+  padding: $spacing-lg $spacing-xl;
+
+}
+
+
+.login-container {
+  position: relative;    
+  display: flex;
+  align-items: center;    
+  min-height: calc(100vh - 160px);
+}
+
 
 .login-card {
   position: relative;
   z-index: 2;
   flex: 0 0 480px;
+  max-width: 480px;   
   padding: $spacing-xl;
   background-color: $color-light;
   border-radius: $radius-md;
@@ -55,34 +73,34 @@
     color: $color-dark;
     text-decoration: none;
     font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+      cursor: pointer;
+    }
   }
 
 
-// positionnement full-screen de l'image
-.login-img {
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;                 
-  z-index: 1;
-}
 
-.login-img img {
-  width: 100vw;            
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  object-position: 50% 30%;
-}
-
-// responsive mobile inchangé
+// responsive mobile 
 @media (max-width: 768px) {
   .login-page {
     flex-direction: column;
     height: auto;
+    background: none !important;
+    padding: $spacing-lg $spacing-xl;
+
   }
-  .login-img {
-    display: none;
+
+  .login-container {
+padding-top: 2rem;
+      display: block;
+  }
+
+
+  .login-card {
+    padding: 0;
+    margin: 0;
+    flex-direction: column;
   }
 }
