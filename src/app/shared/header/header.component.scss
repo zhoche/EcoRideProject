@@ -1,0 +1,247 @@
+@use 'styles' as *;
+:host {
+    display: block;
+    overflow-x: hidden;
+    height: 100%;
+
+  }
+
+// ========== HEADER ==========
+
+.wrapper {
+    background: $color-light;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: $spacing-xl;
+    padding-right: $spacing-xl;
+  
+    @include respond-to(md) {
+      flex-direction: row;
+      align-items: center;
+      gap: $spacing-sm;
+      padding-left: $spacing-lg;
+      padding-right: $spacing-lg;
+
+    }
+  }
+  
+  .header-text {
+    display: flex;
+    align-items: center;
+    gap: $spacing-lg;
+    text-decoration: none;
+  }
+  
+  .logo {
+    height: 30px;
+  }
+  
+  .nav {
+    display: flex;
+    gap: $spacing-md;
+    text-align: center;
+    align-items: center;
+
+  
+    a {
+      color: $color-dark;
+      font-weight: 500;
+      text-decoration: none;
+
+  
+      &:hover {
+        font-weight: 700;
+        color: $color-primary;
+      }
+    }
+  
+    .button-connexion {
+        display: inline-block;
+        padding: 0.6rem 1.8rem;
+        border-radius: $radius-full;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        color: $color-primary;
+        border: 1px solid $color-secondary-6;
+        text-decoration: none;
+      
+        &:hover {
+          background-color: $color-primary;
+          color: $color-accent;
+          text-decoration: none;
+        }
+    }
+
+    .button-inscription {
+        display: inline-block;
+        padding: 0.6rem 1.8rem;
+        border-radius: $radius-full;
+        font-size: 1rem;
+        text-align: center;
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: $color-accent;
+        color: $color-primary;
+        border: none;
+        text-decoration: none;
+      
+        &:hover {
+          background-color: $color-primary;
+          color: $color-accent;
+          text-decoration: none;
+        }
+    }
+
+    @include respond-to(md) {
+      display: none;
+    }
+  }
+
+  
+  .burger-menu {
+    display: none;
+  
+    img {
+      height: 45px;
+      cursor: pointer;
+    }
+  
+    @include respond-to(md) {
+      display: flex;
+      margin-left: auto;
+      align-items: center;
+    }
+  }
+  
+  main {
+    flex: 1;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+
+
+
+  //AVATAR
+  .avatar-wrapper {
+    position: relative;
+    width: 3rem;
+    height: 3rem;
+    flex: none;
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .verified-icon {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 1rem;
+      height: 1rem;
+    }
+  }
+
+
+
+
+
+    //ARRIVAL ACTIONS
+.arrival-actions {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: $spacing-sm;       
+    padding: $spacing-xs;  
+    background-color: rgba($color-secondary-2, 0.2);
+    border-radius: $radius-full;
+  
+    &__btn {
+      flex: 1;                
+      font-weight: 600;
+      color: #fff;
+      border: none;
+      border-radius: $radius-full;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      padding: $spacing-xs $spacing-lg;
+  
+      &:hover {
+        opacity: 0.85;
+      }
+  
+      &--success {
+        background-color: $color-positive;
+      }
+  
+      &--danger {
+        background-color: $color-error;
+      }
+    }
+  
+    @include respond-to(md) {
+        .arrival-actions {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 1rem;
+          padding: 0.5rem;
+          background-color: rgba(100, 110, 120, 0.2);
+          border-radius: 40px;
+          justify-content: center;
+      }
+        &__btn {
+          flex: 1 1 0;            
+          min-width: 0;        
+         }
+      }
+    }
+  
+    
+    .profile-nav__btn {
+      padding: 12px 20px;
+      background-color: $color-secondary-2;
+      color: white;
+      border: none;
+      border-radius: $radius-md;
+      font-size: 14px;
+      font-weight: 500;
+      transition: opacity 0.2s;
+    }
+
+
+
+
+//MESSAGERIE
+.messagerie {
+    position: relative;
+    display: inline-block;
+    padding: 0 1rem;
+  
+    &__badge {
+      position: absolute;
+      top: -0.6em;             // remonte le badge
+      right: -0.2em;           // le décale vers la droite
+      background-color: $color-error;  // couleur rouge corail
+      color: white;
+      border-radius: 50%;
+      min-width: 1.8em;        
+      height: 1.8em;           
+      padding: 0 0.3em;        
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.6rem;
+      font-weight: 600;
+      line-height: 1;
+    }
+  }
+  

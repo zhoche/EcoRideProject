@@ -1,0 +1,137 @@
+<nav>
+     <ng-container [ngSwitch]="role">
+    <ul *ngSwitchDefault>
+        <div class="wrapper">        
+            <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+        
+            <div class="header-text">
+                <nav class="nav">
+                <a routerLink="/recherche-covoit">Rechercher un covoit’</a>
+                <a routerLink="/support">Support</a>
+                <a routerLink="/connexion"  routerLinkActive="active" class="button-connexion">Se connecter</a>
+                <a routerLink="/inscription" routerLinkActive="active" class="button-inscription">S’inscrire</a>
+                 </nav>
+        
+                <!-- Icône burger pour mobile -->
+                <div class="burger-menu">
+                <img src="images/Menu.svg" alt="Menu" />
+                </div>
+            </div>
+        </div>
+    </ul>
+
+
+
+    <ul *ngSwitchCase="'passenger'">
+        <div class="wrapper">        
+            <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+        
+                  <!-- ARRIVAL ACTIONS -->
+                <div class="arrival-actions">
+                    <button type="button" class="arrival-actions__btn arrival-actions__btn--success">
+                    Je suis bien arrivé(e)
+                    </button>
+                    <button type="button" class="arrival-actions__btn arrival-actions__btn--danger">
+                    Signaler un problème
+                    </button>
+                </div>         
+
+
+            <div class="header-text">
+              <nav class="nav">
+              <a routerLink="/recherche-covoit">Rechercher un covoit’</a>
+              <a routerLink="/support">Support</a>
+        
+              <div class="avatar-wrapper">
+                <img src="images/Profil_Passager-Conducteur.png" alt="Marie" class="avatar"/>
+                <img src="images/Picto_Verifier.svg" alt="✓" class="verified-icon"/>
+              </div>
+              </nav>
+        
+              <!-- Icône burger pour mobile -->
+              <div class="burger-menu">
+                <img src="images/Menu.svg" alt="Menu" />
+              </div>
+            </div>
+      </div>
+    </ul>
+
+
+
+    <ul *ngSwitchCase="'driver'">
+        <div class="wrapper">        
+            <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+        
+            <div class="header-text">
+              <nav class="nav">
+              <a routerLink="/recherche-covoit">Rechercher un covoit’</a>
+              <a routerLink="/support">Support</a>
+              <div class="avatar-wrapper">
+                <img src="images/Profil_Passager-Conducteur.png" alt="Marie" class="avatar"/>
+                <img src="images/Picto_Verifier.svg" alt="✓" class="verified-icon"/>
+              </div>
+              </nav>
+        
+              <!-- Icône burger pour mobile -->
+              <div class="burger-menu">
+                <img src="images/Menu.svg" alt="Menu" />
+              </div>
+            </div>
+      </div>
+    </ul>
+
+
+
+
+      
+    <ul *ngSwitchCase="'employe'">
+        <div class="wrapper">        
+            <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+
+            <div class="header-text">
+                <nav class="nav">
+                <a routerLink="#" class="messagerie">Messagerie<span class="messagerie__badge">12</span></a>
+                <div class="avatar-wrapper">
+                  <img src="images/Profil_Employe.png" alt="Marie" class="avatar"/>
+                </div>
+                </nav>
+            </div>
+            <!-- Icône burger pour mobile -->
+            <div class="burger-menu">
+                <img src="images/Menu.svg" alt="Menu" />
+            </div>
+        </div>
+    </ul>
+
+
+
+
+    <ul *ngSwitchCase="'admin'">
+        <div class="wrapper">        
+            <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
+
+            <div class="header-text">
+                <nav class="nav">
+                <a routerLink="#" class="messagerie">Messagerie<span class="messagerie__badge">12</span></a>
+                <div class="avatar-wrapper">
+                  <img src="images/Profil_Admin.png" alt="Marie" class="avatar"/>
+                </div>
+                </nav>
+            </div>
+            <!-- Icône burger pour mobile -->
+            <div class="burger-menu">
+                <img src="images/Menu.svg" alt="Menu" />
+            </div>
+        </div>
+    </ul>
+
+
+      
+    </ng-container> 
+
+
+
+
+
+  </nav>
+  

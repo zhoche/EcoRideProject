@@ -24,15 +24,19 @@ export class ConnexionComponent {
   ) {}
 
   onSubmit() {
-    this.auth.login(this.email, this.password)
+    this.auth.login({ 
+        email: this.email, 
+        password: this.password 
+      })
       .subscribe({
         next: user => {
-          // redirection après succès
-          this.router.navigate(['/profile-driver']);
+          this.router.navigate([`/profile-${user.role}`]);
         },
         error: err => {
           this.errorMsg = 'Identifiants invalides';
         }
       });
+      
   }
+  
 }

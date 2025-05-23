@@ -12,7 +12,7 @@ import { ProfileEmployeComponent } from './profile-employe/profile-employe.compo
 import { ProfileAdminComponent } from './profile-admin/profile-admin.component';
 import { NewRideComponent } from './new-ride/new-ride.component';
 import { Error404Component } from './error-404/error-404.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './footer/footer.component';
 
 
@@ -30,5 +30,5 @@ export const routes: Routes = [
     { path: 'profile-employe' , component: ProfileEmployeComponent },
     { path: 'profile-admin' , component: ProfileAdminComponent },
     { path: 'new-ride' , component: NewRideComponent },
-    { path: 'error404' , component: Error404Component },
+    { path: '**' , component: Error404Component },
 ]
