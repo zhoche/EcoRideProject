@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';          // RxJS 7+ : on peut importer tap depuis 'rxjs'
+import { BehaviorSubject, Observable, tap } from 'rxjs';          
 import { HttpClient } from '@angular/common/http';
 
 export interface User {
@@ -41,5 +41,7 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
-  
+  register(data: { email: string; password: string; pseudo: string }): Observable<any> {
+    return this.http.post('http://127.0.0.1:8000/api/register', data);
+  }
 }
