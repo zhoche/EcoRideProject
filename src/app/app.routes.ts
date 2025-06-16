@@ -14,6 +14,7 @@ import { NewRideComponent } from './new-ride/new-ride.component';
 import { Error404Component } from './error-404/error-404.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { AuthGuard } from './auth/auth.guard';
 
 
 export const routes: Routes = [
@@ -31,4 +32,7 @@ export const routes: Routes = [
     { path: 'profile-admin' , component: ProfileAdminComponent },
     { path: 'new-ride' , component: NewRideComponent },
     { path: '**' , component: Error404Component },
+    { path: 'admin/dashboard', component: ProfileAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
+    { path: 'chauffeur/dashboard', component: ProfileDriverComponent, canActivate: [AuthGuard], data: { roles: ['driver'] }},
+    { path: 'employe/dashboard', component: ProfileEmployeComponent, canActivate: [AuthGuard], data: { roles: ['employe'] }}
 ]

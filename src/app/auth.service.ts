@@ -26,7 +26,7 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<User> {
-    return this.http.post<User>('http://127.0.0.1:8000/api/login', credentials)
+    return this.http.post<User>('https://127.0.0.1:8000/api/login', credentials)
       .pipe(
         tap(user => {
 

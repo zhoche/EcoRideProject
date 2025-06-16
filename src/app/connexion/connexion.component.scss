@@ -79,15 +79,13 @@
       cursor: pointer;
     }
 
-
-    .errorMsg {
-      color: $color-error;
-      font-weight: 600;
-      margin-top: 1rem;
-    }
   }
 
-
+  .error-message {
+    color: $color-error;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
 
 // responsive mobile 
 @media (max-width: 768px) {
