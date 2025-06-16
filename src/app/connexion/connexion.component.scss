@@ -78,6 +78,13 @@
       text-decoration: underline;
       cursor: pointer;
     }
+
+
+    .errorMsg {
+      color: $color-error;
+      font-weight: 600;
+      margin-top: 1rem;
+    }
   }
 
 

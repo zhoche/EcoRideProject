@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 export interface User {
   id:     string;
   email:  string;
-  role:   'passenger' | 'driver' | 'employe' | 'admin';
+  role: 'admin' | 'driver' | 'employe' | 'passenger' | 'guest';
 }
 
 @Injectable({ providedIn: 'root' })
@@ -19,17 +19,28 @@ export class AuthService {
   constructor(private http: HttpClient) {
     const stored = localStorage.getItem('user');
     if (stored) {
-      this.userSubject.next(JSON.parse(stored));
-      this._isLoggedIn.next(true);  
+      const user: User = JSON.parse(stored);
+      this.userSubject.next(user);
+      this._isLoggedIn.next(true);
     }
   }
 
   login(credentials: { email: string; password: string }): Observable<User> {
-    return this.http.post<User>('/api/login', credentials)
+    return this.http.post<User>('http://127.0.0.1:8000/api/login', credentials)
       .pipe(
         tap(user => {
+
+          let mappedRole = user.role.replace('ROLE_', '').toLowerCase();
+  
+          if (mappedRole === 'user') {
+            mappedRole = 'passenger'; 
+          }
+  
+          user.role = mappedRole as User['role'];
+  
+
           this.userSubject.next(user);
-          this._isLoggedIn.next(true);   
+          this._isLoggedIn.next(true);
           localStorage.setItem('user', JSON.stringify(user));
         })
       );

@@ -19,24 +19,44 @@ export class ConnexionComponent {
   errorMsg = '';
 
   constructor(
-    private auth: AuthService,
+    private authService: AuthService,
     private router: Router
   ) {}
 
   onSubmit() {
-    this.auth.login({ 
-        email: this.email, 
-        password: this.password 
-      })
-      .subscribe({
-        next: user => {
-          this.router.navigate([`/profile-${user.role}`]);
-        },
-        error: err => {
-          this.errorMsg = 'Identifiants invalides';
+    const credentials = {
+      email: this.email,
+      password: this.password
+    };
+  
+    this.authService.login(credentials).subscribe({
+      next: user => {
+        console.log('✅ Connexion réussie', user);
+  
+        switch (user.role) {
+          case 'admin':
+            this.router.navigate(['/profile-admin']);
+            break;
+          case 'driver':
+            this.router.navigate(['/profile-driver']);
+            break;
+          case 'passenger':
+            this.router.navigate(['/profile-passenger']);
+            break;
+          case 'employe':
+            this.router.navigate(['/profile-employe']);
+            break;
+          default:
+            this.router.navigate(['/profile-passenger']);
         }
-      });
-      
+      },
+      error: err => {
+        this.errorMsg = 'Erreur de connexion : ' + (err.error?.error || 'Veuillez réessayer.');
+      }
+    });
+  
+    console.log('➡️ Données envoyées :', this.email, this.password);
   }
+  
   
 }
