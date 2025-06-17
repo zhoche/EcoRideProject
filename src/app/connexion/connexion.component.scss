@@ -78,9 +78,14 @@
       text-decoration: underline;
       cursor: pointer;
     }
+
   }
 
-
+  .error-message {
+    color: $color-error;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
 
 // responsive mobile 
 @media (max-width: 768px) {

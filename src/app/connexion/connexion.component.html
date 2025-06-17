@@ -19,7 +19,7 @@
       </div>
       <div class="input-group">
         <label for="password">Mot de passe</label>
-        <input type="password" id="password" name="password" placeholder="xxxxxxxxxx" required>
+        <input type="password" id="password" name="password" [(ngModel)]="password" placeholder="xxxxxxxxxx" required>
       </div>
       <button href="#" type="submit"  class="btn btn-filled">Je me connecte</button>
     </form>
@@ -28,7 +28,8 @@
       Vous n’avez pas encore de compte&nbsp;?
     <a routerLink="/inscription" routerLinkActive="active">Créer un compte</a></p>
  
- 
+    <p *ngIf="errorMsg" class="error-message">{{ errorMsg }}</p>
+
 <!-- IMAGE DE FOND -->
   <!-- <div class="login-img">
     <img src="images/Connexion_Femme.webp" alt="Passager utilisant l’application">

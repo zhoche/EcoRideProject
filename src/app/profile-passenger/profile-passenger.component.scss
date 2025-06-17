@@ -10,8 +10,8 @@
 
 // NAVIGATION PROFILE
 .profile-nav {
-    display: flex;
     align-items: center;
+    flex-wrap: wrap;
     justify-content: space-between;
     background-color: $color-secondary-1; 
     font-family: Figtree, sans-serif;
@@ -25,6 +25,7 @@
     padding: 6px;
     background-color: white;
     border-radius: $radius-full;
+    max-width: 614px;
   }
   
   .profile-nav__item a {
@@ -161,7 +162,28 @@
 }
 
 
+.logout-btn {
+  margin-top: auto; 
+  display: block;
+  width: fit-content;
+  margin: $spacing-lg auto 0;
+  padding: $spacing-sm $spacing-md;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-dark;
+  background-color: transparent;
+  border: 1px solid $color-secondary-6;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  grid-column: 2;
 
+  &:hover {
+    background-color: $color-error;
+    color: white;
+    border: none;
+  }
+}
 
 
 

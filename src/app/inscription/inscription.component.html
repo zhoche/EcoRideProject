@@ -5,29 +5,21 @@
         <h1>Créer mon compte</h1>
         <h4>Décrivez-vous en quelques mots et inscrivez-vous sur EcoRide.</h4>
   
-        <form action="/register" method="POST">
-   <!-- Ligne Prénom / Nom -->
+        <form (ngSubmit)="onSubmit()">
+   <!-- Ligne Pseudo -->
    <div class="input-row">
     <div class="input-group">
-      <label for="firstName">Prénom</label>
+      <label for="pseudo">Pseudo</label>
       <input
         type="text"
-        id="firstName"
-        name="firstName"
-        placeholder="John"
+        id="pseudo"
+        name="pseudo"
+        placeholder="John123"
+        [(ngModel)]="pseudo"
         required
       />
     </div>
-    <div class="input-group">
-      <label for="lastName">Nom</label>
-      <input
-        type="text"
-        id="lastName"
-        name="lastName"
-        placeholder="Doe"
-        required
-      />
-    </div>
+   
   </div>
 
   <!-- Email -->
@@ -38,6 +30,7 @@
       id="email"
       name="email"
       placeholder="john.doe@gmail.com"
+      [(ngModel)]="email"
       required
     />
   </div>
@@ -50,6 +43,7 @@
       id="password"
       name="password"
       placeholder="xxxxxxxxxx"
+      [(ngModel)]="password"
       required
     />
     <p class="hint">
@@ -60,16 +54,14 @@
 
   <!-- Bouton + texte des conditions -->
   <div class="actions">
-    <button type="submit" class="btn btn-filled">
-      Créer mon compte
-    </button>
-    <p class="terms">
-      En continuant, vous acceptez les
+    <button type="submit" class="btn btn-filled">Créer mon compte</button>
+    <p class="terms">En continuant, vous acceptez les
       <a href="/terms">Conditions d’utilisation</a> et la
       <a href="/privacy">Politique de confidentialité</a> d’EcoRide.
     </p>
   </div>
 </form>
+
 
 <p class="register-link">
   Vous avez déjà un compte&nbsp;?

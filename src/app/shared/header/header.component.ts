@@ -12,15 +12,14 @@ import { RouterLink, RouterLinkActive }   from '@angular/router';
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent implements OnInit {
-  role: 'passenger'|'driver'|'employe'|'admin'|'guest' = 'guest';
+  role: string = '';
 
-  constructor(private auth: AuthService) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit() {
-    this.auth.user$.subscribe((u: User | null) => {
-      this.role = u?.role ?? 'guest';
+    this.authService.user$.subscribe(user => {
+      this.role = user?.role || ''; // "admin", "driver", etc.
     });
-    
   }
 }
 
