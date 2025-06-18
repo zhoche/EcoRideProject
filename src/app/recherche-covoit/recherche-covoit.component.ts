@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { ModalComponent } from '../modal/modal.component';
 import { CommonModule } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-recherche-covoit',
@@ -11,6 +12,25 @@ import { CommonModule } from '@angular/common';
   styleUrl: './recherche-covoit.component.scss'
 })
 export class RechercheCovoitComponent {
+  // --- UI ETAPE ---
+  showTripDetail = false;
+  step = 1;
+
+  openTripDetail() {
+    this.step = 1;
+    this.showTripDetail = true;
+  }
+
+  closeTripDetail() {
+    this.step = 1;
+    this.showTripDetail = false;
+  }
+
+  goToStep(n: number) {
+    this.step = n;
+  }
+
+
   //FILTRES
   showFilters = false;
 
@@ -19,48 +39,49 @@ export class RechercheCovoitComponent {
   }
 
 
+  // --- DROPDOWN PASSAGERS ---
+  passengerOptions = [1, 2, 3, 4];
+  selectedPassengers = 1;
+  showPassengerDropdown = false;
 
-   // DROPDOWN PASSAGERS
-   passengerOptions = [1, 2, 3, 4];
-   selectedPassengers = 1;
-   showPassengerDropdown = false;
- 
-   togglePassengerDropdown() {
-     this.showPassengerDropdown = !this.showPassengerDropdown;
-   }
- 
-   selectPassengers(count: number) {
-     this.selectedPassengers = count;
-     this.showPassengerDropdown = false;
-   }
-
-
-
-   // PROCESS RESERVATION
-   showTripDetail = false;
-  step = 1;
-
-  // ouvre la modale, toujours à l’étape 1
-  openTripDetail() {
-    this.step = 1;
-    this.showTripDetail = true;
+  togglePassengerDropdown() {
+    this.showPassengerDropdown = !this.showPassengerDropdown;
   }
 
-  // ferme + reset
-  closeTripDetail() {
-    this.showTripDetail = false;
-    this.step = 1;
+  selectPassengers(count: number) {
+    this.selectedPassengers = count;
+    this.showPassengerDropdown = false;
   }
 
-  goToStep(n: number) {
-    console.log(`goToStep appelé : ${this.step} → ${n}`);
-    this.step = n;
+  // --- RESERVATION ---
+  rideId!: number; // à définir dynamiquement
+  credits: number = 0;
 
+  constructor(private http: HttpClient) {}
+
+  confirmerReservation() {
+    const token = localStorage.getItem('token');
+    this.http.post(`/api/rides/${this.rideId}/join`, {}, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }).subscribe({
+      next: () => {
+        this.step = 3;
+        this.loadCredits();
+      },
+      error: (err) => {
+        alert(err.error?.error || 'Erreur lors de la réservation.');
+      }
+    });
   }
 
-  confirmReservation() {
-    this.step = 3;
+  loadCredits() {
+    const token = localStorage.getItem('token');
+    this.http.get<any>('/api/me', {
+      headers: { Authorization: `Bearer ${token}` }
+    }).subscribe({
+      next: (user) => this.credits = user.credits
+    });
   }
 }
-
-
