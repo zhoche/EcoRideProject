@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class TestUserController extends AbstractController
 {
-    #[Route('/test-user', name: 'test_user')]
+    #[Route('/api/test-user', name: 'test_user')]
     public function index(EntityManagerInterface $em): Response
     {
         $user = new User();

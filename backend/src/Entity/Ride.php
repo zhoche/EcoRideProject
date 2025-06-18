@@ -4,6 +4,10 @@ namespace App\Entity;
 
 use App\Repository\RideRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
+use App\Entity\User;
+use App\Entity\Vehicle;
 
 #[ORM\Entity(repositoryClass: RideRepository::class)]
 class Ride
@@ -123,4 +127,26 @@ class Ride
         $this->vehicle = $vehicle;
         return $this;
     }
+
+
+#[ORM\ManyToMany(targetEntity: User::class)]
+private Collection $passengers;
+
+public function getPassengers(): Collection
+{
+    return $this->passengers;
 }
+
+public function addPassenger(User $user): self
+{
+    if (!$this->passengers->contains($user)) {
+        $this->passengers[] = $user;
+    }
+    return $this;
+}
+
+}
+
+
+
+

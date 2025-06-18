@@ -29,8 +29,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column]
     private array $roles = [];
 
-    #[ORM\Column]
-    private ?int $credits = 20;
+    // #[ORM\Column]
+    // private ?int $credits = 20;
 
     /**
      * @var Collection<int, Vehicle>
@@ -105,17 +105,17 @@ public function eraseCredentials(): void
         return $this;
     }
 
-    public function getCredits(): ?int
-    {
-        return $this->credits;
-    }
+    // public function getCredits(): ?int
+    // {
+    //     return $this->credits;
+    // }
 
-    public function setCredits(int $credits): static
-    {
-        $this->credits = $credits;
+    // public function setCredits(int $credits): static
+    // {
+    //     $this->credits = $credits;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     /**
      * @return Collection<int, Vehicle>
@@ -146,4 +146,26 @@ public function eraseCredentials(): void
 
         return $this;
     }
+
+    #[ORM\ManyToMany(mappedBy: 'passengers', targetEntity: Ride::class)]
+    private Collection $ridesAsPassenger;
+
+
+
+    #[ORM\Column(type: 'integer')]
+    private int $credits = 20;
+    
+    public function getCredits(): int
+    {
+        return $this->credits;
+    }
+    
+    public function setCredits(int $credits): self
+    {
+        $this->credits = $credits;
+        return $this;
+    }
+
 }
+
+

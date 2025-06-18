@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class RegistrationController extends AbstractController
 {
-    #[Route('/registration', name: 'app_registration')]
+    #[Route('/api/registration', name: 'app_registration')]
     public function index(): Response
     {
         return $this->render('registration/index.html.twig', [

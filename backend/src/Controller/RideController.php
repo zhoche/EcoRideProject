@@ -16,6 +16,22 @@ use App\Repository\VehicleRepository;
 #[Route('/api/rides')]
 class RideController extends AbstractController
 {
+    // Route pour tester l'utilisateur connecté
+    #[Route('/api/test-user', methods: ['GET'])]
+    public function testUser(): JsonResponse
+    {
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['message' => 'Utilisateur non connecté'], 401);
+    }
+
+    return $this->json([
+        'email' => $user->getUserIdentifier(),
+        'roles' => $user->getRoles()
+    ]);
+}
+    // Route pour lister les trajets
     #[Route('', methods: ['GET'])]
     public function index(RideRepository $rideRepo): JsonResponse
     {
@@ -23,6 +39,7 @@ class RideController extends AbstractController
         return $this->json($rides);
     }
 
+    // Route pour créer un trajet
     #[Route('', methods: ['POST'])]
     public function create(
         Request $request,
@@ -81,4 +98,48 @@ class RideController extends AbstractController
 
         return $this->json(['id' => $ride->getId()], 201);
     }
+
+
+    // Route pour rejoindre un trajet
+    #[Route('/api/rides/{id}/join', methods: ['POST'])]
+public function joinRide(
+    int $id,
+    EntityManagerInterface $em
+): JsonResponse {
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['error' => 'Authentification requise'], 401);
+    }
+
+    $ride = $em->getRepository(Ride::class)->find($id);
+
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet introuvable'], 404);
+    }
+
+    if ($ride->getAvailableSeats() <= 0) {
+        return $this->json(['error' => 'Aucune place disponible'], 400);
+    }
+
+    if ($user->getCredits() < 1) {
+        return $this->json(['error' => 'Crédits insuffisants'], 400);
+    }
+
+    if ($ride->getPassengers()->contains($user)) {
+        return $this->json(['message' => 'Déjà inscrit à ce trajet'], 200);
+    }
+
+    // Participation
+    $ride->addPassenger($user);
+    $ride->setAvailableSeats($ride->getAvailableSeats() - 1);
+    $user->setCredits($user->getCredits() - 1);
+
+    $em->persist($ride);
+    $em->persist($user);
+    $em->flush();
+
+    return $this->json(['message' => 'Participation confirmée']);
+}
+
 }

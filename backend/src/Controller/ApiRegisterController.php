@@ -20,7 +20,6 @@ class ApiRegisterController extends AbstractController
     ): JsonResponse {
         $data = json_decode($request->getContent(), true);
 
-        // Vérifie que les champs sont bien là
         if (!isset($data['email'], $data['password'], $data['pseudo'])) {
             return new JsonResponse(['error' => 'Données incomplètes.'], 400);
         }
