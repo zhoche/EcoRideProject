@@ -307,6 +307,6 @@ class __TwigTemplate_b323c5c4d5b76ebae736db72d290e307 extends Template
     {% set attr = attr|merge({class: (attr.class|default('') ~ ' button')|trim}) %}
     {{- parent() -}}
 {%- endblock button_widget %}
-", "foundation_6_layout.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/twig-bridge/Resources/views/Form/foundation_6_layout.html.twig");
+", "foundation_6_layout.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/twig-bridge/Resources/views/Form/foundation_6_layout.html.twig");
     }
 }

@@ -18,9 +18,14 @@ return [
         '/api/login' => [[['_route' => 'api_login', '_controller' => 'App\\Controller\\ApiLoginController::login'], null, ['POST' => 0], null, false, false, null]],
         '/api/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\ApiRegisterController::register'], null, ['POST' => 0], null, false, false, null]],
         '/registration' => [[['_route' => 'app_registration', '_controller' => 'App\\Controller\\RegistrationController::index'], null, null, null, false, false, null]],
+        '/api/rides' => [
+            [['_route' => 'app_ride_index', '_controller' => 'App\\Controller\\RideController::index'], null, ['GET' => 0], null, false, false, null],
+            [['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null],
+        ],
         '/login' => [[['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/test-user' => [[['_route' => 'test_user', '_controller' => 'App\\Controller\\TestUserController::index'], null, null, null, false, false, null]],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

@@ -989,6 +989,6 @@ class __TwigTemplate_ae829c1dc01de9d825cddd854c459b6f extends Template
         </td>
     </tr>
 {% endmacro %}
-", "@DoctrineMigrations/Collector/migrations.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/doctrine/doctrine-migrations-bundle/templates/Collector/migrations.html.twig");
+", "@DoctrineMigrations/Collector/migrations.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/doctrine/doctrine-migrations-bundle/templates/Collector/migrations.html.twig");
     }
 }

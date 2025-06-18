@@ -167,6 +167,6 @@ class __TwigTemplate_3d3b1cec0ea72c3c65ad652634bf7d47 extends Template
 
     {{ include('@WebProfiler/Profiler/toolbar_item.html.twig', { link: profiler_url }) }}
 {% endblock %}
-", "@WebProfiler/Profiler/cancel.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/cancel.html.twig");
+", "@WebProfiler/Profiler/cancel.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/cancel.html.twig");
     }
 }

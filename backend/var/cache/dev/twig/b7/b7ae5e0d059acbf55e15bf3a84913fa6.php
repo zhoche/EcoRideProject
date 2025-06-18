@@ -472,6 +472,6 @@ class __TwigTemplate_a278b008715fb652b6a5acbd047b408f extends Template
         </div>
     {% endfor %}
 {% endblock %}
-", "@Debug/Profiler/dump.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
+", "@Debug/Profiler/dump.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/debug-bundle/Resources/views/Profiler/dump.html.twig");
     }
 }

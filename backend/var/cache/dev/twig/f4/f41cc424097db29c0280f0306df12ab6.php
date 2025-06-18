@@ -1003,6 +1003,6 @@ class __TwigTemplate_c24c494dbe68ad69253a2792eb5490ff extends Template
         {% endautoescape %}</script>
     </div>
 {% endmacro %}
-", "@WebProfiler/Collector/time.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.html.twig");
+", "@WebProfiler/Collector/time.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/web-profiler-bundle/Resources/views/Collector/time.html.twig");
     }
 }

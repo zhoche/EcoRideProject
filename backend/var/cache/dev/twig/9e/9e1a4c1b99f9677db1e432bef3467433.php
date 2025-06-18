@@ -1985,6 +1985,6 @@ $context["voter_detail"], "vote", [], "array", false, false, false, 577) == Twig
         </div>
     {% endif %}
 {% endblock %}
-", "@Security/Collector/security.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
+", "@Security/Collector/security.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/security-bundle/Resources/views/Collector/security.html.twig");
     }
 }

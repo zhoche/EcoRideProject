@@ -240,6 +240,6 @@ class __TwigTemplate_99c7b99fa4a91567405c05e558c465bc extends Template
         {% block body %}{% endblock %}
     </body>
 </html>
-", "base.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/templates/base.html.twig");
+", "base.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/templates/base.html.twig");
     }
 }

@@ -644,6 +644,6 @@ class __TwigTemplate_d935e09ad5e11c77b690b1c44e95f4e4 extends Template
         }
     }
 </script>
-", "@WebProfiler/Profiler/base_js.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base_js.html.twig");
+", "@WebProfiler/Profiler/base_js.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/base_js.html.twig");
     }
 }

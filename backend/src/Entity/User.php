@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -29,6 +31,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\Column]
     private ?int $credits = 20;
+
+    /**
+     * @var Collection<int, Vehicle>
+     */
+    #[ORM\OneToMany(targetEntity: Vehicle::class, mappedBy: 'owner')]
+    private Collection $Renault;
+
+    public function __construct()
+    {
+        $this->Renault = new ArrayCollection();
+    }
 
     public function getUserIdentifier(): string
 {
@@ -100,6 +113,36 @@ public function eraseCredentials(): void
     public function setCredits(int $credits): static
     {
         $this->credits = $credits;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Vehicle>
+     */
+    public function getRenault(): Collection
+    {
+        return $this->Renault;
+    }
+
+    public function addRenault(Vehicle $renault): static
+    {
+        if (!$this->Renault->contains($renault)) {
+            $this->Renault->add($renault);
+            $renault->setOwner($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRenault(Vehicle $renault): static
+    {
+        if ($this->Renault->removeElement($renault)) {
+            // set the owning side to null (unless already changed)
+            if ($renault->getOwner() === $this) {
+                $renault->setOwner(null);
+            }
+        }
 
         return $this;
     }

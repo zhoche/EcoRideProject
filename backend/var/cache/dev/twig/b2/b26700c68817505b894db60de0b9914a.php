@@ -170,6 +170,6 @@ class __TwigTemplate_2a21014edd8e8f8347c9f210d9298f5a extends Template
     </ul>
 </div>
 {% endblock %}
-", "test_user/index.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/back/templates/test_user/index.html.twig");
+", "test_user/index.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/templates/test_user/index.html.twig");
     }
 }

@@ -234,6 +234,6 @@ class __TwigTemplate_1f1d7e97b4b2ca8d9c93091cb56ce5de extends Template
         </dl>
     </div>
 </div>
-", "@WebProfiler/Profiler/_command_summary.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/src/ecoride-back/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/_command_summary.html.twig");
+", "@WebProfiler/Profiler/_command_summary.html.twig", "/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/symfony/web-profiler-bundle/Resources/views/Profiler/_command_summary.html.twig");
     }
 }
