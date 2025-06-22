@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ApiRegisterController extends AbstractController
 {
-    #[Route('/api/register', name: 'api_register', methods: ['POST'])]
+    #[Route('/api/register', name: 'api_register', methods: ['POST', 'OPTIONS'])]
     public function register(
         Request $request,
         EntityManagerInterface $em,

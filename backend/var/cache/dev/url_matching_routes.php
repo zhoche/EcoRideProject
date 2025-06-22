@@ -19,16 +19,12 @@ return [
             [['_route' => 'api_login', '_controller' => 'App\\Controller\\ApiLoginController::login'], null, ['POST' => 0], null, false, false, null],
             [['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null],
         ],
-        '/api/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\ApiRegisterController::register'], null, ['POST' => 0], null, false, false, null]],
-        '/api/registration' => [[['_route' => 'app_registration', '_controller' => 'App\\Controller\\RegistrationController::index'], null, null, null, false, false, null]],
-        '/api/rides/api/test-user' => [[['_route' => 'app_ride_testuser', '_controller' => 'App\\Controller\\RideController::testUser'], null, ['GET' => 0], null, false, false, null]],
-        '/api/rides' => [
-            [['_route' => 'app_ride_index', '_controller' => 'App\\Controller\\RideController::index'], null, ['GET' => 0], null, false, false, null],
-            [['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null],
-        ],
+        '/api/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\ApiRegisterController::register'], null, ['POST' => 0, 'OPTIONS' => 1], null, false, false, null]],
+        '/api/rides/test-user' => [[['_route' => 'app_ride_testuser', '_controller' => 'App\\Controller\\RideController::testUser'], null, ['GET' => 0], null, false, false, null]],
+        '/api/rides/ride/create' => [[['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null]],
+        '/api/rides/ride/list' => [[['_route' => 'app_ride_getalluserrides', '_controller' => 'App\\Controller\\RideController::getAllUserRides'], null, ['GET' => 0], null, false, false, null]],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
-        '/api/test-user' => [[['_route' => 'test_user', '_controller' => 'App\\Controller\\TestUserController::index'], null, null, null, false, false, null]],
-        '/api/login_check' => [[['_route' => 'api_login_check'], null, null, null, false, false, null]],
+        '/api/login_check' => [[['_route' => 'api_login_check'], null, ['POST' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'
@@ -50,7 +46,7 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/api/rides/api/rides/([^/]++)/join(*:236)'
+                .'|/api/rides/ride/([^/]++)/register(*:235)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -62,8 +58,8 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        236 => [
-            [['_route' => 'app_ride_joinride', '_controller' => 'App\\Controller\\RideController::joinRide'], ['id'], ['POST' => 0], null, false, false, null],
+        235 => [
+            [['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

@@ -8,42 +8,99 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use App\Entity\User;
 use App\Entity\Vehicle;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 #[ORM\Entity(repositoryClass: RideRepository::class)]
 class Ride
 {
+
+
+    //{ id: 1, driverID: 1, departure: 'A', arrival: 'B', availableSeats: 5, price: 3, date: '2023-10-01T10:00:00Z', vehicle: 'vehiculeID', idPassengers: ["id1", "id2"] },
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['ride:read'])]
     private ?int $id = null;
 
+    #[ORM\Column]
+    #[Groups(['ride:read'])]
+    private ?int $driverID = null;
+
     #[ORM\Column(length: 255)]
+    #[Groups(['ride:read'])]
     private ?string $departure = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['ride:read'])]
     private ?string $arrival = null;
 
     #[ORM\Column]
+    #[Groups(['ride:read'])]
     private ?\DateTime $date = null;
 
     #[ORM\Column]
+    #[Groups(['ride:read'])]
     private ?int $availableSeats = null;
 
     #[ORM\Column]
+    #[Groups(['ride:read'])]
     private ?float $price = null;
-
-    #[ORM\ManyToOne]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $driverRole = null;
 
     #[ORM\ManyToOne(targetEntity: Vehicle::class)]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['ride:read'])]
     private ?Vehicle $vehicle = null;
+
+    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[Groups(['ride:read'])]
+    private Collection $passengers;
+
+    
 
     public function getId(): ?int
     {
         return $this->id;
     }
+
+    public function getDriverID(): ?int
+    {
+        return $this->driverID;
+    }
+
+    public function setDriverID(int $driverID): static
+    {
+        $this->driverID = $driverID;
+        return $this;
+    }
+
+    public function __construct()
+    {
+        $this->passengers = new ArrayCollection();
+    }
+
+    public function getPassengers(): Collection
+    {
+        return $this->passengers;
+    }
+
+    public function addPassenger(User $user): static
+    {
+        if (!$this->passengers->contains($user)) {
+            $this->passengers->add($user);
+        }
+
+        return $this;
+    }
+
+    public function removePassenger(User $user): static
+    {
+        $this->passengers->removeElement($user);
+        return $this;
+    }
+
+
 
     public function getDeparture(): ?string
     {
@@ -53,9 +110,9 @@ class Ride
     public function setDeparture(string $departure): static
     {
         $this->departure = $departure;
-
         return $this;
     }
+
 
     public function getArrival(): ?string
     {
@@ -65,9 +122,9 @@ class Ride
     public function setArrival(string $arrival): static
     {
         $this->arrival = $arrival;
-
         return $this;
     }
+
 
     public function getDate(): ?\DateTime
     {
@@ -77,9 +134,9 @@ class Ride
     public function setDate(\DateTime $date): static
     {
         $this->date = $date;
-
         return $this;
     }
+
 
     public function getAvailableSeats(): ?int
     {
@@ -89,9 +146,9 @@ class Ride
     public function setAvailableSeats(int $availableSeats): static
     {
         $this->availableSeats = $availableSeats;
-
         return $this;
     }
+
 
     public function getPrice(): ?float
     {
@@ -101,23 +158,11 @@ class Ride
     public function setPrice(float $price): static
     {
         $this->price = $price;
-
         return $this;
     }
 
-    public function getDriverRole(): ?User
-    {
-        return $this->driverRole;
-    }
 
-    public function setDriverRole(?User $driverRole): static
-    {
-        $this->driverRole = $driverRole;
-
-        return $this;
-    }
-
-        public function getVehicle(): ?Vehicle
+    public function getVehicle(): ?Vehicle
     {
         return $this->vehicle;
     }
@@ -128,25 +173,4 @@ class Ride
         return $this;
     }
 
-
-#[ORM\ManyToMany(targetEntity: User::class)]
-private Collection $passengers;
-
-public function getPassengers(): Collection
-{
-    return $this->passengers;
 }
-
-public function addPassenger(User $user): self
-{
-    if (!$this->passengers->contains($user)) {
-        $this->passengers[] = $user;
-    }
-    return $this;
-}
-
-}
-
-
-
-
