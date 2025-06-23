@@ -36,8 +36,8 @@ class ApiLoginController extends AbstractController
         $token = $jwtManager->create($user);
         
         return new JsonResponse([
-            'token' => $token,
             'user' => [
+                'token' => $token,
                 'id' => $user->getId(),
                 'email' => $user->getEmail(),
                 'role' => $user->getRoles()[0] ?? 'ROLE_USER'
