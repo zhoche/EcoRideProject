@@ -88,3 +88,6 @@ e5781d,127.0.0.1,GET,https://localhost:8000/api/rides/3/delete,1750682724,838f6c
 3d4de2,127.0.0.1,POST,https://localhost:8000/api/rides/feedback,1750683903,,403,request
 26e9b3,127.0.0.1,POST,https://localhost:8000/api/rides/2/register,1750683933,,200,request
 13dfde,127.0.0.1,POST,https://localhost:8000/api/rides/feedback,1750683936,,200,request
+9ea99d,127.0.0.1,OPTIONS,https://127.0.0.1:8000/api/login,1750684490,,200,request
+bcdeec,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1750684491,,200,request
+d0dcc0,127.0.0.1,POST,https://127.0.0.1:8000/api/login,1750684501,,200,request
