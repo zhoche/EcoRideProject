@@ -38,7 +38,7 @@ class RideController extends AbstractController
 }
 
     // Route pour créer un trajet
-    #[Route('/ride/create', methods: ['POST'])]
+    #[Route('/create', methods: ['POST'])]
     public function create(
         Request $request,
         EntityManagerInterface $em,
@@ -101,7 +101,7 @@ class RideController extends AbstractController
 
 // Lister tous les trajets de l'utilisateur connecté
 
-#[Route('/ride/list', methods: ['GET'])]
+#[Route('/list', methods: ['GET'])]
 public function getAllUserRides(EntityManagerInterface $em): JsonResponse
 {
     $user = $this->getUser();
@@ -150,7 +150,7 @@ public function getAllUserRides(EntityManagerInterface $em): JsonResponse
 
 
 //S'inscrire à un trajet
-#[Route('/ride/{ride_id}/register', methods: ['POST'])]
+#[Route('/{ride_id}/register', methods: ['POST'])]
 public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonResponse
 {
     $user = $this->getUser();

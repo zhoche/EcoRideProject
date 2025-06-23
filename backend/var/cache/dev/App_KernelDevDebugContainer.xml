@@ -471,9 +471,6 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Security\AppAuthenticator" class="App\Security\AppAuthenticator" autowire="true" autoconfigure="true"/>
-    <service id="App\mesroutes" class="App\mesroutes" autowire="true" autoconfigure="true">
-      <tag name="container.error" message="The autoloader expected class &quot;App\mesroutes&quot; to be defined in file &quot;/Users/zoecinetique/Desktop/EcoRide/ecorideproject/backend/vendor/composer/../../src/mesroutes.php&quot;. The file was found but the class was not in it, the class name or namespace probably has a typo."/>
-    </service>
     <service id="argument_metadata_factory" class="Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadataFactory"/>
     <service id="argument_resolver.backed_enum_resolver" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">
       <tag priority="100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\BackedEnumValueResolver">controller.argument_value_resolver</tag>
@@ -6687,7 +6684,7 @@
     <service id="security.firewall.map" class="Symfony\Bundle\SecurityBundle\Security\FirewallMap">
       <argument type="service" id=".service_locator.plrhKmk"/>
       <argument type="iterator">
-        <argument key="security.firewall.map.context.login" type="service" id=".security.request_matcher.hIZkMXB"/>
+        <argument key="security.firewall.map.context.login" type="service" id=".security.request_matcher._7JLSkp"/>
         <argument key="security.firewall.map.context.api" type="service" id=".security.request_matcher.NaFk5J1"/>
         <argument key="security.firewall.map.context.dev" type="service" id=".security.request_matcher.gOpgIHx"/>
         <argument key="security.firewall.map.context.main">null</argument>
@@ -6836,7 +6833,7 @@
     </service>
     <service id="security.access_map" class="Symfony\Component\Security\Http\AccessMap">
       <call method="add">
-        <argument type="service" id=".security.request_matcher.1dAc.Mj"/>
+        <argument type="service" id=".security.request_matcher.S.FPR_b"/>
         <argument type="collection">
           <argument>IS_AUTHENTICATED_ANONYMOUSLY</argument>
         </argument>
@@ -7238,7 +7235,7 @@
     <service id="security.firewall.map.config.login" class="Symfony\Bundle\SecurityBundle\Security\FirewallConfig">
       <argument>login</argument>
       <argument>security.user_checker</argument>
-      <argument>.security.request_matcher.hIZkMXB</argument>
+      <argument>.security.request_matcher._7JLSkp</argument>
       <argument>true</argument>
       <argument>true</argument>
       <argument>security.user.provider.concrete.app_user_provider</argument>
@@ -7252,12 +7249,12 @@
       <argument>null</argument>
       <argument>null</argument>
     </service>
-    <service id=".security.request_matcher.CE6BPIT" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
-      <argument>^/api/login_check</argument>
+    <service id=".security.request_matcher..tvo6Vp" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
+      <argument>^/api/login</argument>
     </service>
-    <service id=".security.request_matcher.hIZkMXB" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+    <service id=".security.request_matcher._7JLSkp" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
       <argument type="collection">
-        <argument type="service" id=".security.request_matcher.CE6BPIT"/>
+        <argument type="service" id=".security.request_matcher..tvo6Vp"/>
       </argument>
     </service>
     <service id="security.user_checker.chain.login" class="Symfony\Component\Security\Core\User\ChainUserChecker">
@@ -7269,7 +7266,7 @@
       <argument type="service" id="security.authentication.success_handler.login.json_login"/>
       <argument type="service" id="security.authentication.failure_handler.login.json_login"/>
       <argument type="collection">
-        <argument key="check_path">/api/login_check</argument>
+        <argument key="check_path">/api/login</argument>
         <argument key="username_path">email</argument>
         <argument key="password_path">password</argument>
         <argument key="use_forward">false</argument>
@@ -7576,9 +7573,9 @@
         <argument key="security.firewall.map.context.main" type="service_closure" id="security.firewall.map.context.main"/>
       </argument>
     </service>
-    <service id=".security.request_matcher.1dAc.Mj" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
+    <service id=".security.request_matcher.S.FPR_b" class="Symfony\Component\HttpFoundation\ChainRequestMatcher">
       <argument type="collection">
-        <argument type="service" id=".security.request_matcher.CE6BPIT"/>
+        <argument type="service" id=".security.request_matcher..tvo6Vp"/>
       </argument>
     </service>
     <service id=".security.request_matcher.CsecYAy" class="Symfony\Component\HttpFoundation\RequestMatcher\PathRequestMatcher">
