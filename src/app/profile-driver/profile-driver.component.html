@@ -51,12 +51,12 @@
           </tr>
         </thead>
         <tbody class="trips__body">
-          <tr>
-            <td data-label="Ville de départ">Auch</td>
-            <td data-label="Ville d’arrivée">Toulouse</td>
-            <td data-label="Date de trajet">20/05/2025</td>
+          <tr *ngFor="let ride of rides">
+            <td data-label="Ville de départ">{{ ride.departure }}</td>
+            <td data-label="Ville d’arrivée">{{ ride.arrival }}</td>
+            <td data-label="Date de trajet">{{ ride.date | date:'dd/MM/yyyy' }}</td>
             <td data-label="Heure de trajet">10h20 – 11h20</td>
-            <td data-label="Conducteur">Anthony</td>
+            <td data-label="Conducteur">{{ ride.driverRole?.pseudo }}</td>
             <td>
               <span class="badge badge--success">En cours</span>
             </td>
@@ -67,23 +67,7 @@
                 </button>
             </td>
           </tr>
-          <tr>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Ville d’arrivée">Auch</td>
-            <td data-label="Date de trajet">12/05/2025</td>
-            <td data-label="Heure de trajet">07h00 – 08h00</td>
-            <td data-label="Conducteur">Sandra</td>
-            <td>
-              <span class="badge badge--info">Terminé</span>
-            </td>
-            <td class="trips__actions">
-                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
-                </button>
-                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
-                </button>
-            </td>
-          </tr>
-          <tr>
+          <!-- <tr>
             <td data-label="Ville de départ">Auch</td>
             <td data-label="Ville d’arrivée">Toulouse</td>
             <td data-label="Date de trajet">03/05/2025</td>
@@ -114,7 +98,7 @@
                 <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
                 </button>
             </td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </div>

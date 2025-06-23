@@ -30,32 +30,48 @@ export class ConnexionComponent {
     };
   
     this.authService.login(credentials).subscribe({
-      next: user => {
-        console.log('✅ Connexion réussie', user);
-  
-        switch (user.role) {
-          case 'admin':
-            this.router.navigate(['/profile-admin']);
+      next: (response) => {
+        console.log('✅ Réponse reçue :', response);
+      
+        const token = response.token;
+        const user = response.user;
+      
+        // Protection contre l'absence de user
+        if (!user) {
+          this.errorMsg = "L'utilisateur n’a pas été trouvé dans la réponse.";
+          return;
+        }
+      
+        // Enregistre le token et l'utilisateur
+        localStorage.setItem('token', token);
+        localStorage.setItem('user', JSON.stringify(user));
+      
+        const role = user.role.replace('ROLE_', '').toLowerCase();
+        console.log('🎭 Rôle détecté :', role);
+      
+        switch (role) {
+          case 'passenger':
+            this.router.navigate(['/profile-passenger']);
             break;
           case 'driver':
             this.router.navigate(['/profile-driver']);
             break;
-          case 'passenger':
-            this.router.navigate(['/profile-passenger']);
-            break;
           case 'employe':
             this.router.navigate(['/profile-employe']);
             break;
+          case 'admin':
+            this.router.navigate(['/profile-admin']);
+            break;
           default:
-            this.router.navigate(['/profile-passenger']);
+            this.router.navigate(['/']);
         }
       },
-      error: err => {
+    
+      // ⬇️ Cette virgule était manquante
+      error: (err) => {
         this.errorMsg = 'Erreur de connexion : ' + (err.error?.error || 'Veuillez réessayer.');
       }
-    });
-  
-    console.log('➡️ Données envoyées :', this.email, this.password);
+    });    
   }
   
   
