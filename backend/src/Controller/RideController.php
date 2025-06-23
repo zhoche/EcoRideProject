@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ride;
 use App\Entity\User;
+use App\Entity\Avis;
 use App\Repository\RideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -196,6 +197,186 @@ public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonRe
     $em->flush();
 
     return $this->json(['success' => 'Inscription réussie']);
+}
+
+
+
+// Se désinscrire d'un trajet
+#[Route('/{ride_id}/unregister', methods: ['POST'])]
+public function unregisterFromRide(int $ride_id, EntityManagerInterface $em): JsonResponse
+{
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['error' => 'Utilisateur non connecté'], 401);
+    }
+
+    $ride = $em->getRepository(Ride::class)->find($ride_id);
+
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet non trouvé'], 404);
+    }
+
+    // Vérifie si l'utilisateur est inscrit à ce trajet
+    if (!$ride->getPassengers()->contains($user)) {
+        return $this->json(['message' => 'Utilisateur non inscrit à ce trajet'], 400);
+    }
+
+    // Supprime l'utilisateur des passagers
+    $ride->getPassengers()->removeElement($user);
+
+    // Libère une place
+    $ride->setAvailableSeats($ride->getAvailableSeats() + 1);
+
+    // Restaure 1 crédit
+    $user->setCredits($user->getCredits() + 1);
+
+    // Supprime l'ID du trajet dans user.rideIDs
+    $rideIDs = $user->getRideIDs();
+    if (is_array($rideIDs)) {
+        $updatedIDs = array_filter($rideIDs, fn($id) => $id !== $ride->getId());
+        $user->setRideIDs(array_values($updatedIDs));
+    }
+
+    // Sauvegarde
+    $em->persist($ride);
+    $em->persist($user);
+    $em->flush();
+
+    return $this->json(['success' => 'Désinscription réussie']);
+}
+
+
+
+// Supprimer un trajet
+#[Route('/{ride_id}/delete', methods: ['POST'])]
+public function deleteRide(int $ride_id, EntityManagerInterface $em): JsonResponse
+{
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['error' => 'Utilisateur non connecté'], 401);
+    }
+
+    $ride = $em->getRepository(Ride::class)->find($ride_id);
+
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet non trouvé'], 404);
+    }
+
+    // Vérifie que l'utilisateur est bien le propriétaire du trajet (conducteur)
+    if ($ride->getVehicle()?->getOwnerId() !== $user->getId())
+    {
+        return $this->json(['error' => 'Vous n\'êtes pas autorisé à supprimer ce trajet'], 403);
+    }
+
+    $em->remove($ride);
+    $em->flush();
+
+    return $this->json(['success' => 'Trajet supprimé avec succès']);
+}
+
+
+
+
+// Modifier un trajet
+#[Route('/{ride_id}/update', methods: ['POST'])]
+public function updateRide(
+    int $ride_id,
+    Request $request,
+    EntityManagerInterface $em,
+    ValidatorInterface $validator
+): JsonResponse {
+    $user = $this->getUser();
+
+    if (!$user) {
+        return $this->json(['error' => 'Utilisateur non connecté'], 401);
+    }
+
+    $ride = $em->getRepository(Ride::class)->find($ride_id);
+
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet non trouvé'], 404);
+    }
+
+    // Vérifie que l'utilisateur est bien le conducteur
+    if ($ride->getVehicle()?->getOwnerID() !== $user->getId()) {
+        return $this->json(['error' => 'Vous n’êtes pas autorisé à modifier ce trajet'], 403);
+    }
+
+    $data = json_decode($request->getContent(), true);
+
+    if (isset($data['departure'])) {
+        $ride->setDeparture($data['departure']);
+    }
+
+    if (isset($data['arrival'])) {
+        $ride->setArrival($data['arrival']);
+    }
+
+    if (isset($data['date'])) {
+        $ride->setDate(new \DateTime($data['date']));
+    }
+
+    if (isset($data['available_seats']) && is_numeric($data['available_seats'])) {
+        $ride->setAvailableSeats((int) $data['available_seats']);
+    }
+
+    if (isset($data['price']) && is_numeric($data['price'])) {
+        $ride->setPrice((float) $data['price']);
+    }
+
+    $errors = $validator->validate($ride);
+    if (count($errors) > 0) {
+        return $this->json(['errors' => (string) $errors], 400);
+    }
+
+    $em->flush();
+
+    return $this->json(['success' => 'Trajet mis à jour avec succès']);
+}
+
+
+
+
+// Donner un avis sur un trajet
+#[Route('/feedback', methods: ['POST'])]
+public function giveFeedback(Request $request, EntityManagerInterface $em): JsonResponse
+{
+    $user = $this->getUser();
+    if (!$user) {
+        return $this->json(['error' => 'Utilisateur non connecté'], 401);
+    }
+
+    $data = json_decode($request->getContent(), true);
+
+    if (!isset($data['ride_id'], $data['rating'])) {
+        return $this->json(['error' => 'Données incomplètes'], 400);
+    }
+
+    $ride = $em->getRepository(Ride::class)->find($data['ride_id']);
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet introuvable'], 404);
+    }
+
+    // Vérifie que l'utilisateur était passager du trajet
+    if (!$ride->getPassengers()->contains($user)) {
+        return $this->json(['error' => 'Vous n\'avez pas participé à ce trajet'], 403);
+    }
+
+    // Crée et enregistre l'avis
+    $avis = new Avis();
+    $avis->setRideID($ride->getId());
+    $avis->setPassengerID($user->getId());
+    $avis->setDriverID($ride->getVehicle()->getOwnerID()); 
+    $avis->setRating((int)$data['rating']);
+    $avis->setComment($data['comment'] ?? null);
+    $avis->setStatus('à traiter');
+
+    $em->persist($avis);
+    $em->flush();
+
+    return $this->json(['success' => 'Avis enregistré']);
 }
 
 }

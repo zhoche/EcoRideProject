@@ -19,6 +19,7 @@ return [
         '/api/rides/test-user' => [[['_route' => 'app_ride_testuser', '_controller' => 'App\\Controller\\RideController::testUser'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/create' => [[['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null]],
         '/api/rides/list' => [[['_route' => 'app_ride_getalluserrides', '_controller' => 'App\\Controller\\RideController::getAllUserRides'], null, ['GET' => 0], null, false, false, null]],
+        '/api/rides/feedback' => [[['_route' => 'app_ride_givefeedback', '_controller' => 'App\\Controller\\RideController::giveFeedback'], null, ['POST' => 0], null, false, false, null]],
         '/api/login' => [
             [['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null],
             [['_route' => 'api_login'], null, ['POST' => 0], null, false, false, null],
@@ -45,7 +46,14 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/api/rides/([^/]++)/register(*:230)'
+                .'|/api/rides/([^/]++)/(?'
+                    .'|register(*:233)'
+                    .'|u(?'
+                        .'|nregister(*:254)'
+                        .'|pdate(*:267)'
+                    .')'
+                    .'|delete(*:282)'
+                .')'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -57,8 +65,11 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        230 => [
-            [['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null],
+        233 => [[['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        254 => [[['_route' => 'app_ride_unregisterfromride', '_controller' => 'App\\Controller\\RideController::unregisterFromRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        267 => [[['_route' => 'app_ride_updateride', '_controller' => 'App\\Controller\\RideController::updateRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        282 => [
+            [['_route' => 'app_ride_deleteride', '_controller' => 'App\\Controller\\RideController::deleteRide'], ['ride_id'], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

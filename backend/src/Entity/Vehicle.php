@@ -29,7 +29,6 @@ class Vehicle
     private ?string $energy = null;
 
 
-
     public function getId(): ?int
     {
         return $this->id;
