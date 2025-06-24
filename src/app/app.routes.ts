@@ -15,6 +15,8 @@ import { Error404Component } from './error-404/error-404.component';
 import { HeaderComponent } from './shared/header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { AuthGuard } from './auth/auth.guard';
+import { DriverDashboardComponent } from './driver-dashboard/driver-dashboard.component';
+
 
 
 export const routes: Routes = [
@@ -27,12 +29,16 @@ export const routes: Routes = [
     { path: 'profile-passenger' , component: ProfilePassengerComponent },
     { path: 'ride-validated' , component: RideValidatedComponent },
     { path: 'ride-report' , component: RideReportComponent },
-    { path: 'profile-driver' , component: ProfileDriverComponent },
+    {
+        path: 'profile-driver',
+        component: ProfileDriverComponent,
+        children: [
+          { path: '', component: DriverDashboardComponent },
+          { path: 'new-ride', component: NewRideComponent }
+        ]
+      },
     { path: 'profile-employe' , component: ProfileEmployeComponent },
     { path: 'profile-admin' , component: ProfileAdminComponent },
     { path: 'new-ride' , component: NewRideComponent },
     { path: '**' , component: Error404Component },
-    { path: 'profile-admin', component: ProfileAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
-    { path: 'profile-driver', component: ProfileDriverComponent, canActivate: [AuthGuard], data: { roles: ['driver'] }},
-    { path: 'profile-employe', component: ProfileEmployeComponent, canActivate: [AuthGuard], data: { roles: ['employe'] }}
 ]

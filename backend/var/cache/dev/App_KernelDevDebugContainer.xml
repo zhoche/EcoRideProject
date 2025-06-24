@@ -417,6 +417,40 @@
       <tag name="routing.route_loader"/>
     </service>
     <service id="App\EventListener\CorsPreflightRequestListener" class="App\EventListener\CorsPreflightRequestListener" autowire="true" autoconfigure="true"/>
+    <service id="App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="create:test-rides" description="Crée plusieurs trajets de test pour les conducteurs." help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>create:test-rides</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Crée plusieurs trajets de test pour les conducteurs.</argument>
+      </call>
+    </service>
+    <service id="App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="create:test-users" description="Crée des utilisateurs avec rôles - admin, driver, employe, passenger" help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <argument type="service" id="security.user_password_hasher"/>
+      <call method="setName">
+        <argument>create:test-users</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Crée des utilisateurs avec rôles - admin, driver, employe, passenger</argument>
+      </call>
+    </service>
+    <service id="App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="create:test-vehicles" description="" help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>create:test-vehicles</argument>
+      </call>
+    </service>
     <service id="App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -8098,6 +8132,15 @@
         <argument>Generate public/private keys for use in your application.</argument>
       </call>
     </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\CreateRidesCommand.0.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\CreateUsersCommand.0.App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\CreateVehiclesCommand.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -9974,6 +10017,20 @@
     <service id=".errored..service_locator.zHyJIs5.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.zHyJIs5&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
     </service>
+    <service id=".App\Command\CreateRidesCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>create:test-rides</argument>
+      <argument type="collection"/>
+      <argument>Crée plusieurs trajets de test pour les conducteurs.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\CreateRidesCommand"/>
+    </service>
+    <service id=".App\Command\CreateUsersCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>create:test-users</argument>
+      <argument type="collection"/>
+      <argument>Crée des utilisateurs avec rôles - admin, driver, employe, passenger</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\CreateUsersCommand"/>
+    </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
       <argument type="collection"/>
@@ -10716,8 +10773,11 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.n7Of.Tu"/>
+      <argument type="service" id=".service_locator.mrIbqui"/>
       <argument type="collection">
+        <argument key="create:test-rides">App\Command\CreateRidesCommand</argument>
+        <argument key="create:test-users">App\Command\CreateUsersCommand</argument>
+        <argument key="create:test-vehicles">App\Command\CreateVehiclesCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -10844,9 +10904,12 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.n7Of.Tu" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.mrIbqui" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\CreateRidesCommand" type="service_closure" id=".App\Command\CreateRidesCommand.lazy"/>
+        <argument key="App\Command\CreateUsersCommand" type="service_closure" id=".App\Command\CreateUsersCommand.lazy"/>
+        <argument key="App\Command\CreateVehiclesCommand" type="service_closure" id="App\Command\CreateVehiclesCommand"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>
         <argument key="console.command.cache_clear" type="service_closure" id=".console.command.cache_clear.lazy"/>

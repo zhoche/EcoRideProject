@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NewRideComponent } from '../new-ride/new-ride.component';
 import { RideService } from '../ride.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-profile-driver',
@@ -9,12 +10,13 @@ import { RideService } from '../ride.service';
   imports: [
     CommonModule,
     NewRideComponent,   
+    RouterModule
   ],
   templateUrl: './profile-driver.component.html',
   styleUrls: ['./profile-driver.component.scss']
 })
 export class ProfileDriverComponent implements OnInit {
-  showNewRideWizard = true;
+  showNewRideWizard = false;
   rides: any[] = [];
 
   constructor(private rideService: RideService) {}

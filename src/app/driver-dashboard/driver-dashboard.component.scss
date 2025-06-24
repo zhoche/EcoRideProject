@@ -8,62 +8,6 @@
     background-color: $color-secondary-1;
 }
 
-// NAVIGATION PROFILE
-.profile-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: $color-secondary-1; 
-  font-family: Figtree, sans-serif;
-  margin-top: 2rem;
-}
-  
-  .profile-nav__list {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    padding: 6px;
-    background-color: white;
-    border-radius: $radius-full;
-    max-width: 614px;
-  }
-  
-  .profile-nav__item a {
-    display: inline-block;
-    padding: 8px 16px;
-    border-radius: $radius-full;
-    background-color: white;
-    color: $color-dark;
-    text-decoration: none;
-    font-size: 14px;
-    font-weight: 500;
-    transition: background-color 0.2s;
-  }
-  
-  .profile-nav__item a:hover {
-    background-color: $color-primary;
-    color: $color-accent
-  }
-  
-  .profile-nav__item--active a {
-    background-color: $color-accent; 
-    color: $color-dark;
-    cursor: default;
-
-  }
-
-
-  .profile-nav__btn {
-    padding: 12px 20px;
-    background-color: $color-secondary-2;
-    color: white;
-    border: none;
-    border-radius: $radius-md;
-    font-size: 14px;
-    font-weight: 500;
-    transition: opacity 0.2s;
-
-  }
 
 
 
@@ -156,6 +100,7 @@
     border: none;
     cursor: pointer;
     background-color: white;
+
   
     img {
       display: block;
@@ -174,28 +119,7 @@
 }
 
 
-.logout-btn {
-  margin-top: auto; 
-  display: block;
-  width: fit-content;
-  margin: $spacing-lg auto 0;
-  padding: $spacing-sm $spacing-md;
-  font-size: 14px;
-  font-weight: 500;
-  color: $color-dark;
-  background-color: transparent;
-  border: 1px solid $color-secondary-6;
-  border-radius: $radius-full;
-  cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
-  grid-column: 2;
 
-  &:hover {
-    background-color: $color-error;
-    color: white;
-    border: none;
-  }
-}
 
 
 
@@ -570,27 +494,3 @@
 }
 
 
-
-
-//BANDEAU TOP-FOOTER
-.bandeau-blanc-arrondi {
-  width: 100vw;
-  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
-  height: 40px;
-  background-color: $color-secondary-1;
-  border-bottom-left-radius: 40px;
-  border-bottom-right-radius: 40px;
-
-  position: relative;
-  z-index: 10;
-  margin-bottom: -40px;
-}
-
-.section-verte {
-  background-color: $color-primary;
-  position: relative;
-  z-index: 1;
-  margin-left: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
-  margin-right: calc(-1 * (100vw - 100%) / 2); // compense le débordement à cause du padding parent
-  padding-top: 60px; // si tu veux éviter que ça se colle au bandeau
-}
