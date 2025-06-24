@@ -25,6 +25,7 @@ return [
             [['_route' => 'api_login'], null, ['POST' => 0], null, false, false, null],
         ],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
+        '/api/redirect-role' => [[['_route' => 'redirect_role', '_controller' => 'App\\Controller\\UserController::redirectRole'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

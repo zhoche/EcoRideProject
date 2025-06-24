@@ -18,25 +18,30 @@ class ApiRegisterController extends AbstractController
         EntityManagerInterface $em,
         UserPasswordHasherInterface $passwordHasher
     ): JsonResponse {
+        // 🔁 Si c'est une requête OPTIONS (préflight), on répond simplement 200 OK
+        if ($request->getMethod() === 'OPTIONS') {
+            return new JsonResponse(null, 200);
+        }
+    
         $data = json_decode($request->getContent(), true);
-
+    
         if (!isset($data['email'], $data['password'], $data['pseudo'])) {
             return new JsonResponse(['error' => 'Données incomplètes.'], 400);
         }
-
+    
         $user = new User();
         $user->setEmail($data['email']);
         $user->setPseudo($data['pseudo']);
         $user->setCredits(20);
         $user->setRoles(['ROLE_USER']);
-
-        // Hasher le mot de passe
+    
         $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
-
+    
         $em->persist($user);
         $em->flush();
-
+    
         return new JsonResponse(['message' => 'Inscription réussie'], 201);
     }
+    
 }

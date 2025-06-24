@@ -29,8 +29,8 @@ return [
     'app_ride_givefeedback' => [[], ['_controller' => 'App\\Controller\\RideController::giveFeedback'], [], [['text', '/api/rides/feedback']], [], [], []],
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
+    'redirect_role' => [[], ['_controller' => 'App\\Controller\\UserController::redirectRole'], [], [['text', '/api/redirect-role']], [], [], []],
     'api_login' => [[], [], [], [['text', '/api/login']], [], [], []],
-    'App\Controller\ApiLoginController::login' => [[], [], [], [['text', '/api/login']], [], [], []],
     'App\Controller\ApiRegisterController::register' => [[], ['_controller' => 'App\\Controller\\ApiRegisterController::register'], [], [['text', '/api/register']], [], [], []],
     'App\Controller\RideController::testUser' => [[], ['_controller' => 'App\\Controller\\RideController::testUser'], [], [['text', '/api/rides/test-user']], [], [], []],
     'App\Controller\RideController::create' => [[], ['_controller' => 'App\\Controller\\RideController::create'], [], [['text', '/api/rides/create']], [], [], []],
@@ -42,4 +42,5 @@ return [
     'App\Controller\RideController::giveFeedback' => [[], ['_controller' => 'App\\Controller\\RideController::giveFeedback'], [], [['text', '/api/rides/feedback']], [], [], []],
     'App\Controller\SecurityController::login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], [], []],
     'App\Controller\SecurityController::logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
+    'App\Controller\UserController::redirectRole' => [[], ['_controller' => 'App\\Controller\\UserController::redirectRole'], [], [['text', '/api/redirect-role']], [], [], []],
 ];

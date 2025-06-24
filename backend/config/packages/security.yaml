@@ -1,40 +1,48 @@
 security:
-    password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
+  password_hashers:
+    Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
 
-    providers:
-        app_user_provider:
-            entity:
-                class: App\Entity\User
-                property: email
+  providers:
+    app_user_provider:
+      entity:
+        class: App\Entity\User
+        property: email 
 
-    firewalls:
-        login:
-            pattern: ^/api/login
-            stateless: true
-            json_login:
-                check_path: /api/login
-                username_path: email
-                password_path: password
-                success_handler: lexik_jwt_authentication.handler.authentication_success
-                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+  firewalls:
+    register:
+      pattern: ^/api/register
+      stateless: true
+      security: false
 
-        api:
-            pattern: ^/api
-            stateless: true
-            jwt: ~
+    login:
+      pattern: ^/api/login
+      stateless: true
+      provider: app_user_provider
+      json_login:
+        check_path: /api/login
+        username_path: email
+        password_path: password
+        success_handler: lexik_jwt_authentication.handler.authentication_success
+        failure_handler: lexik_jwt_authentication.handler.authentication_failure
 
-        dev:
-            pattern: ^/(_(profiler|wdt)|css|images|js)/
-            security: false
+    api:
+      pattern: ^/api
+      stateless: true
+      jwt: ~
 
-        main:
-            provider: app_user_provider
-            custom_authenticator: App\Security\AppAuthenticator
-            lazy: true
-            stateless: false
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
 
-    access_control:
-        - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+    secured_area:
+      pattern: ^/(?!api)
+      provider: app_user_provider
+      custom_authenticator: App\Security\AppAuthenticator
+      lazy: true
+      stateless: false
+
+  access_control:
+    - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api, methods: [OPTIONS], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

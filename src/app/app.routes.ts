@@ -32,7 +32,7 @@ export const routes: Routes = [
     { path: 'profile-admin' , component: ProfileAdminComponent },
     { path: 'new-ride' , component: NewRideComponent },
     { path: '**' , component: Error404Component },
-    { path: 'admin/dashboard', component: ProfileAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
-    { path: 'chauffeur/dashboard', component: ProfileDriverComponent, canActivate: [AuthGuard], data: { roles: ['driver'] }},
-    { path: 'employe/dashboard', component: ProfileEmployeComponent, canActivate: [AuthGuard], data: { roles: ['employe'] }}
+    { path: 'profile-admin', component: ProfileAdminComponent, canActivate: [AuthGuard], data: { roles: ['admin'] }},
+    { path: 'profile-driver', component: ProfileDriverComponent, canActivate: [AuthGuard], data: { roles: ['driver'] }},
+    { path: 'profile-employe', component: ProfileEmployeComponent, canActivate: [AuthGuard], data: { roles: ['employe'] }}
 ]
