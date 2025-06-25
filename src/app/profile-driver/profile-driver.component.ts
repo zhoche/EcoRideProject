@@ -3,13 +3,15 @@ import { CommonModule } from '@angular/common';
 import { NewRideComponent } from '../new-ride/new-ride.component';
 import { RideService } from '../ride.service';
 import { RouterModule } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile-driver',
   standalone: true,
   imports: [
     CommonModule,
-    NewRideComponent,   
+    NewRideComponent,
     RouterModule
   ],
   templateUrl: './profile-driver.component.html',
@@ -19,7 +21,11 @@ export class ProfileDriverComponent implements OnInit {
   showNewRideWizard = false;
   rides: any[] = [];
 
-  constructor(private rideService: RideService) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private rideService: RideService
+  ) {}
 
   ngOnInit(): void {
     this.rideService.getUserRides().subscribe({
@@ -28,7 +34,8 @@ export class ProfileDriverComponent implements OnInit {
     });
   }
 
-  onRideFinished() {
-    this.showNewRideWizard = false;
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/connexion']);
   }
 }

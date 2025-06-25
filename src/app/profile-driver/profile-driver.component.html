@@ -1,46 +1,33 @@
-<app-new-ride
-  *ngIf="showNewRideWizard"
-  (finish)="onRideFinished()"
-></app-new-ride>
-
-<ng-container *ngIf="!showNewRideWizard">
-
-
 <!-- NAVIGATION PROFILE -->
 <nav class="profile-nav">
-    <ul class="profile-nav__list">
-      <li class="profile-nav__item profile-nav__item--active">
-        <a routerLink="">Aperçu global</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#historique">Mon historique</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#credits">Mes crédits</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#preferences">Mes préférences</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#compte">Mon compte</a>
-      </li>
-      <li class="profile-nav__item">
-        <a routerLink="new-ride">Ajouter un trajet</a>
-      </li>
-    </ul>
-    <button class="profile-nav__btn">Profil Conducteur</button>
+  <ul class="profile-nav__list">
+    <li class="profile-nav__item" routerLinkActive="profile-nav__item--active" [routerLinkActiveOptions]="{ exact: true }">
+      <a routerLink="./">Aperçu global</a>
+    </li>
+    <li class="profile-nav__item">
+      <a href="#historique">Mon historique</a>
+    </li>
+    <li class="profile-nav__item">
+      <a href="#credits">Mes crédits</a>
+    </li>
+    <li class="profile-nav__item">
+      <a href="#preferences">Mes préférences</a>
+    </li>
+    <li class="profile-nav__item">
+      <a href="#compte">Mon compte</a>
+    </li>
+    <li class="profile-nav__item" routerLinkActive="profile-nav__item--active">
+      <a routerLink="new-ride">Ajouter un trajet</a>
+    </li>
+  </ul>
+  <button class="profile-nav__btn">Profil Conducteur</button>
 </nav>
 
-
-  
 <router-outlet></router-outlet>
 
-</ng-container>
 
-
+<button type="button" (click)="logout()" class="logout-btn">Déconnexion</button>
 
 <!-- BANDEAU TOP FOOTER -->
 <section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>
 <section class="section-verte"></section>
-
-
