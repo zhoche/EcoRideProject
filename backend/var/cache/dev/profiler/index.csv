@@ -91,3 +91,9 @@ aabe77,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750877615,,401,reques
 0d7963,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750877911,,401,request
 8e47d8,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750877914,,401,request
 d5580c,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750877975,,401,request
+58870a,127.0.0.1,POST,http://localhost:8000/api/login,1750878220,,200,request
+2dbc3d,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750878220,,200,request
+ed4bc1,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750878220,,200,request
+fc808d,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750878224,,200,request
+610e68,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750878480,,200,request
+99d775,127.0.0.1,GET,http://localhost:8000/api/rides/list,1750878480,,200,request
