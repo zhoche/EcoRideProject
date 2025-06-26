@@ -15,7 +15,12 @@ export class RideService {
       'Authorization': `Bearer ${token}`
     });
 
-    return this.http.get<any[]>('http://localhost:8000/api/rides/list', {
+    return this.http.get<{ 
+      credits: number; 
+      rides: any[]; 
+      preferences: string[];
+      creditHistory: { date: string; value: number }[];
+    }>('http://localhost:8000/api/rides/list', {
       headers,
       withCredentials: false 
     });

@@ -451,13 +451,6 @@
         <argument>create:test-vehicles</argument>
       </call>
     </service>
-    <service id="App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" public="true" autowire="true" autoconfigure="true">
-      <tag name="controller.service_arguments"/>
-      <tag name="container.service_subscriber"/>
-      <call method="setContainer">
-        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\ApiLoginController"/>
-      </call>
-    </service>
     <service id="App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
@@ -8141,9 +8134,6 @@
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Command\CreateVehiclesCommand.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" abstract="true"/>
-    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" abstract="true"/>
-    <service id=".abstract.instanceof.App\Controller\ApiLoginController" class="App\Controller\ApiLoginController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -9549,12 +9539,6 @@
         <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
       </argument>
     </service>
-    <service id=".service_locator.ZyP9f7K.App\Controller\ApiLoginController" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\ApiLoginController"/>
-      <argument>App\Controller\ApiLoginController</argument>
-      <argument type="service" id="service_container"/>
-      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
-    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\ApiRegisterController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\ApiRegisterController"/>
       <argument>App\Controller\ApiRegisterController</argument>
@@ -9773,7 +9757,6 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
-          <argument>App\Controller\ApiLoginController</argument>
           <argument>App\Controller\ApiRegisterController</argument>
           <argument>App\Controller\RideController</argument>
           <argument>App\Controller\SecurityController</argument>

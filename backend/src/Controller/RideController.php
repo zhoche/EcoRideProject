@@ -111,19 +111,11 @@ public function getAllUserRides(EntityManagerInterface $em): JsonResponse
         return $this->json(['error' => 'Utilisateur non connecté'], 401);
     }
 
-    // Récupérer les IDs des trajets
-    $rideIDs = $user->getRideIDs() ?? [];
+    $ridesAsDriver = $user->getRidesAsDriver()->toArray();
+    $ridesAsPassenger = $user->getRidesAsPassenger()->toArray();
 
-    if (empty($rideIDs)) {
-        return $this->json([]);
-    }
+    $rides = array_merge($ridesAsDriver, $ridesAsPassenger);
 
-    // Rechercher tous les trajets correspondants
-    $rides = $em->getRepository(Ride::class)->findBy([
-        'id' => $rideIDs,
-    ]);
-
-    // Transformer les trajets en tableau
     $rideData = [];
 
     foreach ($rides as $ride) {
@@ -142,11 +134,45 @@ public function getAllUserRides(EntityManagerInterface $em): JsonResponse
                 'model' => $vehicle->getModel(),
                 'energy' => $vehicle->getEnergy(),
             ] : null,
+            'driver' => $ride->getDriver() ? [
+                'id' => $ride->getDriver()->getId(),
+                'pseudo' => $ride->getDriver()->getPseudo(),
+                'email' => $ride->getDriver()->getEmail(),
+            ] : null,
         ];
     }
 
-    return $this->json($rideData);
+    // Historique 
+    $creditHistory = [
+        ['date' => '20/06', 'value' => 10],
+        ['date' => '22/06', 'value' => 15],
+        ['date' => '24/06', 'value' => 18],
+        ['date' => '26/06', 'value' => $user->getCredits()],
+    ];
+
+
+
+    // Préférences
+    $rawPrefs = $user->getDriverPreferences() ?? [];
+
+    $preferences = array_map(function($key, $value) {
+        if ($value) {
+            return match($key) {
+                default => ucfirst($key)
+            };
+        }
+        return null;
+    }, array_keys($rawPrefs), $rawPrefs);
+
+    return $this->json([
+        'credits' => $user->getCredits(),
+        'rides' => $rideData,
+        'creditHistory' => $creditHistory,
+        'preferences' => array_values(array_filter($preferences)),
+    ]);
 }
+
+
 
 
 
@@ -378,5 +404,8 @@ public function giveFeedback(Request $request, EntityManagerInterface $em): Json
 
     return $this->json(['success' => 'Avis enregistré']);
 }
+
+
+
 
 }

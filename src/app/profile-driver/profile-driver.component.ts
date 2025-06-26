@@ -17,23 +17,15 @@ import { Router } from '@angular/router';
   templateUrl: './profile-driver.component.html',
   styleUrls: ['./profile-driver.component.scss']
 })
-export class ProfileDriverComponent implements OnInit {
+export class ProfileDriverComponent {
   showNewRideWizard = false;
-  rides: any[] = [];
 
   constructor(
     private authService: AuthService,
     private router: Router,
-    private rideService: RideService
   ) {}
 
-  ngOnInit(): void {
-    this.rideService.getUserRides().subscribe({
-      next: (res) => this.rides = res,
-      error: (err) => console.error('Erreur chargement trajets :', err)
-    });
-  }
-
+ 
   logout() {
     this.authService.logout();
     this.router.navigate(['/connexion']);

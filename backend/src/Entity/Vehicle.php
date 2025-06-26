@@ -16,8 +16,9 @@ class Vehicle
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $ownerID = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'vehicles')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $owner = null;
 
     #[ORM\Column(length: 255)]
     private ?string $brand = null;
@@ -35,18 +36,30 @@ class Vehicle
     }
 
 
-    public function getOwnerID(): ?int
-    {
-        return $this->ownerID;
-    }
+    // public function getOwnerID(): ?int
+    // {
+    //     return $this->ownerID;
+    // }
 
-    public function setOwnerID(?int $ownerID): static
+    // public function setOwnerID(?int $ownerID): static
+    // {
+    //     $this->ownerID = $ownerID;
+    //     return $this;
+    // }
+
+    public function getOwner(): ?User
     {
-        $this->ownerID = $ownerID;
+        return $this->owner;
+    }
+    
+    public function setOwner(?User $owner): static
+    {
+        $this->owner = $owner;
         return $this;
     }
 
 
+    
     public function getBrand(): ?string
     {
         return $this->brand;

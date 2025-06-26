@@ -24,9 +24,9 @@ class Ride
     #[Groups(['ride:read'])]
     private ?int $id = null;
 
-    #[ORM\Column]
-    #[Groups(['ride:read'])]
-    private ?int $driverID = null;
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ridesAsDriver')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $driver = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['ride:read'])]
@@ -53,7 +53,7 @@ class Ride
     #[Groups(['ride:read'])]
     private ?Vehicle $vehicle = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class)]
+    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'ridesAsPassenger')]
     #[Groups(['ride:read'])]
     private Collection $passengers;
 
@@ -64,14 +64,14 @@ class Ride
         return $this->id;
     }
 
-    public function getDriverID(): ?int
+    public function getDriver(): ?User
     {
-        return $this->driverID;
+        return $this->driver;
     }
 
-    public function setDriverID(int $driverID): static
+    public function setDriver(User $driver): static
     {
-        $this->driverID = $driverID;
+        $this->driver = $driver;
         return $this;
     }
 

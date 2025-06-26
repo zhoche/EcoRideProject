@@ -43,7 +43,7 @@ class CreateRidesCommand extends Command
     
         foreach ($trajets as [$departure, $arrival, $seats, $price, $date]) {
             $ride = new Ride();
-            $ride->setDriverID($driver->getId())
+            $ride->setDriver($driver)
                  ->setDeparture($departure)
                  ->setArrival($arrival)
                  ->setAvailableSeats($seats)

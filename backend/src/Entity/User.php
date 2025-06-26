@@ -38,18 +38,23 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private int $credits = 20;
 
     #[ORM\Column(type: 'json', nullable: true)]
-    private ?array $rideIDs = [];
-
-    #[ORM\Column(type: 'json', nullable: true)]
     private ?array $driverPreferences = [];
 
     #[ORM\OneToMany(mappedBy: 'owner', targetEntity: Vehicle::class)]
     private Collection $vehicles;
 
+    #[ORM\OneToMany(mappedBy: 'driver', targetEntity: Ride::class)]
+    private Collection $ridesAsDriver;
+
+    #[ORM\ManyToMany(targetEntity: Ride::class, mappedBy: 'passengers')]
+    private Collection $ridesAsPassenger;
+
 
     public function __construct()
     {
         $this->vehicles = new ArrayCollection();
+        $this->ridesAsDriver = new ArrayCollection();
+        $this->ridesAsPassenger = new ArrayCollection();
     }
 
     public function getUserIdentifier(): string
@@ -131,48 +136,22 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->vehicles->contains($vehicle)) {
             $this->vehicles->add($vehicle);
-            $vehicle->setOwnerID($this->getId());
+            $vehicle->setOwner($this); 
         }
-    
-        return $this; 
+        return $this;
     }
 
     public function removeVehicle(Vehicle $vehicle): static
     {
         if ($this->vehicles->removeElement($vehicle)) {
-            if ($vehicle->getOwnerID() === $this->getId()) {
-                $vehicle->setOwnerID(null);
+            if ($vehicle->getOwner() === $this) {
+                $vehicle->setOwner(null);
             }
         }
-    
         return $this;
     }
 
 
-    public function getRideIDs(): ?array
-    {
-        return $this->rideIDs;
-    }
-
-    public function setRideIDs(?array $rideIDs): static
-    {
-        $this->rideIDs = $rideIDs;
-        return $this;
-    }
-
-    public function addRideID(int $rideID): static
-    {
-        if (!in_array($rideID, $this->rideIDs ?? [])) {
-            $this->rideIDs[] = $rideID;
-        }
-        return $this;
-    }
-
-    public function removeRideID(int $rideID): static
-    {
-        $this->rideIDs = array_filter($this->rideIDs ?? [], fn($id) => $id !== $rideID);
-        return $this;
-    }
 
     
     public function getDriverPreferences(): ?array
@@ -186,4 +165,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+
+    /**
+     * @return Collection<int, Ride>
+     */
+    public function getRidesAsDriver(): Collection
+    {
+        return $this->ridesAsDriver;
+    }
+
+    /**
+     * @return Collection<int, Ride>
+     */
+    public function getRidesAsPassenger(): Collection
+    {
+        return $this->ridesAsPassenger;
+    }
 }

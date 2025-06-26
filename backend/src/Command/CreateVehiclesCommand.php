@@ -39,7 +39,8 @@ class CreateVehiclesCommand extends Command
             $vehicle->setBrand($brand)
                     ->setModel($model)
                     ->setEnergy($energy)
-                    ->setOwnerID($driver->getId());
+                    ->setOwner($driver);
+
 
             $this->em->persist($vehicle);
             $output->writeln("🚗 Véhicule $brand $model ($energy) créé.");

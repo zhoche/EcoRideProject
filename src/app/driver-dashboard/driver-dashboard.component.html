@@ -20,7 +20,7 @@
             <td data-label="Ville d’arrivée">{{ ride.arrival }}</td>
             <td data-label="Date de trajet">{{ ride.date | date:'dd/MM/yyyy' }}</td>
             <td data-label="Heure de trajet">10h20 – 11h20</td>
-            <td data-label="Conducteur">{{ ride.driverRole?.pseudo }}</td>
+            <td data-label="Conducteur">{{ ride.driver?.pseudo }}</td>
             <td>
               <span class="badge badge--success">En cours</span>
             </td>
@@ -31,38 +31,6 @@
                 </button>
             </td>
           </tr>
-          <!-- <tr>
-            <td data-label="Ville de départ">Auch</td>
-            <td data-label="Ville d’arrivée">Toulouse</td>
-            <td data-label="Date de trajet">03/05/2025</td>
-            <td data-label="Heure de trajet">10h10 – 11h10</td>
-            <td data-label="Conducteur">Anthony</td>
-            <td>
-              <span class="badge badge--danger">Annulé</span>
-            </td>
-            <td class="trips__actions">
-                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
-                </button>
-                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
-                </button>
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Ville d’arrivée">Aubiet</td>
-            <td data-label="Date de trajet">27/04/2025</td>
-            <td data-label="Heure de trajet">07h20 – 08h20</td>
-            <td data-label="Conducteur">Mathieu</td>
-            <td>
-              <span class="badge badge--info">Terminé</span>
-            </td>
-            <td class="trips__actions">
-                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
-                </button>
-                <button data-label="Actions" class="btn-icon btn-icon--edit btn-icon--disabled" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
-                </button>
-            </td>
-          </tr> -->
         </tbody>
       </table>
     </div>
@@ -142,7 +110,7 @@
                 alt="Eco-Ride"
                 class="credits__icon"
               />
-              <span class="credits__value">124</span>
+              <span class="credits__value">{{ credits }}</span>
             </div>
           </div>
       
@@ -150,7 +118,15 @@
           <div class="credits__history">
             <h4 class="credits__history-title">Historique</h4>
             <div id="credits-chart" class="credits__chart">
-              <!-- votre graphique sera injecté ici -->
+              <div class="credits__chart">
+                <canvas baseChart
+                  *ngIf="chartData"
+                  [data]="chartData"
+                  [options]="chartOptions"
+                  [type]="'line'">
+                </canvas>
+              </div>
+              
             </div>
           </div>
         </div>
@@ -164,7 +140,7 @@
 <div class="overview-cards__block">
   <h3 class="overview-cards__block-title">Mes préférences</h3>
   <div class="overview-cards__item preferences">
-    <ul class="preferences__list">
+    <!-- <ul class="preferences__list">
       <li class="preferences__item">
         <span class="preferences__label">Voiture électrique uniquement</span>
         <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
@@ -178,6 +154,15 @@
       <li class="preferences__item">
         <span class="preferences__label">Voiture électrique uniquement</span>
         <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
+      </li>
+    </ul> -->
+
+    <ul class="preferences__list">
+      <li class="preferences__item" *ngFor="let pref of preferences">
+        <span class="preferences__label">{{ pref }}</span>
+        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence">
+          <img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/>
+        </button>
       </li>
     </ul>
 

@@ -17,11 +17,9 @@ class UserController extends AbstractController
             return $this->json(['error' => 'User not authenticated'], 401);
         }
 
-        // Supposons que getRoles() renvoie un tableau comme ["ROLE_PASSAGER"]
         $roles = $user->getRoles();
-        $role = $roles[0]; // On suppose ici qu’il n’a qu’un rôle principal
+        $role = $roles[0]; 
 
-        // Map des rôles vers des routes front-end (Angular, par exemple)
         $redirectMap = [
             'ROLE_ADMIN'   => '/profile-admin',
             'ROLE_EMPLOYE' => '/profile-employe',
