@@ -307,7 +307,7 @@
 
 .overview-cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: $spacing-lg;
   margin: $spacing-xl 0;
 
@@ -325,13 +325,12 @@
     color: $color-dark;
   }
 
-  /* La carte elle-même */
   &__item {
     background-color: white;
     border-radius: $radius-lg;
     padding: $spacing-lg;
     box-shadow: 0 1px 4px rgba($color-dark, 0.05);
-    flex: 1;               // pour remplir le bloc si nécessaire
+    flex: 1;              
     display: flex;
     flex-direction: column;
   }

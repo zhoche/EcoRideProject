@@ -18,14 +18,17 @@ class Avis
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $rideID = null;
-
-    #[ORM\Column]
-    private ?int $driverID = null;
-
-    #[ORM\Column]
-    private ?int $passengerID = null;
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "driver_id", referencedColumnName: "id", onDelete: "SET NULL", nullable: true)]
+    private ?User $driver = null;
+    
+    #[ORM\ManyToOne(targetEntity: User::class)]
+    #[ORM\JoinColumn(name: "passenger_id", referencedColumnName: "id", onDelete: "SET NULL", nullable: true)]
+    private ?User $passenger = null;
+    
+    #[ORM\ManyToOne(targetEntity: Ride::class)]
+    #[ORM\JoinColumn(name: "ride_id", referencedColumnName: "id", onDelete: "SET NULL", nullable: true)]
+    private ?Ride $ride = null;
 
     #[ORM\Column]
     private ?int $rating = null;
@@ -41,41 +44,39 @@ class Avis
         return $this->id;
     }
 
-    public function getRideID(): ?int
+    public function getRide(): ?Ride
     {
-        return $this->rideID;
+        return $this->ride;
     }
-
-    public function setRideID(int $rideID): static
+    
+    public function setRide(?Ride $ride): static
     {
-        $this->rideID = $rideID;
-
+        $this->ride = $ride;
         return $this;
     }
-
-    public function getDriverID(): ?int
+    
+    public function getDriver(): ?User
     {
-        return $this->driverID;
+        return $this->driver;
     }
-
-    public function setDriverID(int $driverID): static
+    
+    public function setDriver(?User $driver): static
     {
-        $this->driverID = $driverID;
-
+        $this->driver = $driver;
         return $this;
     }
-
-    public function getPassengerID(): ?int
+    
+    public function getPassenger(): ?User
     {
-        return $this->passengerID;
+        return $this->passenger;
     }
-
-    public function setPassengerID(int $passengerID): static
+    
+    public function setPassenger(?User $passenger): static
     {
-        $this->passengerID = $passengerID;
-
+        $this->passenger = $passenger;
         return $this;
     }
+    
 
     public function getRating(): ?int
     {

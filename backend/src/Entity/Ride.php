@@ -89,14 +89,18 @@ class Ride
     {
         if (!$this->passengers->contains($user)) {
             $this->passengers->add($user);
+            $user->getRidesAsPassenger()->add($this); 
         }
-
+    
         return $this;
     }
 
     public function removePassenger(User $user): static
     {
-        $this->passengers->removeElement($user);
+        if ($this->passengers->removeElement($user)) {
+            $user->getRidesAsPassenger()->removeElement($this);
+        }
+
         return $this;
     }
 

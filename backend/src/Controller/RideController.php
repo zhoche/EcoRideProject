@@ -192,38 +192,29 @@ public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonRe
         return $this->json(['error' => 'Trajet non trouvé'], 404);
     }
 
-    // Vérifie s'il reste de la place
     if ($ride->getAvailableSeats() <= 0) {
         return $this->json(['error' => 'Aucune place disponible'], 400);
     }
 
-    // Vérifie si l'utilisateur a assez de crédits
     if ($user->getCredits() < 1) {
         return $this->json(['error' => 'Crédits insuffisants'], 400);
     }
 
-    // Vérifie s'il est déjà inscrit
     if ($ride->getPassengers()->contains($user)) {
         return $this->json(['message' => 'Déjà inscrit à ce trajet'], 200);
     }
 
-    // Enregistre l'utilisateur comme passager
     $ride->addPassenger($user);
     $ride->setAvailableSeats($ride->getAvailableSeats() - 1);
-
-    // Met à jour les crédits
     $user->setCredits($user->getCredits() - 1);
 
-    // Sauvegarde l'ID du trajet dans user.rideIDs
-    $user->addRideID($ride->getId());
-
-    // Persistance
     $em->persist($ride);
     $em->persist($user);
     $em->flush();
 
     return $this->json(['success' => 'Inscription réussie']);
 }
+
 
 
 
@@ -243,28 +234,15 @@ public function unregisterFromRide(int $ride_id, EntityManagerInterface $em): Js
         return $this->json(['error' => 'Trajet non trouvé'], 404);
     }
 
-    // Vérifie si l'utilisateur est inscrit à ce trajet
     if (!$ride->getPassengers()->contains($user)) {
         return $this->json(['message' => 'Utilisateur non inscrit à ce trajet'], 400);
     }
 
-    // Supprime l'utilisateur des passagers
-    $ride->getPassengers()->removeElement($user);
+    $ride->removePassenger($user);
 
-    // Libère une place
     $ride->setAvailableSeats($ride->getAvailableSeats() + 1);
-
-    // Restaure 1 crédit
     $user->setCredits($user->getCredits() + 1);
 
-    // Supprime l'ID du trajet dans user.rideIDs
-    $rideIDs = $user->getRideIDs();
-    if (is_array($rideIDs)) {
-        $updatedIDs = array_filter($rideIDs, fn($id) => $id !== $ride->getId());
-        $user->setRideIDs(array_values($updatedIDs));
-    }
-
-    // Sauvegarde
     $em->persist($ride);
     $em->persist($user);
     $em->flush();
@@ -290,9 +268,11 @@ public function deleteRide(int $ride_id, EntityManagerInterface $em): JsonRespon
         return $this->json(['error' => 'Trajet non trouvé'], 404);
     }
 
-    // Vérifie que l'utilisateur est bien le propriétaire du trajet (conducteur)
-    if ($ride->getVehicle()?->getOwnerId() !== $user->getId())
-    {
+    // Vérifie que l'utilisateur est bien le conducteur ET le propriétaire du véhicule
+    if (
+        $ride->getDriver()?->getId() !== $user->getId() ||
+        $ride->getVehicle()?->getOwner()?->getId() !== $user->getId()
+    ) {
         return $this->json(['error' => 'Vous n\'êtes pas autorisé à supprimer ce trajet'], 403);
     }
 
@@ -301,6 +281,7 @@ public function deleteRide(int $ride_id, EntityManagerInterface $em): JsonRespon
 
     return $this->json(['success' => 'Trajet supprimé avec succès']);
 }
+
 
 
 
@@ -325,8 +306,11 @@ public function updateRide(
         return $this->json(['error' => 'Trajet non trouvé'], 404);
     }
 
-    // Vérifie que l'utilisateur est bien le conducteur
-    if ($ride->getVehicle()?->getOwnerID() !== $user->getId()) {
+    // Autorisation : il faut être le conducteur ET le propriétaire du véhicule
+    if (
+        $ride->getDriver()?->getId() !== $user->getId() ||
+        $ride->getVehicle()?->getOwner()?->getId() !== $user->getId()
+    ) {
         return $this->json(['error' => 'Vous n’êtes pas autorisé à modifier ce trajet'], 403);
     }
 
@@ -365,6 +349,7 @@ public function updateRide(
 
 
 
+
 // Donner un avis sur un trajet
 #[Route('/feedback', methods: ['POST'])]
 public function giveFeedback(Request $request, EntityManagerInterface $em): JsonResponse
@@ -392,9 +377,9 @@ public function giveFeedback(Request $request, EntityManagerInterface $em): Json
 
     // Crée et enregistre l'avis
     $avis = new Avis();
-    $avis->setRideID($ride->getId());
-    $avis->setPassengerID($user->getId());
-    $avis->setDriverID($ride->getVehicle()->getOwnerID()); 
+    $avis->setRide($ride);
+    $avis->setPassenger($user);
+    $avis->setDriver($ride->getDriver()); 
     $avis->setRating((int)$data['rating']);
     $avis->setComment($data['comment'] ?? null);
     $avis->setStatus('à traiter');
