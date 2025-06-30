@@ -71,7 +71,7 @@
     display: flex;
     align-items: center;
     width: 100%;  
-    max-width: 600px;       // ou la largeur que vous souhaitez
+    max-width: 600px;      
     border: 1px solid $color-secondary-6;
     border-radius: $radius-full;
     padding: 0 $spacing-md;
@@ -85,7 +85,7 @@
       font-size: 1rem;
       font-weight: 500;
       color: $color-dark;
-      padding: $spacing-sm 0;
+      padding: 0.8rem 0;
       background-color: $color-secondary-1;
 
   
@@ -118,7 +118,28 @@
   }
 
 
-
+  .logout-btn {
+    margin-top: auto; 
+    display: block;
+    width: fit-content;
+    margin: $spacing-lg auto 0;
+    padding: $spacing-sm $spacing-md;
+    font-size: 14px;
+    font-weight: 500;
+    color: $color-dark;
+    background-color: transparent;
+    border: 1px solid $color-secondary-6;
+    border-radius: $radius-full;
+    cursor: pointer;
+    transition: background-color 0.2s, border-color 0.2s;
+    grid-column: 2;
+  
+    &:hover {
+      background-color: $color-error;
+      color: white;
+      border: none;
+    }
+  }
 
 /* ============ NAV RESPONSIVE ============ */
 @media (max-width: $breakpoint-md) {
@@ -215,6 +236,7 @@
         color: $color-dark;
         vertical-align: middle;
         border-top: 1px solid $color-secondary-6;
+        
       }
     }
   
@@ -223,12 +245,21 @@
       gap: $spacing-sm;
     }
   }
+
+  /* reviews etoiles */
+  .reviews__note {
+    align-items: center;
+    display: inline-flex;
+    svg {
+      width: 18px;
+      height: 18px;
+      vertical-align: middle; 
+    }
+  }
   
   /* Badges de statut */
   .badge {
     display: inline-block;
-    padding: 4px $spacing-sm;
-    border-radius: $radius-full;
     font-size: 12px;
     font-weight: 500;
   
@@ -236,14 +267,21 @@
       background-color: rgba($color-secondary-5, 0.1);
       color: $color-secondary-5;
       align-items: center;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
     }
     &--traiter {
       background-color: rgba($color-secondary-3, 0.1);
       color: $color-secondary-3;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
+
     }
     &--refuse {
       background-color: rgba($color-error, 0.1);
       color: $color-error;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
     }
   }
   

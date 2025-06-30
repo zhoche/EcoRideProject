@@ -16,6 +16,8 @@ return [
         '/_profiler/xdebug' => [[['_route' => '_profiler_xdebug', '_controller' => 'web_profiler.controller.profiler::xdebugAction'], null, null, null, false, false, null]],
         '/_profiler/open' => [[['_route' => '_profiler_open_file', '_controller' => 'web_profiler.controller.profiler::openAction'], null, null, null, false, false, null]],
         '/api/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\ApiRegisterController::register'], null, ['POST' => 0, 'OPTIONS' => 1], null, false, false, null]],
+        '/api/employe/feedback/authorization' => [[['_route' => 'app_employe_authorizefeedback', '_controller' => 'App\\Controller\\EmployeController::authorizeFeedback'], null, ['PATCH' => 0], null, false, false, null]],
+        '/api/employe/avis' => [[['_route' => 'app_employe_getavis', '_controller' => 'App\\Controller\\EmployeController::getAvis'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/test-user' => [[['_route' => 'app_ride_testuser', '_controller' => 'App\\Controller\\RideController::testUser'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/create' => [[['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null]],
         '/api/rides/list' => [[['_route' => 'app_ride_getalluserrides', '_controller' => 'App\\Controller\\RideController::getAllUserRides'], null, ['GET' => 0], null, false, false, null]],

@@ -33,70 +33,46 @@
       <table class="trips__table">
         <thead class="trips__head">
           <tr>
-            <th data-label="Pseudo">Pseudo</th>
+            <th data-label="Passager">Emetteur de l'avis</th>
+            <th data-label="Conducteur">Conducteur</th>
             <th data-label="Ville de départ">Ville de départ</th>
-            <th data-label="Date de départ">Date de départ</th>
-            <th data-label="Date d’arrivée">Date d’arrivée</th>
+            <th data-label="Date de départ">Date du trajet</th>
+            <th data-label="Note">Note attribuée</th>
             <th data-label="Statut">Statut</th>
             <th data-label="Actions">Actions</th>
           </tr>
         </thead>
         <tbody class="trips__body">
-          <tr>
-            <td data-label="Pseudo">Stella1029</td>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Date de départ">20/05/2025</td>
-            <td data-label="Date d’arrivée">20/05/2025</td>
-            <td data-label="Statut"><span class="badge badge--attente">En attente</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
+          <tr *ngFor="let review of reviews">
+            <td data-label="Passager">{{ review.pseudo }}</td>
+            <td data-label="Conducteur">{{ review.driverPseudo }}</td>
+            <td data-label="Départ">{{ review.departureCity }}</td>
+            <td data-label="Date">{{ review.dateDepart }}</td>
+            <td data-label="Note">
+              <span class="reviews__note">
+                <!-- {{ review.rating }} -->
+                <ng-container *ngFor="let star of createStars(review.rating)">
+                  <svg viewBox="0 0 24 24">
+                    <path fill="#F9D35F" d="M12 .587l3.668 7.431L24 9.587l-6 5.848L19.335 24 12 19.897 4.665 24 6 15.435 0 9.587l8.332-1.569z"/>
+                  </svg>
+                </ng-container>
+              </span>
+            </td>
+              <td data-label="Statut">
+                <span
+                  [ngClass]="{
+                    'badge badge--attente': review.status === 'en attente',
+                    'badge badge--traiter': review.status === 'à traiter',
+                    'badge badge--refuse': review.status === 'refusé',
+                    'badge badge--valide': review.status === 'validé'
+                  }"
+                >
+                  {{ review.status }}
+                </span>
+              </td>           
+               <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
             </td>
           </tr>
-          <tr>
-            <td data-label="Pseudo">F.Hibant</td>
-            <td data-label="Ville de départ">Auch</td>
-            <td data-label="Date de départ">12/05/2025</td>
-            <td data-label="Date d’arrivée">12/05/2025</td>
-            <td data-label="Statut"><span class="badge badge--attente">En attente</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Pseudo">Vincent90</td>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Date de départ">03/05/2025</td>
-            <td data-label="Date d’arrivée">03/05/2025</td>
-            <td data-label="Statut"><span class="badge badge--traiter">A traiter</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Pseudo">Sandraaa5</td>
-            <td data-label="Ville de départ">Aubiet</td>
-            <td data-label="Date de départ">27/04/2025</td>
-            <td data-label="Date d’arrivée">27/04/2025</td>
-            <td data-label="Statut"><span class="badge badge--refuse">Refusé</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Pseudo">Vincent90</td>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Date de départ">03/05/2025</td>
-            <td data-label="Date d’arrivée">03/05/2025</td>
-            <td data-label="Statut"><span class="badge badge--traiter">A traiter</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
-            </td>
-          </tr>
-          <tr>
-            <td data-label="Pseudo">Stella1029</td>
-            <td data-label="Ville de départ">Toulouse</td>
-            <td data-label="Date de départ">20/05/2025</td>
-            <td data-label="Date d’arrivée">20/05/2025</td>
-            <td data-label="Statut"><span class="badge badge--attente">En attente</span></td>
-            <td class="reviews-to-process__actions"><button class="btn-icon btn-icon--edit" aria-label="Traiter"><img src="images/Action_Modifier.svg" alt="Modifier" /></button>
-            </td>
-          </tr>
-
         </tbody>
       </table>
     </div>
@@ -104,6 +80,7 @@
   </section>
 
   
+  <button type="button" (click)="logout()" class="logout-btn">Déconnexion</button>
 
 
 

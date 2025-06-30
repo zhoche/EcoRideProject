@@ -417,6 +417,18 @@
       <tag name="routing.route_loader"/>
     </service>
     <service id="App\EventListener\CorsPreflightRequestListener" class="App\EventListener\CorsPreflightRequestListener" autowire="true" autoconfigure="true"/>
+    <service id="App\Command\CreateAvisCommand" class="App\Command\CreateAvisCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="create:test-avis" description="Crée des avis de test pour les trajets." help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>create:test-avis</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Crée des avis de test pour les trajets.</argument>
+      </call>
+    </service>
     <service id="App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true">
       <tag name="console.command" command="create:test-rides" description="Crée plusieurs trajets de test pour les conducteurs." help=""/>
       <tag name="console.command"/>
@@ -456,6 +468,13 @@
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\ApiRegisterController"/>
+      </call>
+    </service>
+    <service id="App\Controller\EmployeController" class="App\Controller\EmployeController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\EmployeController"/>
       </call>
     </service>
     <service id="App\Controller\RideController" class="App\Controller\RideController" public="true" autowire="true" autoconfigure="true">
@@ -543,7 +562,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.wYLNEiI"/>
+      <argument type="service" id=".service_locator.tfayKMe"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3622,7 +3641,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.wYLNEiI"/>
+      <argument type="service" id=".service_locator.tfayKMe"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8125,6 +8144,9 @@
         <argument>Generate public/private keys for use in your application.</argument>
       </call>
     </service>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateAvisCommand" class="App\Command\CreateAvisCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\CreateAvisCommand.0.App\Command\CreateAvisCommand" class="App\Command\CreateAvisCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\CreateAvisCommand" class="App\Command\CreateAvisCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Command\CreateRidesCommand.0.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8137,6 +8159,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\EmployeController" class="App\Controller\EmployeController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\RideController" class="App\Controller\RideController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\RideController" class="App\Controller\RideController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\RideController" class="App\Controller\RideController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8836,6 +8861,24 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YxhG_3W" method="withContext"/>
     </service>
+    <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeController::authorizeFeedback()"/>
+      <argument>App\Controller\EmployeController::authorizeFeedback()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeController::getAvis()"/>
+      <argument>App\Controller\EmployeController::getAvis()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
     <service id=".service_locator.N1sgHpH" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8850,12 +8893,6 @@
       <argument>App\Controller\RideController::create()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.N1sgHpH" method="withContext"/>
-    </service>
-    <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-      </argument>
     </service>
     <service id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RideController::getAllUserRides()"/>
@@ -8924,7 +8961,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YOUPp1C" method="withContext"/>
     </service>
-    <service id=".service_locator.wYLNEiI" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.tfayKMe" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -8932,6 +8969,8 @@
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\ApiRegisterController::register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
+        <argument key="App\Controller\EmployeController::authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
+        <argument key="App\Controller\EmployeController::getAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()"/>
         <argument key="App\Controller\RideController::create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
         <argument key="App\Controller\RideController::getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController::registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
@@ -8944,6 +8983,8 @@
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\ApiRegisterController:register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
+        <argument key="App\Controller\EmployeController:authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
+        <argument key="App\Controller\EmployeController:getAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()"/>
         <argument key="App\Controller\RideController:create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
         <argument key="App\Controller\RideController:getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController:registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
@@ -9545,6 +9586,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\EmployeController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeController"/>
+      <argument>App\Controller\EmployeController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\RideController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RideController"/>
       <argument>App\Controller\RideController</argument>
@@ -9758,6 +9805,7 @@
         <argument type="collection">
           <argument>App\Kernel</argument>
           <argument>App\Controller\ApiRegisterController</argument>
+          <argument>App\Controller\EmployeController</argument>
           <argument>App\Controller\RideController</argument>
           <argument>App\Controller\SecurityController</argument>
           <argument>App\Controller\UserController</argument>
@@ -9999,6 +10047,13 @@
     </service>
     <service id=".errored..service_locator.zHyJIs5.Symfony\Component\Config\Loader\LoaderInterface" class="Symfony\Component\Config\Loader\LoaderInterface">
       <tag name="container.error" message="Cannot autowire service &quot;.service_locator.zHyJIs5&quot;: it needs an instance of &quot;Symfony\Component\Config\Loader\LoaderInterface&quot; but this type has been excluded from autowiring."/>
+    </service>
+    <service id=".App\Command\CreateAvisCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>create:test-avis</argument>
+      <argument type="collection"/>
+      <argument>Crée des avis de test pour les trajets.</argument>
+      <argument>false</argument>
+      <argument type="service_closure" id="App\Command\CreateAvisCommand"/>
     </service>
     <service id=".App\Command\CreateRidesCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>create:test-rides</argument>
@@ -10756,8 +10811,9 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.mrIbqui"/>
+      <argument type="service" id=".service_locator.A59kb25"/>
       <argument type="collection">
+        <argument key="create:test-avis">App\Command\CreateAvisCommand</argument>
         <argument key="create:test-rides">App\Command\CreateRidesCommand</argument>
         <argument key="create:test-users">App\Command\CreateUsersCommand</argument>
         <argument key="create:test-vehicles">App\Command\CreateVehiclesCommand</argument>
@@ -10887,9 +10943,10 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.mrIbqui" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.A59kb25" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="App\Command\CreateAvisCommand" type="service_closure" id=".App\Command\CreateAvisCommand.lazy"/>
         <argument key="App\Command\CreateRidesCommand" type="service_closure" id=".App\Command\CreateRidesCommand.lazy"/>
         <argument key="App\Command\CreateUsersCommand" type="service_closure" id=".App\Command\CreateUsersCommand.lazy"/>
         <argument key="App\Command\CreateVehiclesCommand" type="service_closure" id="App\Command\CreateVehiclesCommand"/>
@@ -11276,7 +11333,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.wYLNEiI"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.tfayKMe"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11325,8 +11382,8 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
     <service id=".service_locator.5sIukdH" alias=".service_locator.YxhG_3W"/>
-    <service id=".service_locator._gN9w1L" alias=".service_locator.N1sgHpH"/>
     <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
+    <service id=".service_locator._gN9w1L" alias=".service_locator.N1sgHpH"/>
     <service id=".service_locator.qidsS3R" alias=".service_locator.AJ5eq3c"/>
     <service id=".service_locator.Nrz07Zz" alias=".service_locator.3QECKYg"/>
     <service id=".service_locator.NmluoYN" alias=".service_locator.YOUPp1C"/>
