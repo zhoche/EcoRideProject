@@ -38,7 +38,6 @@ h1 {
     margin-bottom: $spacing-sm;
   }
 
-  /* Étoiles de rating */
   .rating-stars {
     display: flex;
     gap: $spacing-xs;
@@ -79,7 +78,6 @@ h1 {
     margin-top: $spacing-lg;
   }
 
-  /* Bouton Signaler un problème (outline rouge) */
   &__btn--problem {
     @extend .btn-filled;
     background-color: rgba($color-error, 0.1);
@@ -93,14 +91,12 @@ h1 {
     }
   }
 
-  /* Bouton Valider et terminer (solid vert) */
   &__btn--submit {
     @extend .btn-filled;
     flex: 1 1 auto;
   }
 }
 
-/* Responsive pour mobile : empile verticalement */
 @media (max-width: $breakpoint-md) {
   .ride-validated {
     &__actions {

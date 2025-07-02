@@ -11,7 +11,11 @@ export class ReviewService {
   constructor(private http: HttpClient) {}
 
   getPendingReviews(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/avis`);
+    return this.http.get<any[]>(`${this.baseUrl}/avis/a-traiter`);
+  }
+  
+  getArchivedReviews(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.baseUrl}/avis/historique`);
   }
 
   authorizeFeedback(id: number, action: 'approve' | 'reject'): Observable<any> {

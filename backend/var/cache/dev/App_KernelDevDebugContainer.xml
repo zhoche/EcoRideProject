@@ -169,6 +169,7 @@
           <parameter>GET</parameter>
           <parameter>POST</parameter>
           <parameter>PUT</parameter>
+          <parameter>PATCH</parameter>
           <parameter>DELETE</parameter>
           <parameter>OPTIONS</parameter>
         </parameter>
@@ -188,6 +189,7 @@
         <parameter>GET</parameter>
         <parameter>POST</parameter>
         <parameter>PUT</parameter>
+        <parameter>PATCH</parameter>
         <parameter>DELETE</parameter>
         <parameter>OPTIONS</parameter>
       </parameter>
@@ -562,7 +564,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.tfayKMe"/>
+      <argument type="service" id=".service_locator.utsK2_N"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3641,7 +3643,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.tfayKMe"/>
+      <argument type="service" id=".service_locator.utsK2_N"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8873,9 +8875,15 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
-    <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\EmployeController::getAvis()"/>
-      <argument>App\Controller\EmployeController::getAvis()</argument>
+    <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeController::getPendingAvis()"/>
+      <argument>App\Controller\EmployeController::getPendingAvis()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::getArchivedAvis()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\EmployeController::getArchivedAvis()"/>
+      <argument>App\Controller\EmployeController::getArchivedAvis()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
@@ -8961,7 +8969,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YOUPp1C" method="withContext"/>
     </service>
-    <service id=".service_locator.tfayKMe" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.utsK2_N" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -8970,7 +8978,8 @@
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\ApiRegisterController::register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController::authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
-        <argument key="App\Controller\EmployeController::getAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()"/>
+        <argument key="App\Controller\EmployeController::getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
+        <argument key="App\Controller\EmployeController::getArchivedAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getArchivedAvis()"/>
         <argument key="App\Controller\RideController::create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
         <argument key="App\Controller\RideController::getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController::registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
@@ -8984,7 +8993,8 @@
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\ApiRegisterController:register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController:authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
-        <argument key="App\Controller\EmployeController:getAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getAvis()"/>
+        <argument key="App\Controller\EmployeController:getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
+        <argument key="App\Controller\EmployeController:getArchivedAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getArchivedAvis()"/>
         <argument key="App\Controller\RideController:create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
         <argument key="App\Controller\RideController:getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController:registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
@@ -11333,7 +11343,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.tfayKMe"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.utsK2_N"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
