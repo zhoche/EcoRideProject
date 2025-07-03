@@ -18,12 +18,15 @@ class ApiRegisterController extends AbstractController
         EntityManagerInterface $em,
         UserPasswordHasherInterface $passwordHasher
     ): JsonResponse {
-        // 🔁 Si c'est une requête OPTIONS (préflight), on répond simplement 200 OK
         if ($request->getMethod() === 'OPTIONS') {
             return new JsonResponse(null, 200);
         }
     
         $data = json_decode($request->getContent(), true);
+
+        if (isset($data['roles']) && in_array('ROLE_ADMIN', $data['roles'])) {
+            return new JsonResponse(['error' => 'Création de compte administrateur interdite.'], 403);
+        }
     
         if (!isset($data['email'], $data['password'], $data['pseudo'])) {
             return new JsonResponse(['error' => 'Données incomplètes.'], 400);

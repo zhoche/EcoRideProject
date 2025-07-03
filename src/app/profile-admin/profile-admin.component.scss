@@ -190,23 +190,83 @@
       box-shadow: 0 2px 4px rgba($color-dark, 0.05);
     }
   
-    &__chart {
-      width: 100%;
-      /* hauteur à ajuster selon votre design ou la data */
-      height: 200px;
-      position: relative;
+  }
+
+  .chart-stats__chart {
+    width: 100%;
+    padding: 1rem;
+    position: relative;
+  
+    canvas {
+      display: block;
+      width: 100% !important;
+      height: auto !important;
+      max-height: 400px;
     }
   }
   
-  /* Exemple de responsive si vous voulez réduire la hauteur sur mobile */
-  @media (max-width: $breakpoint-md) {
-    .chart-stats {
-      &__chart {
-        height: 150px;
-      }
+  @media (max-width: 768px) {
+    .chart-stats__chart canvas {
+      max-height: 280px;
     }
   }
 
+
+//CREDITS TOTAL
+.credits {
+
+
+  &__balance {
+    background-color: rgba($color-positive, 0.1);
+    border-radius: $radius-md;
+    padding: $spacing-lg;
+    display: flex;
+    justify-content: center;  }
+
+  &__amount {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .credits__icon {
+      width: 40px;
+      height: 40px;
+    }
+
+    .credits__value {
+      font-size: 4rem;
+      font-weight: 600;
+      color: $color-positive;
+      line-height: 1;
+    }
+  }
+}
+
+
+
+//DECONNNEXION
+.logout-btn {
+  margin-top: auto; 
+  display: block;
+  width: fit-content;
+  margin: $spacing-lg auto 0;
+  padding: $spacing-sm $spacing-md;
+  font-size: 14px;
+  font-weight: 500;
+  color: $color-dark;
+  background-color: transparent;
+  border: 1px solid $color-secondary-6;
+  border-radius: $radius-full;
+  cursor: pointer;
+  transition: background-color 0.2s, border-color 0.2s;
+  grid-column: 2;
+
+  &:hover {
+    background-color: $color-error;
+    color: white;
+    border: none;
+  }
+}
 
 
 //BANDEAU TOP-FOOTER

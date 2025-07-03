@@ -27,29 +27,56 @@
 
 <!-- DATAS -->
 <section class="chart-stats">
-    <!-- Bloc 1 : Nombre de covoiturages par jour -->
+    <!-- Nombre de covoiturages par jour -->
     <div class="chart-stats__block">
       <h2 class="chart-stats__title">Nombre de covoiturages par jour</h2>
       <div class="chart-stats__wrapper">
         <div id="daily-carpool-chart" class="chart-stats__chart">
-          <!-- votre bar chart quotidien sera injecté ici -->
+          <canvas baseChart
+            [data]="chartData"
+            [options]="chartOptions"
+            [type]="'line'">
+          </canvas>
         </div>
       </div>
     </div>
   
-    <!-- Bloc 2 : Évolution des crédits -->
+    <!-- Évolution des crédits -->
     <div class="chart-stats__block">
       <h2 class="chart-stats__title">Évolution des crédits</h2>
       <div class="chart-stats__wrapper">
         <div id="credits-evolution-chart" class="chart-stats__chart">
-          <!-- votre bar chart à deux séries sera injecté ici -->
+          <canvas baseChart
+            [data]="creditsChartConfig.data"
+            [options]="creditsChartConfig.options"
+            [type]="'bar'">
+          </canvas>
         </div>
       </div>
     </div>
+
+
+    <!-- Total des crédits -->
+    <div class="chart-stats__block">
+    <h2 class="chart-stats__title">Crédits gagnés par la plateforme</h2>
+    <div class="credits__balance">
+      <div class="credits__amount">
+        <img
+          src="images/Credit.png"
+          alt="Eco-Ride"
+          class="credits__icon"
+        />
+        <p class="credits__value">{{ totalCredits }}</p>
+      </div>
+    </div>
+    </div>
+    
   </section>
 
   
-  
+    <!-- DECONNEXION -->
+    <button type="button" (click)="logout()" class="logout-btn">Déconnexion</button>
+    
 
   <!-- BANDEAU TOP FOOTER -->
 <section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>

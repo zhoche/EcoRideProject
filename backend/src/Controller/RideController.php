@@ -82,6 +82,7 @@ class RideController extends AbstractController
     $ride->setDate(new \DateTime($data['date'] ?? 'now'));
     $ride->setPrice((float) $data['price']);
     $ride->setAvailableSeats((int) $data['available_seats']);
+    $ride->setInitialSeats((int) $data['available_seats']);
     $ride->setVehicle($vehicle);
 
     // 5. Validation

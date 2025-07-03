@@ -432,7 +432,7 @@
       </call>
     </service>
     <service id="App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true">
-      <tag name="console.command" command="create:test-rides" description="Crée plusieurs trajets de test pour les conducteurs." help=""/>
+      <tag name="console.command" command="create:test-rides" description="Crée 10 trajets de test avec crédits simulés." help=""/>
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
@@ -440,7 +440,7 @@
         <argument>create:test-rides</argument>
       </call>
       <call method="setDescription">
-        <argument>Crée plusieurs trajets de test pour les conducteurs.</argument>
+        <argument>Crée 10 trajets de test avec crédits simulés.</argument>
       </call>
     </service>
     <service id="App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" autoconfigure="true">
@@ -463,6 +463,13 @@
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setName">
         <argument>create:test-vehicles</argument>
+      </call>
+    </service>
+    <service id="App\Controller\AdminController" class="App\Controller\AdminController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\AdminController"/>
       </call>
     </service>
     <service id="App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" public="true" autowire="true" autoconfigure="true">
@@ -564,7 +571,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.utsK2_N"/>
+      <argument type="service" id=".service_locator.DbDdn1N"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3643,7 +3650,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.utsK2_N"/>
+      <argument type="service" id=".service_locator.DbDdn1N"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8158,6 +8165,9 @@
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Command\CreateVehiclesCommand.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\ApiRegisterController" class="App\Controller\ApiRegisterController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -8850,6 +8860,30 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.zHyJIs5" method="withContext"/>
     </service>
+    <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getRidesPerDay()"/>
+      <argument>App\Controller\AdminController::getRidesPerDay()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\AdminController::getCreditsPerDay()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getCreditsPerDay()"/>
+      <argument>App\Controller\AdminController::getCreditsPerDay()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.Kq27LHM.App\Controller\AdminController::getTotalCreditsEarned()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getTotalCreditsEarned()"/>
+      <argument>App\Controller\AdminController::getTotalCreditsEarned()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
     <service id=".service_locator.YxhG_3W" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8862,12 +8896,6 @@
       <argument>App\Controller\ApiRegisterController::register()</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YxhG_3W" method="withContext"/>
-    </service>
-    <service id=".service_locator.Kq27LHM" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-      </argument>
     </service>
     <service id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\EmployeController::authorizeFeedback()"/>
@@ -8969,13 +8997,16 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YOUPp1C" method="withContext"/>
     </service>
-    <service id=".service_locator.utsK2_N" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.DbDdn1N" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\AdminController::getRidesPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()"/>
+        <argument key="App\Controller\AdminController::getCreditsPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getCreditsPerDay()"/>
+        <argument key="App\Controller\AdminController::getTotalCreditsEarned" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getTotalCreditsEarned()"/>
         <argument key="App\Controller\ApiRegisterController::register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController::authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController::getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
@@ -8991,6 +9022,9 @@
         <argument key="App\Controller\UserController::redirectRole" type="service_closure" id=".service_locator.YOUPp1C.App\Controller\UserController::redirectRole()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
+        <argument key="App\Controller\AdminController:getRidesPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()"/>
+        <argument key="App\Controller\AdminController:getCreditsPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getCreditsPerDay()"/>
+        <argument key="App\Controller\AdminController:getTotalCreditsEarned" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getTotalCreditsEarned()"/>
         <argument key="App\Controller\ApiRegisterController:register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController:authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController:getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
@@ -9590,6 +9624,12 @@
         <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
       </argument>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\AdminController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController"/>
+      <argument>App\Controller\AdminController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.ZyP9f7K.App\Controller\ApiRegisterController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\ApiRegisterController"/>
       <argument>App\Controller\ApiRegisterController</argument>
@@ -9814,6 +9854,7 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
+          <argument>App\Controller\AdminController</argument>
           <argument>App\Controller\ApiRegisterController</argument>
           <argument>App\Controller\EmployeController</argument>
           <argument>App\Controller\RideController</argument>
@@ -10068,7 +10109,7 @@
     <service id=".App\Command\CreateRidesCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>create:test-rides</argument>
       <argument type="collection"/>
-      <argument>Crée plusieurs trajets de test pour les conducteurs.</argument>
+      <argument>Crée 10 trajets de test avec crédits simulés.</argument>
       <argument>false</argument>
       <argument type="service_closure" id="App\Command\CreateRidesCommand"/>
     </service>
@@ -11343,7 +11384,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.utsK2_N"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.DbDdn1N"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11391,8 +11432,8 @@
     <service id="messenger.bus.default" alias="debug.traced.messenger.bus.default"/>
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
-    <service id=".service_locator.5sIukdH" alias=".service_locator.YxhG_3W"/>
     <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
+    <service id=".service_locator.5sIukdH" alias=".service_locator.YxhG_3W"/>
     <service id=".service_locator._gN9w1L" alias=".service_locator.N1sgHpH"/>
     <service id=".service_locator.qidsS3R" alias=".service_locator.AJ5eq3c"/>
     <service id=".service_locator.Nrz07Zz" alias=".service_locator.3QECKYg"/>

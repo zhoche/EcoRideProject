@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 #[AsCommand(
     name: 'create:test-rides',
-    description: 'Crée plusieurs trajets de test pour les conducteurs.',
+    description: 'Crée 10 trajets de test avec crédits simulés.',
 )]
 class CreateRidesCommand extends Command
 {
@@ -25,41 +25,56 @@ class CreateRidesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        // On récupère un conducteur et un véhicule existants
-        $driver = $this->em->getRepository(User::class)->findOneByRole('ROLE_DRIVER');
+        $driver = $this->em->getRepository(User::class)->createQueryBuilder('u')
+        ->where('u.roles LIKE :role')
+        ->setParameter('role', '%ROLE_DRIVER%')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult();
         $vehicle = $this->em->getRepository(Vehicle::class)->findOneBy([]);
-    
+
         if (!$driver || !$vehicle) {
             $output->writeln('❌ Aucun conducteur ou véhicule trouvé.');
             return Command::FAILURE;
         }
-    
-        $trajets = [
-            ['Paris', 'Versailles', 3, 4.0, '+1 day'],
-            ['Lyon', 'Villeurbanne', 2, 2.5, '+2 days'],
-            ['Marseille', 'Aubagne', 4, 3.0, '+3 days'],
-            ['Toulouse', 'Blagnac', 1, 2.0, '+4 days'],
+
+        $villes = [
+            ['Paris', 'Lille'],
+            ['Lyon', 'Grenoble'],
+            ['Bordeaux', 'Toulouse'],
+            ['Nantes', 'Rennes'],
+            ['Nice', 'Marseille'],
+            ['Amiens', 'Rouen'],
+            ['Dijon', 'Strasbourg'],
+            ['Tours', 'Orléans'],
+            ['Avignon', 'Montpellier'],
+            ['Clermont-Ferrand', 'Saint-Étienne'],
         ];
-    
-        foreach ($trajets as [$departure, $arrival, $seats, $price, $date]) {
+
+        for ($i = 0; $i < 10; $i++) {
+            [$departure, $arrival] = $villes[$i];
+            $initialSeats = rand(3, 5);
+            $bookedSeats = rand(1, $initialSeats - 1);
+            $availableSeats = $initialSeats - $bookedSeats;
+
             $ride = new Ride();
             $ride->setDriver($driver)
-                 ->setDeparture($departure)
-                 ->setArrival($arrival)
-                 ->setAvailableSeats($seats)
-                 ->setPrice($price)
-                 ->setDate(new \DateTime($date))
-                 ->setVehicle($vehicle);
-    
-            $this->em->persist($ride);
-            $output->writeln("✅ Trajet $departure → $arrival créé.");
-        }
-    
-        $this->em->flush();
-        $output->writeln("🎉 Tous les trajets courts ont été enregistrés.");
-    
-        return Command::SUCCESS;
-    }    
+                ->setDeparture($departure)
+                ->setArrival($arrival)
+                ->setAvailableSeats($availableSeats)
+                ->setInitialSeats($initialSeats)
+                ->setPrice(rand(2, 6))
+                ->setDate((new \DateTime())->modify("+$i day"))
+                ->setVehicle($vehicle);
 
-    
+            $this->em->persist($ride);
+
+            $output->writeln("✅ $departure → $arrival | places: $initialSeats ($availableSeats restantes)");
+        }
+
+        $this->em->flush();
+
+        $output->writeln("🎉 10 trajets de test créés avec crédits simulés !");
+        return Command::SUCCESS;
+    }
 }

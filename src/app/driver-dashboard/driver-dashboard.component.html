@@ -140,23 +140,6 @@
 <div class="overview-cards__block">
   <h3 class="overview-cards__block-title">Mes préférences</h3>
   <div class="overview-cards__item preferences">
-    <!-- <ul class="preferences__list">
-      <li class="preferences__item">
-        <span class="preferences__label">Voiture électrique uniquement</span>
-        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
-
-      </li>
-      <li class="preferences__item">
-        <span class="preferences__label">Véhicule non-fumeur</span>
-        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
-
-      </li>
-      <li class="preferences__item">
-        <span class="preferences__label">Voiture électrique uniquement</span>
-        <button type="button" class="preferences__delete-btn" aria-label="Supprimer préférence"><img src="images/Action_Supprimer.svg" alt="Supprimer" class="preferences__delete-icon"/></button>
-      </li>
-    </ul> -->
-
     <ul class="preferences__list">
       <li class="preferences__item" *ngFor="let pref of preferences">
         <span class="preferences__label">{{ pref }}</span>

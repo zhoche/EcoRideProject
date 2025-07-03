@@ -57,7 +57,8 @@ class Ride
     #[Groups(['ride:read'])]
     private Collection $passengers;
 
-    
+    #[ORM\Column(type: 'integer')]
+    private ?int $initialSeats = null;
 
     public function getId(): ?int
     {
@@ -176,5 +177,21 @@ class Ride
         $this->vehicle = $vehicle;
         return $this;
     }
+
+
+
+
+    public function getInitialSeats(): ?int
+    {
+        return $this->initialSeats;
+    }
+
+    public function setInitialSeats(int $initialSeats): self
+    {
+        $this->initialSeats = $initialSeats;
+        return $this;
+    }
+
+
 
 }
