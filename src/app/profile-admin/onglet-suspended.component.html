@@ -1,0 +1,56 @@
+<!-- FORMULAIRE DE SUSPENSION -->
+<h2 class="suspendedForm__title">Suspendre un compte</h2>
+<section class="suspended-form">
+    <section class="suspendedForm">
+      <form [formGroup]="suspendedForm" (ngSubmit)="onSubmit()" class="form-row">
+        <div class="form-group">
+          <label for="pseudo">Pseudo</label>
+          <input formControlName="pseudo" id="pseudo" type="text" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input formControlName="email" id="email" type="email" required />
+        </div>
+  
+        <div class="form-group">
+          <label for="confirmEmail">Confirmation email</label>
+          <input formControlName="confirmEmail" id="confirmEmail" type="email" required />
+        </div>
+  
+        <button type="submit" [disabled]="suspendedForm.invalid">Suspendre le compte</button>
+      </form>
+    </section>
+  </section>
+  
+  <!-- TABLEAU HISTORIQUE DES SUSPENSIONS -->
+  <section class="suspended">
+    <h2 class="suspendedForm__title">Comptes suspendus</h2>
+    <div class="suspended__wrapper">
+      <table class="suspended__table">
+        <thead class="suspended__head">
+          <tr>
+            <th>Pseudo</th>
+            <th>Email</th>
+            <th>Date de suspension de compte</th>
+            <th>Role</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody class="suspended__body">
+          <tr *ngFor="let user of suspendedAccounts">
+            <td>{{ user.pseudo }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.suspendedAt ? (user.suspendedAt | date:'dd/MM/yyyy') : 'N/A' }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <button class="btn-icon btn-icon--edit">
+                <img src="images/Action_Modifier.svg" alt="Modifier" />
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  

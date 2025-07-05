@@ -4,11 +4,14 @@ import { NgChartsModule } from 'ng2-charts';
 import { ChartConfiguration, ChartOptions } from 'chart.js';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { OngletEmployeComponent } from './onglet-employe.component';
+import { CommonModule } from '@angular/common';
+import { OngletSuspendedComponent } from "./onglet-suspended.component";
 
 @Component({
   selector: 'app-profile-admin',
   standalone: true,
-  imports: [NgChartsModule],
+  imports: [NgChartsModule, OngletEmployeComponent, CommonModule, OngletSuspendedComponent],
   templateUrl: './profile-admin.component.html',
   styleUrls: ['./profile-admin.component.scss']
 })
@@ -18,6 +21,12 @@ export class ProfileAdminComponent implements OnInit {
 
   ridesChartLabels: string[] = [];
   ridesChartData: number[] = [];
+
+  activeTab: 'data' | 'employees' | 'suspended' = 'data';
+
+  setTab(tab: 'data' | 'employees' | 'suspended') {
+  this.activeTab = tab;
+}
 
   chartData: ChartConfiguration<'line'>['data'] = {
     labels: [],

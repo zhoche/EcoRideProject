@@ -23,20 +23,36 @@ class ApiRegisterController extends AbstractController
         }
     
         $data = json_decode($request->getContent(), true);
-
-        if (isset($data['roles']) && in_array('ROLE_ADMIN', $data['roles'])) {
-            return new JsonResponse(['error' => 'Création de compte administrateur interdite.'], 403);
-        }
     
+        // Validation basique
         if (!isset($data['email'], $data['password'], $data['pseudo'])) {
             return new JsonResponse(['error' => 'Données incomplètes.'], 400);
         }
     
+        // Sanitize (protection XSS / injection)
+        $email = filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL);
+        $pseudo = htmlspecialchars(trim($data['pseudo']));
+    
+        // Rôles autorisés uniquement
+        $allowedRoles = ['ROLE_USER', 'ROLE_EMPLOYE', 'ROLE_DRIVER'];
+        $inputRoles = $data['roles'] ?? ['ROLE_USER'];
+        $roles = array_filter($inputRoles, fn($r) => in_array($r, $allowedRoles));
+    
+        if (in_array('ROLE_ADMIN', $inputRoles)) {
+            return new JsonResponse(['error' => 'Création de compte administrateur interdite.'], 403);
+        }
+    
         $user = new User();
-        $user->setEmail($data['email']);
-        $user->setPseudo($data['pseudo']);
-        $user->setCredits(20);
-        $user->setRoles(['ROLE_USER']);
+        $user->setEmail($email);
+        $user->setPseudo($pseudo);
+        $user->setRoles($roles);
+    
+        // Crédit uniquement pour utilisateurs/passagers/conducteurs
+        if (in_array('ROLE_USER', $roles) || in_array('ROLE_DRIVER', $roles)) {
+            $user->setCredits(20);
+        } else {
+            $user->setCredits(0);
+        }
     
         $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
@@ -46,5 +62,6 @@ class ApiRegisterController extends AbstractController
     
         return new JsonResponse(['message' => 'Inscription réussie'], 201);
     }
+    
     
 }

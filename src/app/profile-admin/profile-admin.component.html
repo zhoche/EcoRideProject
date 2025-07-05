@@ -1,31 +1,27 @@
 <!-- NAVIGATION PROFILE -->
 <nav class="profile-nav">
-    <ul class="profile-nav__list">
-      <li class="profile-nav__item profile-nav__item--active">
-        <a href="#">Aperçu datas</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#">Comptes employés</a>
-      </li>
-      <li class="profile-nav__item">
-        <a href="#">Comptes suspendus</a>
-      </li>
-    </ul>
+  <ul class="profile-nav__list">
+    <li [class.profile-nav__item--active]="activeTab === 'data'" class="profile-nav__item">
+      <a (click)="setTab('data')">Aperçu datas</a>
+    </li>
+    <li [class.profile-nav__item--active]="activeTab === 'employees'" class="profile-nav__item">
+      <a (click)="setTab('employees')">Comptes employés</a>
+    </li>
+    <li [class.profile-nav__item--active]="activeTab === 'suspended'" class="profile-nav__item">
+      <a (click)="setTab('suspended')">Comptes suspendus</a>
+    </li>
+  </ul>
 
-<!-- RESEARCH BAR -->
-      <form class="search-bar" role="search">
-        <input type="search" class="search-bar__input" placeholder="Rechercher" aria-label="Rechercher"/>
-        <button type="submit" class="search-bar__btn" aria-label="Lancer la recherche">
-          <img src="images/Picto_Search.svg" alt="Rechercher" class="search-bar__icon"/>
-        </button>
-      </form>
+
 
 
     <button class="profile-nav__btn">Profil Administrateur.rice</button>
   </nav>
 
 
+
 <!-- DATAS -->
+<div *ngIf="activeTab === 'data'">
 <section class="chart-stats">
     <!-- Nombre de covoiturages par jour -->
     <div class="chart-stats__block">
@@ -72,11 +68,26 @@
     </div>
     
   </section>
+</div>
+
+
+<!-- Comptes employés -->
+<div *ngIf="activeTab === 'employees'">
+  <app-onglet-employe/>
+</div>
+
+
+
+<!-- Comptes suspendus -->
+<div *ngIf="activeTab === 'suspended'">
+  <app-onglet-suspended/>
+</div>
+
 
   
-    <!-- DECONNEXION -->
-    <button type="button" (click)="logout()" class="logout-btn">Déconnexion</button>
-    
+<!-- DECONNEXION -->
+<button type="button" (click)="logout()" class="logout-btn">Déconnexion</button>
+
 
   <!-- BANDEAU TOP FOOTER -->
 <section class="section-blanche"><div class="bandeau-blanc-arrondi"></div></section>

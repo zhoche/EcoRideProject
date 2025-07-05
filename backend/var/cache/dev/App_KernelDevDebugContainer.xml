@@ -515,6 +515,10 @@
       <tag name="container.excluded" source="because it's a Doctrine entity"/>
       <tag name="container.excluded" source="with #[Doctrine\ORM\Mapping\Entity] attribute"/>
     </service>
+    <service id="App\Entity\SuspendedUser" class="App\Entity\SuspendedUser" autowire="true" autoconfigure="true">
+      <tag name="container.excluded" source="because it's a Doctrine entity"/>
+      <tag name="container.excluded" source="with #[Doctrine\ORM\Mapping\Entity] attribute"/>
+    </service>
     <service id="App\Entity\User" class="App\Entity\User" autowire="true" autoconfigure="true">
       <tag name="container.excluded" source="because it's a Doctrine entity"/>
       <tag name="container.excluded" source="with #[Doctrine\ORM\Mapping\Entity] attribute"/>
@@ -531,6 +535,10 @@
       <argument type="service" id="doctrine"/>
     </service>
     <service id="App\Repository\RideRepository" class="App\Repository\RideRepository" autowire="true" autoconfigure="true">
+      <tag name="doctrine.repository_service"/>
+      <argument type="service" id="doctrine"/>
+    </service>
+    <service id="App\Repository\SuspendedUserRepository" class="App\Repository\SuspendedUserRepository" autowire="true" autoconfigure="true">
       <tag name="doctrine.repository_service"/>
       <argument type="service" id="doctrine"/>
     </service>
@@ -571,7 +579,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.DbDdn1N"/>
+      <argument type="service" id=".service_locator.RrKkZIF"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3650,7 +3658,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.DbDdn1N"/>
+      <argument type="service" id=".service_locator.RrKkZIF"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -5586,7 +5594,7 @@
     <service id="doctrine.orm.configuration" class="Doctrine\ORM\Configuration" abstract="true"/>
     <service id="doctrine.orm.entity_manager.abstract" class="Doctrine\ORM\EntityManager" lazy="true" abstract="true"/>
     <service id="doctrine.orm.container_repository_factory" class="Doctrine\Bundle\DoctrineBundle\Repository\ContainerRepositoryFactory">
-      <argument type="service" id=".service_locator.lc8DKy9"/>
+      <argument type="service" id=".service_locator.EsKJV6j"/>
     </service>
     <service id="doctrine.orm.manager_configurator.abstract" class="Doctrine\Bundle\DoctrineBundle\ManagerConfigurator" abstract="true">
       <argument type="collection"/>
@@ -8188,6 +8196,8 @@
     <service id=".abstract.instanceof.App\Entity\Avis" class="App\Entity\Avis" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\Ride.0.App\Entity\Ride" class="App\Entity\Ride" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Entity\Ride" class="App\Entity\Ride" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.App\Entity\SuspendedUser.0.App\Entity\SuspendedUser" class="App\Entity\SuspendedUser" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Entity\SuspendedUser" class="App\Entity\SuspendedUser" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\User.0.App\Entity\User" class="App\Entity\User" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Entity\User" class="App\Entity\User" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\Vehicle.0.App\Entity\Vehicle" class="App\Entity\Vehicle" autowire="true" abstract="true"/>
@@ -8198,6 +8208,8 @@
     <service id=".abstract.instanceof.App\Repository\AvisRepository" class="App\Repository\AvisRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\RideRepository" class="App\Repository\RideRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\RideRepository" class="App\Repository\RideRepository" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\SuspendedUserRepository" class="App\Repository\SuspendedUserRepository" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Repository\SuspendedUserRepository" class="App\Repository\SuspendedUserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\UserRepository" class="App\Repository\UserRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\VehicleRepository" class="App\Repository\VehicleRepository" autowire="true" abstract="true"/>
@@ -8884,6 +8896,62 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
+    <service id=".service_locator.OzEre6h" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.OzEre6h.App\Controller\AdminController::getEmployees()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getEmployees()"/>
+      <argument>App\Controller\AdminController::getEmployees()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.OzEre6h" method="withContext"/>
+    </service>
+    <service id=".service_locator.OA38qqg" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="userRepository" type="service_closure" id="App\Repository\UserRepository"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.OA38qqg.App\Controller\AdminController::deleteEmployee()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::deleteEmployee()"/>
+      <argument>App\Controller\AdminController::deleteEmployee()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.OA38qqg" method="withContext"/>
+    </service>
+    <service id=".service_locator.GpM3RP0" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="userRepo" type="service_closure" id="App\Repository\UserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.GpM3RP0.App\Controller\AdminController::suspendUser()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::suspendUser()"/>
+      <argument>App\Controller\AdminController::suspendUser()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.GpM3RP0" method="withContext"/>
+    </service>
+    <service id=".service_locator.CFQPgrl" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="repo" type="service_closure" id="App\Repository\SuspendedUserRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedUsers()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getSuspendedUsers()"/>
+      <argument>App\Controller\AdminController::getSuspendedUsers()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CFQPgrl" method="withContext"/>
+    </service>
+    <service id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedEmails()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AdminController::getSuspendedEmails()"/>
+      <argument>App\Controller\AdminController::getSuspendedEmails()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.CFQPgrl" method="withContext"/>
+    </service>
     <service id=".service_locator.YxhG_3W" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -8997,7 +9065,7 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YOUPp1C" method="withContext"/>
     </service>
-    <service id=".service_locator.DbDdn1N" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.RrKkZIF" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -9007,6 +9075,11 @@
         <argument key="App\Controller\AdminController::getRidesPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()"/>
         <argument key="App\Controller\AdminController::getCreditsPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getCreditsPerDay()"/>
         <argument key="App\Controller\AdminController::getTotalCreditsEarned" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getTotalCreditsEarned()"/>
+        <argument key="App\Controller\AdminController::getEmployees" type="service_closure" id=".service_locator.OzEre6h.App\Controller\AdminController::getEmployees()"/>
+        <argument key="App\Controller\AdminController::deleteEmployee" type="service_closure" id=".service_locator.OA38qqg.App\Controller\AdminController::deleteEmployee()"/>
+        <argument key="App\Controller\AdminController::suspendUser" type="service_closure" id=".service_locator.GpM3RP0.App\Controller\AdminController::suspendUser()"/>
+        <argument key="App\Controller\AdminController::getSuspendedUsers" type="service_closure" id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedUsers()"/>
+        <argument key="App\Controller\AdminController::getSuspendedEmails" type="service_closure" id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedEmails()"/>
         <argument key="App\Controller\ApiRegisterController::register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController::authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController::getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
@@ -9025,6 +9098,11 @@
         <argument key="App\Controller\AdminController:getRidesPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()"/>
         <argument key="App\Controller\AdminController:getCreditsPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getCreditsPerDay()"/>
         <argument key="App\Controller\AdminController:getTotalCreditsEarned" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getTotalCreditsEarned()"/>
+        <argument key="App\Controller\AdminController:getEmployees" type="service_closure" id=".service_locator.OzEre6h.App\Controller\AdminController::getEmployees()"/>
+        <argument key="App\Controller\AdminController:deleteEmployee" type="service_closure" id=".service_locator.OA38qqg.App\Controller\AdminController::deleteEmployee()"/>
+        <argument key="App\Controller\AdminController:suspendUser" type="service_closure" id=".service_locator.GpM3RP0.App\Controller\AdminController::suspendUser()"/>
+        <argument key="App\Controller\AdminController:getSuspendedUsers" type="service_closure" id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedUsers()"/>
+        <argument key="App\Controller\AdminController:getSuspendedEmails" type="service_closure" id=".service_locator.CFQPgrl.App\Controller\AdminController::getSuspendedEmails()"/>
         <argument key="App\Controller\ApiRegisterController:register" type="service_closure" id=".service_locator.YxhG_3W.App\Controller\ApiRegisterController::register()"/>
         <argument key="App\Controller\EmployeController:authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController:getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
@@ -9361,11 +9439,12 @@
         <argument key="turbo.doctrine.event_listener" type="service_closure" id="turbo.doctrine.event_listener"/>
       </argument>
     </service>
-    <service id=".service_locator.lc8DKy9" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.EsKJV6j" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Repository\AvisRepository" type="service_closure" id="App\Repository\AvisRepository"/>
         <argument key="App\Repository\RideRepository" type="service_closure" id="App\Repository\RideRepository"/>
+        <argument key="App\Repository\SuspendedUserRepository" type="service_closure" id="App\Repository\SuspendedUserRepository"/>
         <argument key="App\Repository\UserRepository" type="service_closure" id="App\Repository\UserRepository"/>
         <argument key="App\Repository\VehicleRepository" type="service_closure" id="App\Repository\VehicleRepository"/>
       </argument>
@@ -11384,7 +11463,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.DbDdn1N"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.RrKkZIF"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11433,6 +11512,10 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id=".service_locator.n_ENPtW" alias=".service_locator.zHyJIs5"/>
     <service id=".service_locator.HQZddX8" alias=".service_locator.Kq27LHM"/>
+    <service id=".service_locator.hNMhKaf" alias=".service_locator.OzEre6h"/>
+    <service id=".service_locator.gBWxp9p" alias=".service_locator.OA38qqg"/>
+    <service id=".service_locator.Zt2lNpR" alias=".service_locator.GpM3RP0"/>
+    <service id=".service_locator.DODehvH" alias=".service_locator.CFQPgrl"/>
     <service id=".service_locator.5sIukdH" alias=".service_locator.YxhG_3W"/>
     <service id=".service_locator._gN9w1L" alias=".service_locator.N1sgHpH"/>
     <service id=".service_locator.qidsS3R" alias=".service_locator.AJ5eq3c"/>

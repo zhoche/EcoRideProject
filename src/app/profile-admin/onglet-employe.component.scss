@@ -1,0 +1,159 @@
+@use 'styles' as *;
+
+:host {
+  display: block;
+  overflow-x: hidden;
+  background-color: $color-secondary-1;
+}
+
+.employeeForm {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  background-color: white;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+  margin-bottom: 4rem;
+
+  &__title {
+    margin-bottom: $spacing-md;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-dark;
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 20px;
+
+  button {
+    @extend .btn;
+    background-color: $color-accent;
+    color: $color-primary;
+    border: none;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &:hover:enabled {
+      background-color: $color-primary;
+      color: $color-accent;
+    }
+  }
+}
+
+.form-group, .form-field {
+  display: flex;
+  flex-direction: column;
+  width: 200px;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  input {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 14px;
+  }
+}
+
+// TABLEAU EMPLOYÉS
+.employees {
+  &__wrapper {
+    background-color: white;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+    margin-bottom: 2rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: $color-secondary-1;
+  }
+
+  &__head th {
+    background-color: $color-secondary-6;
+    padding: $spacing-md $spacing-lg;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-dark;
+    text-align: left;
+  }
+
+  &__body tr:not(:last-child) {
+    border-bottom: 1px solid $color-secondary-6;
+  }
+
+  &__body td {
+    padding: $spacing-md $spacing-lg;
+    font-size: 14px;
+    color: $color-dark;
+    vertical-align: middle;
+    border-top: 1px solid $color-secondary-6;
+    background-color: white;
+  }
+}
+
+
+
+
+  /* Badges de statut */
+  .badge {
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 500;
+  
+    &--suspended {
+      background-color: rgba($color-error, 0.1);
+      color: $color-error;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
+    }
+
+    &--active {
+      background-color: rgba($color-positive, 0.1);
+      color: $color-positive;
+      padding: $spacing-xs $spacing-sm;
+      border-radius: $radius-full;
+      font-weight: 400;
+    }
+  }
+
+
+
+.btn-icon {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+
+  img {
+    display: block;
+    width: 2rem;
+    height: 2rem;
+    margin-right: 0.5rem;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &:hover:not(.btn-icon--disabled) {
+    opacity: 0.8;
+  }
+}

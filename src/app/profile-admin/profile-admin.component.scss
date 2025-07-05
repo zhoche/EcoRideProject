@@ -39,6 +39,7 @@
     font-size: 14px;
     font-weight: 500;
     transition: background-color 0.2s;
+    cursor: pointer;
   }
   
   .profile-nav__item a:hover {
@@ -214,8 +215,6 @@
 
 //CREDITS TOTAL
 .credits {
-
-
   &__balance {
     background-color: rgba($color-positive, 0.1);
     border-radius: $radius-md;

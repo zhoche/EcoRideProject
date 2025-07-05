@@ -1,0 +1,136 @@
+@use 'styles' as *;
+
+:host {
+  display: block;
+  overflow-x: hidden;
+  background-color: $color-secondary-1;
+}
+
+// FORMULAIRE DE SUSPENSION
+.suspended-form {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xl;
+  background-color: white;
+  border-radius: $radius-lg;
+  padding: $spacing-lg;
+  box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+  margin-bottom: 4rem;
+}
+
+.suspendedForm {
+  &__title {
+    margin-bottom: $spacing-md;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-dark;
+  }
+}
+
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 24px;
+  padding: 20px;
+
+  button {
+    @extend .btn;
+    background-color: $color-error;
+    color: white;
+    border: none;
+    border-radius: $radius-full;
+
+    &:disabled {
+      background-color: #ccc;
+      cursor: not-allowed;
+    }
+
+    &:hover:enabled {
+      background-color: darken($color-error, 10%);
+    }
+  }
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  width: 250px;
+
+  label {
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  input {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 30px;
+    font-size: 14px;
+  }
+}
+
+// TABLEAU DES COMPTES SUSPENDUS
+.suspended {
+  &__wrapper {
+    background-color: white;
+    border-radius: $radius-lg;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba($color-dark, 0.05);
+    margin-bottom: 2rem;
+  }
+
+  &__table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background-color: $color-secondary-1;
+  }
+
+  &__head th {
+    background-color: $color-secondary-6;
+    padding: $spacing-md $spacing-lg;
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-dark;
+    text-align: left;
+  }
+
+  &__body tr:not(:last-child) {
+    border-bottom: 1px solid $color-secondary-6;
+  }
+
+  &__body td {
+    padding: $spacing-md $spacing-lg;
+    font-size: 14px;
+    color: $color-dark;
+    vertical-align: middle;
+    border-top: 1px solid $color-secondary-6;
+    background-color: white;
+  }
+}
+
+// BOUTONS ACTIONS
+.btn-icon {
+  padding: 0;
+  border: none;
+  cursor: pointer;
+  background-color: white;
+  display: inline-flex;
+  align-items: center;
+
+  img {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &--disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  &:hover:not(.btn-icon--disabled) {
+    opacity: 0.8;
+  }
+}

@@ -10,8 +10,11 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Entity\Ride;
 use App\Entity\Vehicle;
+use Doctrine\ORM\Event\LifecycleEventArgs;
+
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
@@ -48,6 +51,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\ManyToMany(targetEntity: Ride::class, mappedBy: 'passengers')]
     private Collection $ridesAsPassenger;
+
+    #[ORM\Column(type: 'datetime')]
+    private ?\DateTimeInterface $createdAt = null;
+
 
 
     public function __construct()
@@ -181,4 +188,26 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         return $this->ridesAsPassenger;
     }
+
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+
+    #[ORM\PrePersist]
+public function setCreatedAtValue(): void
+{
+    if ($this->createdAt === null) {
+        $this->createdAt = new \DateTimeImmutable();
+    }
+}
 }

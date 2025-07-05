@@ -6,9 +6,7 @@ use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
-/**
- * @extends ServiceEntityRepository<User>
- */
+
 class UserRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
@@ -24,7 +22,16 @@ class UserRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+            
     }
     
+    public function findEmployes(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->where('u.roles LIKE :role')
+            ->setParameter('role', '%"ROLE_EMPLOYE"%')
+            ->getQuery()
+            ->getResult();
+    }
 
 }

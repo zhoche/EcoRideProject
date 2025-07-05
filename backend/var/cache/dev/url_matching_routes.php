@@ -18,6 +18,10 @@ return [
         '/api/admin/rides-per-day' => [[['_route' => 'admin_rides_per_day', '_controller' => 'App\\Controller\\AdminController::getRidesPerDay'], null, ['GET' => 0], null, false, false, null]],
         '/api/admin/credits-earned-per-day' => [[['_route' => 'admin_credits_per_day', '_controller' => 'App\\Controller\\AdminController::getCreditsPerDay'], null, ['GET' => 0], null, false, false, null]],
         '/api/admin/credits-earned-total' => [[['_route' => 'admin_credits_total', '_controller' => 'App\\Controller\\AdminController::getTotalCreditsEarned'], null, ['GET' => 0], null, false, false, null]],
+        '/api/admin/employee-list' => [[['_route' => 'api_employees_list', '_controller' => 'App\\Controller\\AdminController::getEmployees'], null, ['GET' => 0], null, false, false, null]],
+        '/api/admin/suspended-user' => [[['_route' => 'admin_suspend_user', '_controller' => 'App\\Controller\\AdminController::suspendUser'], null, ['POST' => 0], null, false, false, null]],
+        '/api/admin/suspended-users-list' => [[['_route' => 'admin_suspended_users', '_controller' => 'App\\Controller\\AdminController::getSuspendedUsers'], null, ['GET' => 0], null, false, false, null]],
+        '/api/admin/suspended-emails' => [[['_route' => 'admin_suspended_emails', '_controller' => 'App\\Controller\\AdminController::getSuspendedEmails'], null, ['GET' => 0], null, false, false, null]],
         '/api/register' => [[['_route' => 'api_register', '_controller' => 'App\\Controller\\ApiRegisterController::register'], null, ['POST' => 0, 'OPTIONS' => 1], null, false, false, null]],
         '/api/employe/feedback/authorization' => [[['_route' => 'app_employe_authorizefeedback', '_controller' => 'App\\Controller\\EmployeController::authorizeFeedback'], null, ['PATCH' => 0], null, false, false, null]],
         '/api/employe/avis/a-traiter' => [[['_route' => 'app_employe_getpendingavis', '_controller' => 'App\\Controller\\EmployeController::getPendingAvis'], null, ['GET' => 0], null, false, false, null]],
@@ -53,13 +57,16 @@ return [
                         .')'
                     .')'
                 .')'
-                .'|/api/rides/([^/]++)/(?'
-                    .'|register(*:233)'
-                    .'|u(?'
-                        .'|nregister(*:254)'
-                        .'|pdate(*:267)'
+                .'|/api/(?'
+                    .'|admin/employee\\-delete/([^/]++)(*:241)'
+                    .'|rides/([^/]++)/(?'
+                        .'|register(*:275)'
+                        .'|u(?'
+                            .'|nregister(*:296)'
+                            .'|pdate(*:309)'
+                        .')'
+                        .'|delete(*:324)'
                     .')'
-                    .'|delete(*:282)'
                 .')'
             .')/?$}sDu',
     ],
@@ -72,10 +79,11 @@ return [
         168 => [[['_route' => '_profiler_exception', '_controller' => 'web_profiler.controller.exception_panel::body'], ['token'], null, null, false, false, null]],
         181 => [[['_route' => '_profiler_exception_css', '_controller' => 'web_profiler.controller.exception_panel::stylesheet'], ['token'], null, null, false, false, null]],
         191 => [[['_route' => '_profiler', '_controller' => 'web_profiler.controller.profiler::panelAction'], ['token'], null, null, false, true, null]],
-        233 => [[['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
-        254 => [[['_route' => 'app_ride_unregisterfromride', '_controller' => 'App\\Controller\\RideController::unregisterFromRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
-        267 => [[['_route' => 'app_ride_updateride', '_controller' => 'App\\Controller\\RideController::updateRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
-        282 => [
+        241 => [[['_route' => 'admin_employee_delete', '_controller' => 'App\\Controller\\AdminController::deleteEmployee'], ['id'], ['DELETE' => 0], null, false, true, null]],
+        275 => [[['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        296 => [[['_route' => 'app_ride_unregisterfromride', '_controller' => 'App\\Controller\\RideController::unregisterFromRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        309 => [[['_route' => 'app_ride_updateride', '_controller' => 'App\\Controller\\RideController::updateRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        324 => [
             [['_route' => 'app_ride_deleteride', '_controller' => 'App\\Controller\\RideController::deleteRide'], ['ride_id'], ['POST' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],

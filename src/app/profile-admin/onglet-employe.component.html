@@ -1,0 +1,65 @@
+<!-- FORMULAIRE CREATION COMPTE EMPLOYE -->
+<section class="employee-form">
+    <h2 class="employeeForm__title">Créer un compte employé</h2>
+    <section class="employeeForm">
+    <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="form-row">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input formControlName="email" id="email" type="email" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="password">Mot de passe</label>
+        <input formControlName="password" id="password" type="password" required />
+      </div>
+  
+      <div class="form-group">
+        <label for="pseudo">Pseudo</label>
+        <input formControlName="pseudo" id="pseudo" type="text" required />
+      </div>
+  
+      <button type="submit" [disabled]="employeeForm.invalid">Créer le compte employé</button>
+    </form>
+    </section>
+  </section>
+  
+
+<!-- TABLEAU EMPLOYÉS -->
+<section class="employees">
+    <h2 class="employeeForm__title">Comptes employés</h2>
+    <div class="employees__wrapper">
+      <table class="employees__table">
+        <thead class="employees__head">
+          <tr>
+            <th data-label="Pseudo">Pseudo</th>
+            <th data-label="Email">Email</th>
+            <th data-label="Date de création">Date de création de compte</th>
+            <th data-label="Status">Status</th>
+            <th data-label="Actions">Actions</th>
+          </tr>
+        </thead>
+        <tbody class="employees__body">
+          <tr *ngFor="let user of employees">
+            <td>{{ user.pseudo }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.createdAt ? (user.createdAt | date:'dd/MM/yyyy') : 'N/A' }}</td>
+            <td>
+                <span class="badge" 
+                      [ngClass]="suspendedEmails.includes(user.email) ? 'badge--suspended' : 'badge--active'">
+                  {{ suspendedEmails.includes(user.email) ? 'Suspendu' : 'Actif' }}
+                </span>
+              </td>
+            <td>
+              <button class="btn-icon btn-icon--edit" (click)="onSelectReview(user)">
+                <img src="images/Action_Modifier.svg" alt="Modifier"/>
+              </button>
+              <button class="btn-icon btn-icon--delete" (click)="deleteEmployee(user.id)">
+                <img src="images/Action_Supprimer.svg" alt="Supprimer"/>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+  
