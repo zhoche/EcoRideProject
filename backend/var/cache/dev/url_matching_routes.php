@@ -27,7 +27,7 @@ return [
         '/api/employe/avis/a-traiter' => [[['_route' => 'app_employe_getpendingavis', '_controller' => 'App\\Controller\\EmployeController::getPendingAvis'], null, ['GET' => 0], null, false, false, null]],
         '/api/employe/avis/historique' => [[['_route' => 'app_employe_getarchivedavis', '_controller' => 'App\\Controller\\EmployeController::getArchivedAvis'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/test-user' => [[['_route' => 'app_ride_testuser', '_controller' => 'App\\Controller\\RideController::testUser'], null, ['GET' => 0], null, false, false, null]],
-        '/api/rides/create' => [[['_route' => 'app_ride_create', '_controller' => 'App\\Controller\\RideController::create'], null, ['POST' => 0], null, false, false, null]],
+        '/api/rides/new-ride' => [[['_route' => 'app_ride_createride', '_controller' => 'App\\Controller\\RideController::createRide'], null, ['POST' => 0], null, false, false, null]],
         '/api/rides/list' => [[['_route' => 'app_ride_getalluserrides', '_controller' => 'App\\Controller\\RideController::getAllUserRides'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/feedback' => [[['_route' => 'app_ride_givefeedback', '_controller' => 'App\\Controller\\RideController::giveFeedback'], null, ['POST' => 0], null, false, false, null]],
         '/api/login' => [
@@ -36,6 +36,7 @@ return [
         ],
         '/logout' => [[['_route' => 'app_logout', '_controller' => 'App\\Controller\\SecurityController::logout'], null, null, null, false, false, null]],
         '/api/redirect-role' => [[['_route' => 'redirect_role', '_controller' => 'App\\Controller\\UserController::redirectRole'], null, ['GET' => 0], null, false, false, null]],
+        '/api/vehicles/user' => [[['_route' => 'get_user_vehicles', '_controller' => 'App\\Controller\\VehicleController::getUserVehicles'], null, ['GET' => 0], null, false, false, null]],
     ],
     [ // $regexpList
         0 => '{^(?'

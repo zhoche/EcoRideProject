@@ -15,28 +15,23 @@
   
         <form class="new-trip__form">
           <div class="new-trip__field">
-            <label for="departure" class="new-trip__label">Adresse de départ</label>
-            <input id="departure" type="text" class="new-trip__input" placeholder="Allées Baylac 32000 AUCH"/>
+            <label for="departure" class="new-trip__label">Ville de départ</label>
+            <input name="departure" [(ngModel)]="rideForm.formData.departure" id="departure" type="text" class="new-trip__input" placeholder="Auch"/>
           </div>
   
           <div class="new-trip__field">
-            <label for="destination" class="new-trip__label">Adresse de destination</label>
-            <input id="destination" type="text" class="new-trip__input" placeholder="Pl. du Capitole 31000 TOULOUSE"/>
-          </div>
-  
-          <div class="new-trip__field">
-            <label for="stopover" class="new-trip__label">Ajouter une étape<span> (Facultatif)</span></label>
-            <input id="stopover" type="text" class="new-trip__input" placeholder="Adresse de l’étape"/>
+            <label for="destination" class="new-trip__label">Ville de destination</label>
+            <input name="arrival" [(ngModel)]="rideForm.formData.arrival" id="destination" type="text" class="new-trip__input" placeholder="Toulouse"/>
           </div>
   
           <div class="new-trip__field">
             <label for="date" class="new-trip__label">Date de départ</label>
-            <input id="date" type="text" class="new-trip__input" placeholder="jj/mm/aaaa"/>
+            <input name="date" [(ngModel)]="rideForm.formData.date" id="date" type="date" class="new-trip__input"/>
           </div>
   
           <div class="new-trip__field">
             <label for="time" class="new-trip__label">Heure de départ</label>
-            <input id="time" type="text" class="new-trip__input" placeholder="00:00"/>
+            <input name="time" [(ngModel)]="rideForm.formData.time" id="time" type="time" class="new-trip__input" />
           </div>
   
           <button type="button" class="new-trip__btn" (click)="next.emit()">Suivant</button>
@@ -45,7 +40,11 @@
   
       <!-- Colonne de droite : carte -->
       <div class="new-trip__map-col">
-        <img src="images/Trajet_Map.webp" alt="Aperçu du trajet entre Auch et Toulouse" class="new-trip__map"/>
+        <app-map
+        [departure]="rideForm.formData.departure!" 
+        [arrival]="rideForm.formData.arrival!">
+        </app-map>
+        <!-- <img src="images/Trajet_Map.webp" alt="Aperçu du trajet entre Auch et Toulouse" class="new-trip__map"/> -->
       </div>
     </div>
   </section>

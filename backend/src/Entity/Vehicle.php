@@ -8,9 +8,6 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: VehicleRepository::class)]
 class Vehicle
 {
-
-    //{ id: 1, ownerID: 1, brand: 'Toyota', model: 'Corolla', energy: 2020}
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -29,37 +26,25 @@ class Vehicle
     #[ORM\Column(length: 255)]
     private ?string $energy = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $plateNumber = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-
-    // public function getOwnerID(): ?int
-    // {
-    //     return $this->ownerID;
-    // }
-
-    // public function setOwnerID(?int $ownerID): static
-    // {
-    //     $this->ownerID = $ownerID;
-    //     return $this;
-    // }
-
     public function getOwner(): ?User
     {
         return $this->owner;
     }
-    
+
     public function setOwner(?User $owner): static
     {
         $this->owner = $owner;
         return $this;
     }
 
-
-    
     public function getBrand(): ?string
     {
         return $this->brand;
@@ -68,10 +53,8 @@ class Vehicle
     public function setBrand(string $brand): static
     {
         $this->brand = $brand;
-
         return $this;
     }
-
 
     public function getModel(): ?string
     {
@@ -81,10 +64,8 @@ class Vehicle
     public function setModel(string $model): static
     {
         $this->model = $model;
-
         return $this;
     }
-
 
     public function getEnergy(): ?string
     {
@@ -94,8 +75,17 @@ class Vehicle
     public function setEnergy(string $energy): static
     {
         $this->energy = $energy;
-
         return $this;
     }
 
+    public function getPlateNumber(): ?string
+    {
+        return $this->plateNumber;
+    }
+
+    public function setPlateNumber(string $plateNumber): static
+    {
+        $this->plateNumber = $plateNumber;
+        return $this;
+    }
 }

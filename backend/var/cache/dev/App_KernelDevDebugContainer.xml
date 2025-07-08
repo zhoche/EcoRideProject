@@ -507,6 +507,13 @@
         <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\UserController"/>
       </call>
     </service>
+    <service id="App\Controller\VehicleController" class="App\Controller\VehicleController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.ZyP9f7K.App\Controller\VehicleController"/>
+      </call>
+    </service>
     <service id="App\Entity\Avis" class="App\Entity\Avis" autowire="true" autoconfigure="true">
       <tag name="container.excluded" source="because it's a Doctrine entity"/>
       <tag name="container.excluded" source="with #[Doctrine\ORM\Mapping\Entity] attribute"/>
@@ -579,7 +586,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.RrKkZIF"/>
+      <argument type="service" id=".service_locator.5LkPIw8"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3658,7 +3665,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.RrKkZIF"/>
+      <argument type="service" id=".service_locator.5LkPIw8"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -8192,6 +8199,9 @@
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\UserController" class="App\Controller\UserController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\UserController" class="App\Controller\UserController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\VehicleController" class="App\Controller\VehicleController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\VehicleController" class="App\Controller\VehicleController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\VehicleController" class="App\Controller\VehicleController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\Avis.0.App\Entity\Avis" class="App\Entity\Avis" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Entity\Avis" class="App\Entity\Avis" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.App\Entity\Ride.0.App\Entity\Ride" class="App\Entity\Ride" autowire="true" abstract="true"/>
@@ -8983,20 +8993,11 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
-    <service id=".service_locator.N1sgHpH" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator"/>
-      <argument type="collection">
-        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
-        <argument key="validator" type="service_closure" id="debug.validator"/>
-        <argument key="userRepo" type="service_closure" id="App\Repository\UserRepository"/>
-        <argument key="vehicleRepo" type="service_closure" id="App\Repository\VehicleRepository"/>
-      </argument>
-    </service>
-    <service id=".service_locator.N1sgHpH.App\Controller\RideController::create()" class="Symfony\Component\DependencyInjection\ServiceLocator">
-      <tag name="container.service_locator_context" id="App\Controller\RideController::create()"/>
-      <argument>App\Controller\RideController::create()</argument>
+    <service id=".service_locator.Kq27LHM.App\Controller\RideController::createRide()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\RideController::createRide()"/>
+      <argument>App\Controller\RideController::createRide()</argument>
       <argument type="service" id="service_container"/>
-      <factory service=".service_locator.N1sgHpH" method="withContext"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
     </service>
     <service id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\RideController::getAllUserRides()"/>
@@ -9065,7 +9066,13 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.YOUPp1C" method="withContext"/>
     </service>
-    <service id=".service_locator.RrKkZIF" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.Kq27LHM.App\Controller\VehicleController::getUserVehicles()" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\VehicleController::getUserVehicles()"/>
+      <argument>App\Controller\VehicleController::getUserVehicles()</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.Kq27LHM" method="withContext"/>
+    </service>
+    <service id=".service_locator.5LkPIw8" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
@@ -9084,7 +9091,7 @@
         <argument key="App\Controller\EmployeController::authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController::getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
         <argument key="App\Controller\EmployeController::getArchivedAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getArchivedAvis()"/>
-        <argument key="App\Controller\RideController::create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
+        <argument key="App\Controller\RideController::createRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::createRide()"/>
         <argument key="App\Controller\RideController::getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController::registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
         <argument key="App\Controller\RideController::unregisterFromRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::unregisterFromRide()"/>
@@ -9093,6 +9100,7 @@
         <argument key="App\Controller\RideController::giveFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::giveFeedback()"/>
         <argument key="App\Controller\SecurityController::login" type="service_closure" id=".service_locator.3QECKYg.App\Controller\SecurityController::login()"/>
         <argument key="App\Controller\UserController::redirectRole" type="service_closure" id=".service_locator.YOUPp1C.App\Controller\UserController::redirectRole()"/>
+        <argument key="App\Controller\VehicleController::getUserVehicles" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VehicleController::getUserVehicles()"/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.zHyJIs5.kernel::registerContainerConfiguration()"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.zHyJIs5.kernel::loadRoutes()"/>
         <argument key="App\Controller\AdminController:getRidesPerDay" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\AdminController::getRidesPerDay()"/>
@@ -9107,7 +9115,7 @@
         <argument key="App\Controller\EmployeController:authorizeFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::authorizeFeedback()"/>
         <argument key="App\Controller\EmployeController:getPendingAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getPendingAvis()"/>
         <argument key="App\Controller\EmployeController:getArchivedAvis" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\EmployeController::getArchivedAvis()"/>
-        <argument key="App\Controller\RideController:create" type="service_closure" id=".service_locator.N1sgHpH.App\Controller\RideController::create()"/>
+        <argument key="App\Controller\RideController:createRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::createRide()"/>
         <argument key="App\Controller\RideController:getAllUserRides" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::getAllUserRides()"/>
         <argument key="App\Controller\RideController:registerToRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::registerToRide()"/>
         <argument key="App\Controller\RideController:unregisterFromRide" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::unregisterFromRide()"/>
@@ -9116,6 +9124,7 @@
         <argument key="App\Controller\RideController:giveFeedback" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\RideController::giveFeedback()"/>
         <argument key="App\Controller\SecurityController:login" type="service_closure" id=".service_locator.3QECKYg.App\Controller\SecurityController::login()"/>
         <argument key="App\Controller\UserController:redirectRole" type="service_closure" id=".service_locator.YOUPp1C.App\Controller\UserController::redirectRole()"/>
+        <argument key="App\Controller\VehicleController:getUserVehicles" type="service_closure" id=".service_locator.Kq27LHM.App\Controller\VehicleController::getUserVehicles()"/>
       </argument>
     </service>
     <service id=".service_locator.HxALDTI" class="Symfony\Component\DependencyInjection\ServiceLocator">
@@ -9739,6 +9748,12 @@
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.ZyP9f7K" method="withContext"/>
     </service>
+    <service id=".service_locator.ZyP9f7K.App\Controller\VehicleController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\VehicleController"/>
+      <argument>App\Controller\VehicleController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.ZyP9f7K" method="withContext"/>
+    </service>
     <service id=".service_locator.7jukgan" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -9939,6 +9954,7 @@
           <argument>App\Controller\RideController</argument>
           <argument>App\Controller\SecurityController</argument>
           <argument>App\Controller\UserController</argument>
+          <argument>App\Controller\VehicleController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
       </call>
@@ -11463,7 +11479,7 @@
     <service id="lexik_jwt_authentication.key_loader" alias="lexik_jwt_authentication.key_loader.raw" public="true"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.pRu6x_4" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.RrKkZIF"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.5LkPIw8"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.BxSdgVt"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -11517,7 +11533,6 @@
     <service id=".service_locator.Zt2lNpR" alias=".service_locator.GpM3RP0"/>
     <service id=".service_locator.DODehvH" alias=".service_locator.CFQPgrl"/>
     <service id=".service_locator.5sIukdH" alias=".service_locator.YxhG_3W"/>
-    <service id=".service_locator._gN9w1L" alias=".service_locator.N1sgHpH"/>
     <service id=".service_locator.qidsS3R" alias=".service_locator.AJ5eq3c"/>
     <service id=".service_locator.Nrz07Zz" alias=".service_locator.3QECKYg"/>
     <service id=".service_locator.NmluoYN" alias=".service_locator.YOUPp1C"/>

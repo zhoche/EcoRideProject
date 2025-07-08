@@ -27,5 +27,7 @@ export class NewRideComponent {
   onFinish() {
     alert('✅ Votre trajet a bien été créé !');
     this.finish.emit();
+
   }
+  
 }

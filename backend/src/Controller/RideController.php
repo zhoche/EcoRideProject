@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Ride;
 use App\Entity\User;
 use App\Entity\Avis;
+use App\Entity\Vehicle;
 use App\Repository\RideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,10 @@ use App\Repository\UserRepository;
 use App\Repository\VehicleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
+
+
 
 
 #[Route('/api/rides')]
@@ -38,65 +43,61 @@ class RideController extends AbstractController
     ]);
 }
 
-    // Route pour créer un trajet
-    #[Route('/create', methods: ['POST'])]
-    public function create(
-        Request $request,
-        EntityManagerInterface $em,
-        ValidatorInterface $validator,
-        UserRepository $userRepo,
-        VehicleRepository $vehicleRepo
-    ): JsonResponse {
-        $data = json_decode($request->getContent(), true);
 
 
-        // 1. Récupération de l'utilisateur connecté
+
+// Créer un trajet 
+#[Route('/new-ride', methods: ['POST'])]
+#[IsGranted('ROLE_DRIVER')]
+public function createRide(Request $request, EntityManagerInterface $em): JsonResponse
+{
+    $data = json_decode($request->getContent(), true);
+
+    // Validation basique
+    $requiredFields = ['departure', 'arrival', 'date', 'time', 'vehicleId', 'price', 'seats'];
+    foreach ($requiredFields as $field) {
+        if (empty($data[$field])) {
+            return new JsonResponse(['error' => "Le champ '$field' est requis."], 400);
+        }
+    }
+
+    /** @var User $driver */
     $driver = $this->getUser();
     if (!$driver) {
-        return $this->json(['error' => 'Utilisateur non connecté'], 401);
+        return new JsonResponse(['error' => 'Utilisateur non connecté.'], 401);
     }
 
-    if (!in_array('ROLE_CHAUFFEUR', $driver->getRoles())) {
-        return $this->json(['error' => 'Vous devez être chauffeur pour créer un trajet'], 403);
+    // Fusion date + heure
+    $dateTime = \DateTime::createFromFormat('Y-m-d H:i', $data['date'] . ' ' . $data['time']);
+    if (!$dateTime) {
+        return new JsonResponse(['error' => 'Format de date ou d\'heure invalide.'], 400);
     }
 
-    // 2. Vérification des données de base
-    if (!isset($data['price']) || !is_numeric($data['price'])) {
-        return $this->json(['error' => 'Le prix est requis et doit être un nombre'], 400);
+    // Récupération du véhicule
+    $vehicle = $em->getRepository(Vehicle::class)->find($data['vehicleId']);
+    if (!$vehicle || $vehicle->getOwner()->getId() !== $driver->getId()) {
+        return new JsonResponse(['error' => 'Véhicule introuvable ou non autorisé.'], 403);
     }
 
-    if (!isset($data['available_seats']) || !is_numeric($data['available_seats'])) {
-        return $this->json(['error' => 'Nombre de places disponible requis'], 400);
-    }
-
-    // 3. Vérification du véhicule
-    $vehicle = $vehicleRepo->find($data['vehicle_id'] ?? null);
-    if (!$vehicle || $vehicle->getOwner() !== $driver) {
-        return $this->json(['error' => 'Véhicule invalide ou non autorisé'], 400);
-    }
-
-    // 4. Création du trajet
+    // Création du trajet
     $ride = new Ride();
-    $ride->setDeparture($data['departure'] ?? null);
-    $ride->setArrival($data['arrival'] ?? null);
-    $ride->setDate(new \DateTime($data['date'] ?? 'now'));
-    $ride->setPrice((float) $data['price']);
-    $ride->setAvailableSeats((int) $data['available_seats']);
-    $ride->setInitialSeats((int) $data['available_seats']);
+    $ride->setDriver($driver);
+    $ride->setDeparture($data['departure']);
+    $ride->setArrival($data['arrival']);
+    $ride->setDate($dateTime);
     $ride->setVehicle($vehicle);
+    $ride->setPrice((float) $data['price']);
+    $ride->setAvailableSeats((int) $data['seats']);
+    $ride->setInitialSeats((int) $data['seats']);
 
-    // 5. Validation
-    $errors = $validator->validate($ride);
-    if (count($errors) > 0) {
-        return $this->json(['errors' => (string) $errors], 400);
-    }
-
-    // 6. Persistance
     $em->persist($ride);
     $em->flush();
 
-        return $this->json(['id' => $ride->getId()], 201);
-    }
+    return new JsonResponse([
+        'message' => 'Trajet créé avec succès',
+        'ride_id' => $ride->getId()
+    ], 201);
+}
 
 
 
@@ -390,6 +391,8 @@ public function giveFeedback(Request $request, EntityManagerInterface $em): Json
 
     return $this->json(['success' => 'Avis enregistré']);
 }
+
+
 
 
 

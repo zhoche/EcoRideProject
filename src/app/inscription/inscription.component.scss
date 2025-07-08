@@ -122,6 +122,39 @@
     }
   }
 
+
+//BOUTONS PROFIL
+.role-options {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.role-options input[type="radio"] {
+  display: none;
+}
+
+.role-options label {
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 25px;
+  cursor: pointer;
+  font-weight: 500;
+  background-color: white;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.role-options input[type="radio"]:checked + label {
+  background-color: #f3f9ee; 
+  border-color: $color-positive;   
+  color: $color-positive;
+}
+
+
+
+
+
+
   .login-img {
     position: absolute;
     top: 0; right: 0; bottom: 0; left: 0;

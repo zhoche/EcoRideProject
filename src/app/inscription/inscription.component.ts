@@ -14,6 +14,7 @@ export class InscriptionComponent {
   email = '';
   password = '';
   pseudo = '';
+  role = 'ROLE_USER';
   message = '';
 
   constructor(private authService: AuthService, private router: Router) {}
@@ -22,9 +23,11 @@ export class InscriptionComponent {
     this.authService.register({
       email: this.email,
       password: this.password,
-      pseudo: this.pseudo
+      pseudo: this.pseudo,
+      roles: [this.role]
     }).subscribe({
       next: () => {
+        alert('Votre compte a bien été créé ! ✅');
         this.message = 'Inscription réussie !';
         this.router.navigate(['/connexion']);
       },

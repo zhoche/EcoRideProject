@@ -25,4 +25,19 @@ export class RideService {
       withCredentials: false 
     });
   }
+
+
+  createRide(data: any) {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post(
+      'http://localhost:8000/api/rides/new-ride',
+      data,
+      { headers }
+    );
+  }
 }

@@ -52,6 +52,18 @@
     </p>
   </div>
 
+    <!-- Profil -->
+    <div class="role-selector">
+      <p><strong>Souhaitez-vous être :</strong></p>
+      <div class="role-options">
+        <input type="radio" id="driver" name="role" [(ngModel)]="role" value="ROLE_DRIVER" required>
+        <label for="driver">Conducteur</label>
+        
+        <input type="radio" id="passenger" name="role" [(ngModel)]="role" value="ROLE_USER">
+        <label for="passenger">Passager</label>
+      </div>
+    </div>
+
   <!-- Bouton + texte des conditions -->
   <div class="actions">
     <button type="submit" class="btn btn-filled">Créer mon compte</button>

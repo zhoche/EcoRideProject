@@ -1,6 +1,8 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RideFormService } from '../ride-form.service';
+import { VehicleService } from '../vehicle.service';
 
 interface Vehicle {
   id: string;
@@ -17,35 +19,37 @@ interface Vehicle {
   templateUrl: './new-ride-step-2.component.html',
   styleUrls: ['./new-ride-step-2.component.scss']
 })
-export class NewRideStep2Component {
-  // événements vers le parent
+export class NewRideStep2Component implements OnInit {
   @Output() back = new EventEmitter<void>();
   @Output() next = new EventEmitter<void>();
 
-  // VEHICULE OPTIONS
-  vehicles: Vehicle[] = [
-    { id: 'veh1', label: 'Peugeot 208 (AB-123-CD)' },
-    { id: 'veh2', label: 'Renault Clio (EF-456-GH)' },
-    { id: 'veh3', label: 'Tesla Model 3 (TES-LA01)' },
-  ];
-
+  vehicles: Vehicle[] = [];
   seats: number[] = [1, 2, 3, 4, 5];
 
-  // variables de liaison
   selectedVehicleId: string | null = null;
   selectedSeats: number | null = null;
   isElectric: boolean | null = null;
 
-  // trackBy pour optimiser *ngFor
+  constructor(
+    public rideForm: RideFormService,
+    private vehicleService: VehicleService
+  ) {}
+
+  ngOnInit(): void {
+    this.vehicleService.getUserVehicles().subscribe((vehicles) => {
+      this.vehicles = vehicles;
+    });
+  }
+
+  toggleElectric(value: boolean) {
+    this.isElectric = value;
+  }
+
   trackById(_idx: number, item: Vehicle): string {
     return item.id;
   }
+
   trackByIndex(idx: number): number {
     return idx;
-  }
-
-  // méthode pour basculer l’état électrique
-  toggleElectric(value: boolean) {
-    this.isElectric = value;
   }
 }

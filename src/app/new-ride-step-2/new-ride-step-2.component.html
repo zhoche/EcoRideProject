@@ -16,8 +16,8 @@
           <div class="new-trip-step2__field">
             <label class="new-trip-step2__label">Sélection du véhicule</label>
             <select
-              class="new-trip-step2__select" [(ngModel)]="selectedVehicleId" name="vehicle">
-              <option value="" disabled selected>Sélectionner ou ajouter un nouveau véhicule</option>
+              class="new-trip-step2__select" [(ngModel)]="rideForm.formData.vehicleId" name="vehicle">
+              <option value="" disabled selected>Sélectionner un nouveau véhicule</option>
               <option *ngFor="let v of vehicles; trackBy: trackById" [value]="v.id">{{ v.label }}</option>
             </select>
 
@@ -36,7 +36,7 @@
           <!-- Nombre de sièges -->
           <div class="new-trip-step2__field">
             <label class="new-trip-step2__label">Nombre de sièges disponibles</label>
-            <select class="new-trip-step2__select" [(ngModel)]="selectedSeats" name="seats">
+            <select class="new-trip-step2__select" [(ngModel)]="rideForm.formData.seats" name="seats">
               <option value="" disabled selected>Sélectionner un nombre</option>
               <option *ngFor="let n of seats; trackBy: trackByIndex" [value]="n">{{ n }}</option>
             </select>

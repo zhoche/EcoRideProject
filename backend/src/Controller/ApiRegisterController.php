@@ -38,8 +38,17 @@ class ApiRegisterController extends AbstractController
         $inputRoles = $data['roles'] ?? ['ROLE_USER'];
         $roles = array_filter($inputRoles, fn($r) => in_array($r, $allowedRoles));
     
+        // Un conducteur est aussi passager par défaut
+        if (in_array('ROLE_DRIVER', $roles) && !in_array('ROLE_USER', $roles)) {
+            $roles[] = 'ROLE_USER';
+        }
+
         if (in_array('ROLE_ADMIN', $inputRoles)) {
             return new JsonResponse(['error' => 'Création de compte administrateur interdite.'], 403);
+        }
+
+        if (empty($roles)) {
+            return new JsonResponse(['error' => 'Aucun rôle valide fourni.'], 400);
         }
     
         $user = new User();
