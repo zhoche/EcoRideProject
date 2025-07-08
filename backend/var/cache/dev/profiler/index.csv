@@ -980,3 +980,13 @@ dce1ad,127.0.0.1,GET,http://localhost:8000/api/vehicles/user,1751961883,,200,req
 5639be,127.0.0.1,GET,http://localhost:8000/api/rides/list,1751963738,,200,request
 f600dd,127.0.0.1,POST,http://localhost:8000/api/login,1751963800,,200,request
 c645ea,127.0.0.1,GET,http://localhost:8000/api/rides/list,1751963800,,200,request
+1c1795,127.0.0.1,POST,http://localhost:8000/api/login,1751964392,,200,request
+56425d,127.0.0.1,GET,http://localhost:8000/api/rides/list,1751964392,,200,request
+40c218,127.0.0.1,POST,http://localhost:8000/api/login,1751967532,,200,request
+9c285e,127.0.0.1,OPTIONS,http://localhost:8000/api/rides/list,1751967532,,200,request
+15a160,127.0.0.1,GET,http://localhost:8000/api/rides/list,1751967532,,200,request
+8350fd,127.0.0.1,OPTIONS,http://localhost:8000/api/vehicles/user,1751968501,,200,request
+8e239b,127.0.0.1,GET,http://localhost:8000/api/vehicles/user,1751968501,,200,request
+c2a6d4,127.0.0.1,GET,http://localhost:8000/api/vehicles/user,1751970048,,200,request
+87af98,127.0.0.1,GET,http://localhost:8000/api/vehicles/user,1751970051,,200,request
+9b7fb9,127.0.0.1,GET,http://localhost:8000/api/vehicles/user,1751970073,,200,request

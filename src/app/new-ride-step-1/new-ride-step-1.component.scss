@@ -131,49 +131,49 @@ font-weight: 700;
   &__map-col {
     flex: 2;
     position: relative;
+    align-items: stretch;
+    height: 600px;
+
 
     @media (max-width: $breakpoint-lg) {
       height: 300px;
     }
   }
 
-  &__map {
-    width: 100%;
-    height: 100%;
-    min-height: 600px;
-    border-radius: $radius-md;
-    overflow: hidden;
-  }
+  
 }
 
+.app-map {
+  width: 100%;
+  height: 100%;
+  border-radius: $radius-md;
+  overflow: hidden;
+}
 
 
 @media (min-width: $breakpoint-lg) {
     .new-trip {
-      /* 1) Wrapper moins « haute » */
+
       &__wrapper {
-        padding: $spacing-xl;        // on descend d’un cran sur le padding
-        align-items: flex-start;     // empêche les colonnes de s’étirer mutuellement
-        gap: $spacing-md;            // réduit aussi le gap entre form et map
+        padding: $spacing-xl;     
+        align-items: flex-start; 
+        gap: $spacing-md;         
       }
   
-      /* 2) Form-col : on laisse le formulaire adapter sa hauteur */
       &__form-col {
         flex: 1 1 auto;
       }
   
-      /* 3) Map-col : on réduit la map */
       &__map {
-        min-height: 250px;           // avant 400px, on le descend à 250px
+        min-height: 250px;        
       }
     }
   }
   
-  /* Option mobile : encore plus compact */
   @media (max-width: $breakpoint-lg) {
     .new-trip {
       &__wrapper {
-        padding: $spacing-lg;        // un dernier cran de réduction
+        padding: $spacing-lg;    
       }
       &__map {
         min-height: 150px;

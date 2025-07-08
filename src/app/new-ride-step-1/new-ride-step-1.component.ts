@@ -2,7 +2,7 @@ import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RideFormService } from '../ride-form.service';
 import { FormsModule } from '@angular/forms';
-import { MapComponent } from '../../map.component/map.component.component';
+import { MapComponent } from '../../map.component/map.component';
 
 @Component({
   selector: 'app-new-ride-step-1',
