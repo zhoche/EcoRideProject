@@ -55,6 +55,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $image = null;
+
+    #[ORM\Column(type: 'float', nullable: true)]
+    private ?float $rating = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isVerified = false;
+
+
 
 
     public function __construct()
@@ -204,10 +214,55 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 
     #[ORM\PrePersist]
-public function setCreatedAtValue(): void
-{
-    if ($this->createdAt === null) {
-        $this->createdAt = new \DateTimeImmutable();
+    public function setCreatedAtValue(): void
+    {
+        if ($this->createdAt === null) {
+            $this->createdAt = new \DateTimeImmutable();
+        }
     }
-}
+
+
+    public function getName(): string
+    {
+        return $this->pseudo ?? 'Nom inconnu';
+    }
+
+
+
+    public function getImageUrl(): string
+    {
+        return $this->image ?? 'images/Profil_Base.png';
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+
+    public function getRating(): ?float
+    {
+        return $this->rating;
+    }
+
+    public function setRating(?float $rating): static
+    {
+        $this->rating = $rating;
+        return $this;
+    }
+
+
+    public function isVerified(): bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+        return $this;
+    }
+
+
 }

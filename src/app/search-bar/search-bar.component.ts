@@ -41,4 +41,18 @@ export class SearchBarComponent {
       this.router.navigate(['/recherche-covoit'], { state: params });
     }
   }
+
+  onVilleDepartChange(value: string) {
+    this.villeDepart = this.capitalizeInput(value);
+  }
+  
+  onVilleArriveeChange(value: string) {
+    this.villeArrivee = this.capitalizeInput(value);
+  }
+  
+  capitalizeInput(value: string): string {
+    if (!value) return '';
+    return value.trim().charAt(0).toUpperCase() + value.trim().slice(1);
+  }
+  
 }

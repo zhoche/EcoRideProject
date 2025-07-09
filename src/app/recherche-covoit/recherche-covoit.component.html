@@ -1,7 +1,7 @@
 <app-search-bar
   [villeDepart]="searchVilleDepart"
   [villeArrivee]="searchVilleArrivee"
-  [date]="displayedDate"
+  [date]="date"
   [nbPassagers]="selectedPassengers"
   (search)="onSearch($event)">
 </app-search-bar>
@@ -380,16 +380,23 @@
       </div>
     </header>
 
+    
     <p class="no-search-message" *ngIf="!searchVilleDepart || !searchVilleArrivee">
       Veuillez lancer une recherche pour afficher les trajets disponibles.
     </p>
+    
+    <p class="no-search-message" *ngIf="rides.length === 0 && alternativeResults.length === 0 && searchVilleDepart && searchVilleArrivee">
+      Aucun trajet disponible à la date sélectionnée.
+    </p>
+
+
+
     <ul class="result-list" *ngIf="searchVilleDepart && searchVilleArrivee">
       <li
         class="result-card"
         *ngFor="let ride of rides"
         [class.disabled]="ride.availableSeats === 0"
         (click)="ride.availableSeats > 0 && openTripDetail(ride)">
-        <span class="credit-value">{{ ride.availableSeats > 0 ? ride.price : 'Complet' }}</span>
         <!-- HEADER INFOS -->
         <div class="card-header">
           <div class="route-info">
@@ -433,6 +440,60 @@
         </div>
       </li>
     </ul>
+
+    <!-- Résultats alternatifs si aucun trajet exact -->
+<ul class="result-list" *ngIf="rides.length === 0 && alternativeResults.length > 0">
+  <li
+    class="result-card"
+    *ngFor="let ride of alternativeResults"
+    [class.disabled]="ride.availableSeats === 0"
+    (click)="ride.availableSeats > 0 && openTripDetail(ride)">
+    
+    <!-- HEADER INFOS -->
+    <div class="card-header">
+      <div class="route-info">
+        <div class="time-block departure">
+          <span class="time">{{ ride.departureTime }}</span>
+          <span class="location">{{ ride.departureCity }}</span>
+        </div>
+        <div class="timeline">
+          <span class="dot"></span>
+          <span class="bar"><span class="duration">{{ ride.duration }}</span></span>
+          <span class="dot"></span>
+        </div>
+        <div class="time-block arrival">
+          <span class="time">{{ ride.arrivalTime }}</span>
+          <span class="location">{{ ride.arrivalCity }}</span>
+        </div>
+      </div>
+      <div class="credit-info">
+        <img src="images/Credit.png" alt="credit" class="credit-icon" />
+        <span class="credit-value">{{ ride.availableSeats > 0 ? ride.price : 'Complet' }}</span>
+      </div>
+    </div>
+
+    <hr class="card-separator" />
+
+    <!-- DRIVER INFOS -->
+    <div class="card-details">
+      <div class="driver">
+        <div class="avatar-wrapper">
+          <img [src]="ride.driverImage" alt="{{ ride.driverName }}" class="avatar" />
+          <img *ngIf="ride.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
+        </div>
+        <span class="name">{{ ride.driverName }}</span>
+        <span class="rating">
+          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
+          <span class="rating-value">{{ ride.rating }}</span>
+        </span>
+      </div>
+      <div class="divider-vertical"></div>
+      <div class="extras">{{ ride.extras }}</div>
+    </div>
+
+  </li>
+</ul>
+
   </main>
 
 </section>

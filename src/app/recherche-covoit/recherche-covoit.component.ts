@@ -25,9 +25,10 @@ export class RechercheCovoitComponent implements OnInit{
   displayedDate: string = '';
   searchVilleDepart = '';
   searchVilleArrivee = '';
+  date = ''; 
 
   // Passagers
-  passengerOptions = [1, 2, 3, 4];
+  passengerOptions = Array.from({ length: 10 }, (_, i) => i + 1); // 👈 ici directement
   selectedPassengers = 1;
   showPassengerDropdown = false;
 
@@ -81,15 +82,26 @@ export class RechercheCovoitComponent implements OnInit{
 
 
   ngOnInit(): void {
-    this.passengerOptions = Array.from({ length: 10 }, (_, i) => i + 1);
-  
     const state = history.state as SearchParams;
   
     if (state && state.villeDepart && state.villeArrivee && state.date) {
       this.searchVilleDepart = state.villeDepart;
       this.searchVilleArrivee = state.villeArrivee;
-      this.displayedDate = this.formatDate(state.date);
       this.selectedPassengers = state.nbPassagers;
+  
+      let parsedDate: Date;
+  
+      // Sécurise la conversion en format yyyy-MM-dd
+      if (typeof state.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(state.date)) {
+        this.date = state.date; // Format déjà bon
+        parsedDate = new Date(state.date);
+      } else {
+        parsedDate = new Date(state.date);
+        this.date = parsedDate.toISOString().split('T')[0]; // ISO pour le champ input
+      }
+  
+      // Affichage utilisateur
+      this.displayedDate = this.formatDate(parsedDate.toString());
   
       this.onSearch(state);
     } else {
@@ -120,6 +132,8 @@ export class RechercheCovoitComponent implements OnInit{
   
     this.rideService.searchRides(params).subscribe({
       next: (rides) => {
+        console.log('🎯 Rides depuis BDD :', rides);
+
         if (rides.length > 0) {
           this.rides = rides;
         } else {
@@ -136,7 +150,7 @@ export class RechercheCovoitComponent implements OnInit{
   loadNextAvailableRides(params: SearchParams) {
     this.rideService.searchNextAvailableRides(params).subscribe({
       next: (nextRides) => {
-        console.log('Résultats alternatifs reçus :', nextRides);
+        console.log('📆 Résultats alternatifs :', nextRides);
         this.rides = nextRides;
         this.isAlternativeResults = true;
   

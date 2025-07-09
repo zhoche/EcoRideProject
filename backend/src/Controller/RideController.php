@@ -405,8 +405,28 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
 
     $rides = $rideRepository->findAvailableRides($villeDepart, $villeArrivee, $date, $nbPassagers);
 
-    return $this->json($rides, 200, [], ['groups' => 'ride:read']);
+    // 🔁 Transformation en tableau compatible front
+    $rideData = array_map(function ($ride) {
+        return [
+            'id' => $ride->getId(),
+            'departureCity' => $ride->getDeparture(),
+            'arrivalCity' => $ride->getArrival(),
+            'departureTime' => $ride->getDate()->format('H\hi'),
+            'arrivalTime' => (clone $ride->getDate())->modify('+1 hour')->format('H\hi'),         
+            'duration' => '1h00', // ou calcule-le dynamiquement
+            'price' => $ride->getPrice(),
+            'availableSeats' => $ride->getAvailableSeats(),
+            'driverName' => $ride->getDriver()?->getName() ?? 'Conducteur inconnu',
+            'driverImage' => $ride->getDriver()?->getImageUrl() ?? 'images/Profil_Base.png',
+            'rating' => $ride->getDriver()?->getRating() ?? 4.0,
+            'verified' => $ride->getDriver()?->isVerified() ?? false,
+            'extras' => $ride->getExtras() ?? '',
+        ];
+    }, $rides);
+
+    return $this->json($rideData);
 }
+
 
 #[Route('/next-available', name: 'app_ride_next', methods: ['GET'])]
 public function nextAvailable(Request $request, RideRepository $rideRepository): JsonResponse

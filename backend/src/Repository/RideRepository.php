@@ -53,24 +53,27 @@ public function findAvailableRides(string $villeDepart, string $villeArrivee, st
 
 public function findNextAvailableRides(string $villeDepart, string $villeArrivee, string $date, int $nbPassagers): array
 {
-    $endOfDay = (new \DateTime($date))->setTime(23, 59, 59);
+    $referenceDate = new \DateTime($date); // 2025-07-07 00:00:00
 
     $qb = $this->createQueryBuilder('r')
         ->andWhere('r.departure = :villeDepart')
         ->andWhere('r.arrival = :villeArrivee')
-        ->andWhere('r.date > :end') 
+        ->andWhere('r.date >= :referenceDate') // ← clé ici
         ->andWhere('r.availableSeats >= :nbPassagers')
         ->orderBy('r.date', 'ASC')
-        ->setMaxResults(3); 
+        ->setMaxResults(3);
 
     $qb
         ->setParameter('villeDepart', $villeDepart)
         ->setParameter('villeArrivee', $villeArrivee)
-        ->setParameter('end', $endOfDay)
+        ->setParameter('referenceDate', $referenceDate)
         ->setParameter('nbPassagers', $nbPassagers);
 
+        
     return $qb->getQuery()->getResult();
 }
+
+
 
 
 

@@ -60,6 +60,11 @@ class Ride
     #[ORM\Column(type: 'integer')]
     private ?int $initialSeats = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['ride:read'])]
+    private ?string $extras = null;
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -193,5 +198,18 @@ class Ride
     }
 
 
+
+
+
+    public function getExtras(): ?string
+    {
+        return $this->extras;
+    }
+
+    public function setExtras(?string $extras): static
+    {
+        $this->extras = $extras;
+        return $this;
+    }
 
 }
