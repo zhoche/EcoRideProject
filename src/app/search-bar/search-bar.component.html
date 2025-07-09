@@ -1,31 +1,32 @@
 <div class="eco-search">
-    <div class="search-bar">
-      <div class="search-input">
-        <img src="images/Home_Picto_Recherche_Depart.svg" alt="Départ" class="icon" />
-        <input type="text" placeholder="Départ" />
-      </div>
-  
-      <div class="search-input">
-        <img src="images/Home_Picto_Recherche_Destination.svg" alt="Destination" class="icon" />
-        <input type="text" placeholder="Destination" />
-      </div>
-  
-      <div class="search-input">
-        <img src="images/Home_Picto_Recherche_Date.svg" alt="Date" class="icon" />
-        <input type="date" />
-      </div>
-  
-      <div class="search-input">
-        <img src="images/Home_Picto_Recherche_Passager.svg" alt="Passagers" class="icon" />
-        <select>
-          <option>1 passager</option>
-          <option>2 passagers</option>
-          <option>3 passagers</option>
-          <option>4 passagers</option>
-        </select>
-      </div>
-  
-      <button class="search-button">Rechercher</button>
+  <div class="search-bar">
+
+    <div class="search-input">
+      <img src="images/Home_Picto_Recherche_Depart.svg" alt="Départ" class="icon" />
+      <input type="text" placeholder="Départ" [(ngModel)]="villeDepart" />
     </div>
+
+    <div class="search-input">
+      <img src="images/Home_Picto_Recherche_Destination.svg" alt="Destination" class="icon" />
+      <input type="text" placeholder="Destination" [(ngModel)]="villeArrivee" />
+    </div>
+
+    <div class="search-input">
+      <img src="images/Home_Picto_Recherche_Date.svg" alt="Date" class="icon" />
+      <input type="date" [(ngModel)]="date" />
+    </div>
+
+    <div class="search-input">
+      <img src="images/Home_Picto_Recherche_Passager.svg" alt="Passagers" class="icon" />
+      <select [(ngModel)]="nbPassagers">
+        <option [value]="1">1 passager</option>
+        <option [value]="2">2 passagers</option>
+        <option [value]="3">3 passagers</option>
+        <option [value]="4">4 passagers</option>
+      </select>
+    </div>
+
+    <button class="search-button" (click)="onSearchClick()">Rechercher</button>
+
   </div>
-  
+</div>

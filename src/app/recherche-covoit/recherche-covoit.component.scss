@@ -155,6 +155,11 @@
         }
       }
     }
+
+    .route-color {
+      color: $color-secondary-2; 
+      font-weight: 600;
+    }
   
     // liste des cartes
     .result-list {

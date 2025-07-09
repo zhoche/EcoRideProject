@@ -30,6 +30,8 @@ return [
         '/api/rides/new-ride' => [[['_route' => 'app_ride_createride', '_controller' => 'App\\Controller\\RideController::createRide'], null, ['POST' => 0], null, false, false, null]],
         '/api/rides/list' => [[['_route' => 'app_ride_getalluserrides', '_controller' => 'App\\Controller\\RideController::getAllUserRides'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/feedback' => [[['_route' => 'app_ride_givefeedback', '_controller' => 'App\\Controller\\RideController::giveFeedback'], null, ['POST' => 0], null, false, false, null]],
+        '/api/rides/search' => [[['_route' => 'app_ride_search', '_controller' => 'App\\Controller\\RideController::searchRides'], null, ['GET' => 0], null, false, false, null]],
+        '/api/rides/next-available' => [[['_route' => 'app_ride_next', '_controller' => 'App\\Controller\\RideController::nextAvailable'], null, ['GET' => 0], null, false, false, null]],
         '/api/login' => [
             [['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null],
             [['_route' => 'api_login'], null, ['POST' => 0], null, false, false, null],

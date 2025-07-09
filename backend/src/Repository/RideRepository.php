@@ -27,4 +27,53 @@ class RideRepository extends ServiceEntityRepository
 
 
 
+public function findAvailableRides(string $villeDepart, string $villeArrivee, string $date, int $nbPassagers)
+{
+    $startOfDay = (new \DateTime($date))->setTime(0, 0, 0);
+    $endOfDay = (new \DateTime($date))->setTime(23, 59, 59);
+
+    $qb = $this->createQueryBuilder('r')
+        ->where('r.departure = :villeDepart')
+        ->andWhere('r.arrival = :villeArrivee')
+        ->andWhere('r.date BETWEEN :start AND :end')
+        ->andWhere('r.availableSeats >= :nbPassagers')
+        ->orderBy('r.date', 'ASC');
+
+    $qb
+        ->setParameter('villeDepart', $villeDepart)
+        ->setParameter('villeArrivee', $villeArrivee)
+        ->setParameter('start', $startOfDay)
+        ->setParameter('end', $endOfDay)
+        ->setParameter('nbPassagers', $nbPassagers);
+
+    return $qb->getQuery()->getResult();
+}
+
+
+
+public function findNextAvailableRides(string $villeDepart, string $villeArrivee, string $date, int $nbPassagers): array
+{
+    $endOfDay = (new \DateTime($date))->setTime(23, 59, 59);
+
+    $qb = $this->createQueryBuilder('r')
+        ->andWhere('r.departure = :villeDepart')
+        ->andWhere('r.arrival = :villeArrivee')
+        ->andWhere('r.date > :end') 
+        ->andWhere('r.availableSeats >= :nbPassagers')
+        ->orderBy('r.date', 'ASC')
+        ->setMaxResults(3); 
+
+    $qb
+        ->setParameter('villeDepart', $villeDepart)
+        ->setParameter('villeArrivee', $villeArrivee)
+        ->setParameter('end', $endOfDay)
+        ->setParameter('nbPassagers', $nbPassagers);
+
+    return $qb->getQuery()->getResult();
+}
+
+
+
+
+
 }

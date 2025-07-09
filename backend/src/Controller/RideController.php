@@ -394,7 +394,30 @@ public function giveFeedback(Request $request, EntityManagerInterface $em): Json
 
 
 
+//Rechercher un trajet
+#[Route('/search', name: 'app_ride_search', methods: ['GET'])]
+public function searchRides(Request $request, RideRepository $rideRepository): JsonResponse
+{
+    $villeDepart = $request->query->get('villeDepart');
+    $villeArrivee = $request->query->get('villeArrivee');
+    $date = $request->query->get('date');
+    $nbPassagers = $request->query->get('nbPassagers');
 
+    $rides = $rideRepository->findAvailableRides($villeDepart, $villeArrivee, $date, $nbPassagers);
 
+    return $this->json($rides, 200, [], ['groups' => 'ride:read']);
+}
 
+#[Route('/next-available', name: 'app_ride_next', methods: ['GET'])]
+public function nextAvailable(Request $request, RideRepository $rideRepository): JsonResponse
+{
+    $villeDepart = $request->query->get('villeDepart');
+    $villeArrivee = $request->query->get('villeArrivee');
+    $date = $request->query->get('date');
+    $nbPassagers = $request->query->get('nbPassagers');
+
+    $rides = $rideRepository->findNextAvailableRides($villeDepart, $villeArrivee, $date, $nbPassagers);
+
+    return $this->json($rides, 200, [], ['groups' => 'ride:read']);
+}
 }

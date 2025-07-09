@@ -1,4 +1,11 @@
-<app-search-bar></app-search-bar>
+<app-search-bar
+  [villeDepart]="searchVilleDepart"
+  [villeArrivee]="searchVilleArrivee"
+  [date]="displayedDate"
+  [nbPassagers]="selectedPassengers"
+  (search)="onSearch($event)">
+</app-search-bar>
+
 
 <app-modal [visible]="showTripDetail" (close)="closeTripDetail()">
 
@@ -294,338 +301,142 @@
 
 
 <!-- PAGE RECHERCHE -->
-  <section class="search-page">
-    <!-- Sidebar filtres -->
-    <aside class="filters" [class.open]="showFilters">
-        
-      <div class="filters-header">
-        <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
-        <a href="#" class="clear-all">Tout effacer</a>
-      </div>
-      
-      <div class="filter-group">
-        <h3>Trier par</h3>
-        <ul>
-          <li>
-            <label>
-              <input type="radio" name="sort" checked />
-              <span class="custom-radio"></span>
-              Départ le plus tôt
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="sort" />
-              <span class="custom-radio"></span>
-              Prix le plus bas
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="sort" />
-              <span class="custom-radio"></span>
-              Voiture électrique
-            </label>
-          </li>
-        </ul>
-      </div>
+<section class="search-page">
 
-      <div class="filter-group">
-        <h3>Heure de départ</h3>
-        <ul>
-          <li>
-            <label>
-              <input type="radio" name="time" />
-              <span class="custom-radio"></span>
-              Jusqu’à 12 h00
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="time" />
-              <span class="custom-radio"></span>
-              12 h00 – 18 h00
-            </label>
-          </li>
-          <li>
-            <label>
-              <input type="radio" name="time" />
-              <span class="custom-radio"></span>
-              Après 18 h00
-            </label>
-          </li>
-        </ul>
-      </div>
-
-      <div class="filter-group">
-        <h3>Confiance & sécurité</h3>
-        <ul>
-          <li>
-            <label>
-                <input type="checkbox" name="trust" value="verified" />
-                <span class="custom-checkbox"></span>
-                Profil vérifié
-                </label>
-          </li>
-          <li>
-            <label>
-            <input type="checkbox" name="trust" value="women" />
-              <span class="custom-checkbox"></span>
-              Femmes seulement
-            </label>
-          </li>
-        </ul>
-      </div>
-
-      <div class="filter-group">
-        <h3>Services & équipement</h3>
-        <ul>
-          <li>
-            <label>
-            <input type="checkbox" name="service" value="max2" />
-              <span class="custom-checkbox"></span>
-              Max. 2 à l’arrière
-            </label>
-          </li>
-          <li>
-            <label>
-            <input type="checkbox" name="service" value="smoking" />
-              <span class="custom-checkbox"></span>
-              Fumeur autorisé
-            </label>
-          </li>
-          <li>
-            <label>
-            <input type="checkbox" name="service" value="pets" />
-             <span class="custom-checkbox"></span>
-              Animal de compagnie autorisé
-            </label>
-          </li>
-        </ul>
-      </div>
-    </aside>
-
-
-
-
-    <!-- RESULTATS -->
-    <main class="results">
-      <header class="results-header">
-        <h2>
-          Aujourd’hui 
-          <span class="route">Auch > Toulouse</span>
-        </h2>
-      </header>
-
-      <ul class="result-list">
-        <!-- Carte active -->
-        <li class="result-card" (click)="openTripDetail()">
-            <!-- INFO TRAJET -->
-            <div class="card-header">
-                <!-- Départ → Arrivée -->
-                <div class="route-info">
-                  <div class="time-block departure">
-                    <span class="time">10h20</span>
-                    <span class="location">Auch</span>
-                  </div>
-                  <div class="timeline">
-                    <span class="dot"></span>
-                    <span class="bar">
-                      <span class="duration">1h00</span>
-                    </span>
-                    <span class="dot"></span>
-                  </div>
-                  <div class="time-block arrival">
-                    <span class="time">11h20</span>
-                    <span class="location">Toulouse</span>
-                  </div>
-                </div>
-              
-                <!-- Crédits -->
-                <div class="credit-info">
-                  <img src="images/Credit.png" alt="credit" class="credit-icon" />
-                  <span class="credit-value">5</span>
-                </div>
-              </div>
-              
-          
-            <!-- SÉPARATEUR HORIZONTAL -->
-            <hr class="card-separator" />
-          
-
-
-            <!-- DÉTAILS DU CHAUFFEUR -->
-            <div class="card-details">
-              <div class="driver">
-                <div class="avatar-wrapper">
-                    <img src="images/Profil_Anthony.png" alt="Anthony" class="avatar" />
-                    <img
-                      src="images/Picto_Verifier.svg"
-                      alt="Profil vérifié"
-                      class="verified-icon"
-                    />
-                  </div>
-                <span class="name">Anthony</span>
-                <span class="rating">
-                    <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-                    <span class="rating-value">4,7</span>
-                  </span>
-              </div>
-              <div class="divider-vertical"></div>
-              <div class="extras">
-                Animaux de compagnie autorisées, non-fumeur
-              </div>
-            </div>
-          </li>
-
-          <!-- 2ème carte : Sandra -->
-<li class="result-card">
-    <!-- INFO TRAJET -->
-    <div class="card-header">
-      <div class="route-info">
-        <div class="time-block departure">
-          <span class="time">11h00</span>
-          <span class="location">Auch</span>
-        </div>
-        <div class="timeline">
-          <span class="dot"></span>
-          <span class="bar">
-            <span class="duration">1h00</span>
-          </span>
-          <span class="dot"></span>
-        </div>
-        <div class="time-block arrival">
-          <span class="time">12h00</span>
-          <span class="location">Toulouse</span>
-        </div>
-      </div>
-      <div class="credit-info">
-        <img src="images/Credit.png" alt="credit" class="credit-icon" />
-        <span class="credit-value">7</span>
-      </div>
+  <!-- Sidebar filtres -->
+  <aside class="filters" [class.open]="showFilters">
+    <div class="filters-header">
+      <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
+      <a href="#" class="clear-all">Tout effacer</a>
     </div>
-  
-    <!-- SÉPARATEUR HORIZONTAL -->
-    <hr class="card-separator" />
-  
-    <!-- DÉTAILS DU CHAUFFEUR -->
-    <div class="card-details">
-      <div class="driver">
-        <div class="avatar-wrapper">
-          <img src="images/Profil_Sandra.png" alt="Sandra" class="avatar" />
-        </div>
-        <span class="name">Sandra</span>
-        <span class="rating">
-          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-          <span class="rating-value">4,2</span>
-        </span>
-      </div>
-      <div class="divider-vertical"></div>
-      <div class="extras">Femmes seulement</div>
-    </div>
-  </li>
-  
-  <!-- 3ème carte : Gauthier (Complet) -->
-  <li class="result-card disabled">
-    <!-- INFO TRAJET -->
-    <div class="card-header">
-      <div class="route-info">
-        <div class="time-block departure">
-          <span class="time">14h00</span>
-          <span class="location">Auch</span>
-        </div>
-        <div class="timeline">
-          <span class="dot"></span>
-          <span class="bar">
-            <span class="duration">1h00</span>
-          </span>
-          <span class="dot"></span>
-        </div>
-        <div class="time-block arrival">
-          <span class="time">15h00</span>
-          <span class="location">Toulouse</span>
-        </div>
-      </div>
-      <div class="credit-info">
-        <span class="credit-value full">Complet</span>
-      </div>
-    </div>
-  
-    <!-- SÉPARATEUR HORIZONTAL -->
-    <hr class="card-separator" />
-  
-    <!-- DÉTAILS DU CHAUFFEUR -->
-    <div class="card-details">
-      <div class="driver">
-        <div class="avatar-wrapper">
-          <img src="images/Profil_Gauthier.png" alt="Gauthier" class="avatar" />
-          <img
-            src="images/Picto_Verifier.svg"
-            alt="Profil vérifié"
-            class="verified-icon"
-          />
-        </div>
-        <span class="name">Gauthier</span>
-        <span class="rating">
-          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-          <span class="rating-value">4,9</span>
-        </span>
-      </div>
-      <div class="divider-vertical"></div>
-      <div class="extras">Max. 2 à l’arrière</div>
-    </div>
-  </li>
-  
-  <!-- 4ème carte : Hervé -->
-  <li class="result-card">
-    <!-- INFO TRAJET -->
-    <div class="card-header">
-      <div class="route-info">
-        <div class="time-block departure">
-          <span class="time">18h20</span>
-          <span class="location">Auch</span>
-        </div>
-        <div class="timeline">
-          <span class="dot"></span>
-          <span class="bar">
-            <span class="duration">1h00</span>
-          </span>
-          <span class="dot"></span>
-        </div>
-        <div class="time-block arrival">
-          <span class="time">19h20</span>
-          <span class="location">Toulouse</span>
-        </div>
-      </div>
-      <div class="credit-info">
-        <img src="images/Credit.png" alt="credit" class="credit-icon" />
-        <span class="credit-value">5</span>
-      </div>
-    </div>
-  
-    <!-- SÉPARATEUR HORIZONTAL -->
-    <hr class="card-separator" />
-  
-    <!-- DÉTAILS DU CHAUFFEUR -->
-    <div class="card-details">
-      <div class="driver">
-        <div class="avatar-wrapper">
-          <img src="images/Profil_Herve.png" alt="Hervé" class="avatar" /></div>
-        <span class="name">Hervé</span>
-        <span class="rating">
-          <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-          <span class="rating-value">4,5</span>
-        </span>
-      </div>
-      <div class="divider-vertical"></div>
-      <div class="extras"></div>
-    </div>
-  </li>
-  
-          
+
+    <div class="filter-group">
+      <h3>Trier par</h3>
+      <ul>
+        <li>
+          <label>
+            <input type="radio" name="sort" checked />
+            <span class="custom-radio"></span>
+            Départ le plus tôt
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="sort" />
+            <span class="custom-radio"></span>
+            Prix le plus bas
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="sort" />
+            <span class="custom-radio"></span>
+            Voiture électrique
+          </label>
+        </li>
       </ul>
-    </main>
-  </section>
+    </div>
+
+    <div class="filter-group">
+      <h3>Heure de départ</h3>
+      <ul>
+        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> Jusqu’à 12 h00</label></li>
+        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> 12 h00 – 18 h00</label></li>
+        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> Après 18 h00</label></li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h3>Confiance & sécurité</h3>
+      <ul>
+        <li><label><input type="checkbox" name="trust" value="verified" /><span class="custom-checkbox"></span> Profil vérifié</label></li>
+        <li><label><input type="checkbox" name="trust" value="women" /><span class="custom-checkbox"></span> Femmes seulement</label></li>
+      </ul>
+    </div>
+
+    <div class="filter-group">
+      <h3>Services & équipement</h3>
+      <ul>
+        <li><label><input type="checkbox" name="service" value="max2" /><span class="custom-checkbox"></span> Max. 2 à l’arrière</label></li>
+        <li><label><input type="checkbox" name="service" value="smoking" /><span class="custom-checkbox"></span> Fumeur autorisé</label></li>
+        <li><label><input type="checkbox" name="service" value="pets" /><span class="custom-checkbox"></span> Animal de compagnie autorisé</label></li>
+      </ul>
+    </div>
+  </aside>
+
+  <!-- RESULTATS -->
+  <main class="results">
+    <header class="results-header">
+      <div class="results-header">
+        <h2 *ngIf="searchVilleDepart && searchVilleArrivee">
+          {{ capitalizeFirstLetter(displayedDate) }}
+          <span class="route-color">
+            {{ searchVilleDepart }} &gt; {{ searchVilleArrivee }}
+          </span>
+        </h2>
+        <p *ngIf="isAlternativeResults">
+          Aucun trajet trouvé à la date sélectionnée. Voici les premiers trajets disponibles les jours suivants :
+        </p>
+      </div>
+    </header>
+
+    <p class="no-search-message" *ngIf="!searchVilleDepart || !searchVilleArrivee">
+      Veuillez lancer une recherche pour afficher les trajets disponibles.
+    </p>
+    <ul class="result-list" *ngIf="searchVilleDepart && searchVilleArrivee">
+      <li
+        class="result-card"
+        *ngFor="let ride of rides"
+        [class.disabled]="ride.availableSeats === 0"
+        (click)="ride.availableSeats > 0 && openTripDetail(ride)">
+        <span class="credit-value">{{ ride.availableSeats > 0 ? ride.price : 'Complet' }}</span>
+        <!-- HEADER INFOS -->
+        <div class="card-header">
+          <div class="route-info">
+            <div class="time-block departure">
+              <span class="time">{{ ride.departureTime }}</span>
+              <span class="location">{{ ride.departureCity }}</span>
+            </div>
+            <div class="timeline">
+              <span class="dot"></span>
+              <span class="bar"><span class="duration">{{ ride.duration }}</span></span>
+              <span class="dot"></span>
+            </div>
+            <div class="time-block arrival">
+              <span class="time">{{ ride.arrivalTime }}</span>
+              <span class="location">{{ ride.arrivalCity }}</span>
+            </div>
+          </div>
+          <div class="credit-info">
+            <img src="images/Credit.png" alt="credit" class="credit-icon" />
+            <span class="credit-value">{{ ride.availableSeats > 0 ? ride.price : 'Complet' }}</span>
+          </div>
+        </div>
+
+        <hr class="card-separator" />
+
+        <!-- DRIVER INFOS -->
+        <div class="card-details">
+          <div class="driver">
+            <div class="avatar-wrapper">
+              <img [src]="ride.driverImage" alt="{{ ride.driverName }}" class="avatar" />
+              <img *ngIf="ride.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
+            </div>
+            <span class="name">{{ ride.driverName }}</span>
+            <span class="rating">
+              <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
+              <span class="rating-value">{{ ride.rating }}</span>
+            </span>
+          </div>
+          <div class="divider-vertical"></div>
+          <div class="extras">{{ ride.extras }}</div>
+        </div>
+      </li>
+    </ul>
+  </main>
+
+</section>
+
 
 
 
