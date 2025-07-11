@@ -26,6 +26,7 @@ class Ride
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'ridesAsDriver')]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['ride:read'])]
     private ?User $driver = null;
 
     #[ORM\Column(length: 255)]

@@ -13,4 +13,5 @@ export interface Ride {
     rating: number;
     verified: boolean;
     extras: string;
+    driver?: any; 
   }

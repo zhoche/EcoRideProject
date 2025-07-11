@@ -9,6 +9,15 @@ import { FormsModule } from '@angular/forms';
 import { SearchParams } from '../../search-params/search-params.model';
 import { Router } from '@angular/router';
 
+function computeArrivalTime(start: string, duration: string): string {
+  const [h, m] = start.split('h').map(Number);
+  const [dh, dm] = duration.split('h').join(':').split(':').map(Number);
+  const date = new Date();
+  date.setHours(h + dh, m + dm);
+  return date.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+}
+
+
 @Component({
   selector: 'app-recherche-covoit',
   standalone: true,
@@ -28,47 +37,18 @@ export class RechercheCovoitComponent implements OnInit{
   date = ''; 
 
   // Passagers
-  passengerOptions = Array.from({ length: 10 }, (_, i) => i + 1); // 👈 ici directement
+  passengerOptions = Array.from({ length: 10 }, (_, i) => i + 1); 
   selectedPassengers = 1;
   showPassengerDropdown = false;
 
   // Rides
   rideId!: number;
-  rides: Ride[] = [
-    {
-      id: 1,
-      departureTime: '10h20',
-      date: '2025-07-15T14:00:00',
-      arrivalTime: '11h20',
-      departureCity: 'Auch',
-      arrivalCity: 'Toulouse',
-      duration: '1h00',
-      price: 5,
-      availableSeats: 2,
-      driverName: 'Anthony',
-      driverImage: 'images/Profil_Anthony.png',
-      rating: 4.7,
-      verified: true,
-      extras: 'Animaux de compagnie autorisées, non-fumeur'
-    },
-    {
-      id: 2,
-      date: '2025-07-19T14:00:00',
-      departureTime: '14h00',
-      arrivalTime: '15h00',
-      departureCity: 'Auch',
-      arrivalCity: 'Toulouse',
-      duration: '1h00',
-      price: 7,
-      availableSeats: 0,
-      driverName: 'Gauthier',
-      driverImage: 'images/Profil_Gauthier.png',
-      rating: 4.9,
-      verified: true,
-      extras: 'Max. 2 à l’arrière'
-    }
-  ];
-    selectedRide: Ride | null = null;
+  rides: Ride[] = [];
+
+
+  alternativeResults: Ride[] = [];
+  
+  selectedRide: Ride | null = null;
   
 
   // Crédits
@@ -93,20 +73,18 @@ export class RechercheCovoitComponent implements OnInit{
   
       // Sécurise la conversion en format yyyy-MM-dd
       if (typeof state.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(state.date)) {
-        this.date = state.date; // Format déjà bon
+        this.date = state.date; 
         parsedDate = new Date(state.date);
       } else {
         parsedDate = new Date(state.date);
-        this.date = parsedDate.toISOString().split('T')[0]; // ISO pour le champ input
+        this.date = parsedDate.toISOString().split('T')[0]; 
       }
   
       // Affichage utilisateur
       this.displayedDate = this.formatDate(parsedDate.toString());
   
       this.onSearch(state);
-    } else {
-      console.warn("❌ Aucun paramètre de recherche trouvé dans le state.");
-    }
+    } 
   }
   
 
@@ -136,7 +114,9 @@ export class RechercheCovoitComponent implements OnInit{
 
         if (rides.length > 0) {
           this.rides = rides;
+          this.alternativeResults = []; 
         } else {
+          this.rides = [];              
           this.loadNextAvailableRides(params);
         }
       },
@@ -145,24 +125,26 @@ export class RechercheCovoitComponent implements OnInit{
   }
 
 
-
-  
   loadNextAvailableRides(params: SearchParams) {
     this.rideService.searchNextAvailableRides(params).subscribe({
       next: (nextRides) => {
         console.log('📆 Résultats alternatifs :', nextRides);
-        this.rides = nextRides;
         this.isAlternativeResults = true;
+        this.alternativeResults = nextRides;
+
   
         if (nextRides.length > 0 && nextRides[0].date) {
           const firstDate = nextRides[0].date;
           this.displayedDate = this.formatDate(firstDate);
           this.searchVilleDepart = nextRides[0].departureCity;
-          this.searchVilleArrivee = nextRides[0].arrivalCity;        }
+          this.searchVilleArrivee = nextRides[0].arrivalCity;
+        }
       },
       error: () => alert('Aucun trajet disponible.')
     });
   }
+
+  
 
   formatDate(dateStr: string): string {
     const date = new Date(dateStr);
@@ -192,10 +174,17 @@ export class RechercheCovoitComponent implements OnInit{
 
   loadCredits() {
     const token = localStorage.getItem('token');
-    this.http.get<any>('/api/me', {
+    if (!token) return;
+  
+    this.http.get<any>('/api/rides/list', {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
-      next: (user) => this.credits = user.credits
+      next: (res) => {
+        this.credits = res.credits;
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des crédits', err);
+      }
     });
   }
 
@@ -214,6 +203,10 @@ export class RechercheCovoitComponent implements OnInit{
 
   goToStep(n: number) {
     this.step = n;
+  
+    if (n === 2) {
+      this.loadCredits(); 
+    }
   }
 
   // Filtres
@@ -230,6 +223,12 @@ export class RechercheCovoitComponent implements OnInit{
     this.selectedPassengers = count;
     this.showPassengerDropdown = false;
   }
+
+
+  getTotalPrice(): number {
+    return this.selectedRide?.price ? this.selectedRide.price * this.selectedPassengers : 0;
+  }
+
 
 }
 

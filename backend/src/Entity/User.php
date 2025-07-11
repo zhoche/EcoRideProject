@@ -11,6 +11,8 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Entity\Ride;
 use App\Entity\Vehicle;
 use Doctrine\ORM\Event\LifecycleEventArgs;
+use Symfony\Component\Serializer\Annotation\Groups;
+
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
@@ -23,6 +25,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['ride:read'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
@@ -32,6 +35,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['ride:read'])]
     private ?string $pseudo = null;
 
     #[ORM\Column(type: 'json')]
@@ -56,12 +60,15 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    #[Groups(['ride:read'])]
     private ?string $image = null;
 
     #[ORM\Column(type: 'float', nullable: true)]
+    #[Groups(['ride:read'])]
     private ?float $rating = null;
 
     #[ORM\Column(type: 'boolean')]
+    #[Groups(['ride:read'])]
     private bool $isVerified = false;
 
 
@@ -263,6 +270,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->isVerified = $isVerified;
         return $this;
     }
+
+
+
+    public function getImage(): ?string
+{
+    return $this->image;
+}
 
 
 }

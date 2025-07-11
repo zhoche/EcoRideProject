@@ -5,6 +5,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
+use App\Entity\User;
+
 
 class UserController extends AbstractController
 {
@@ -34,4 +36,6 @@ class UserController extends AbstractController
             'redirectTo' => $redirectTo,
         ]);
     }
+
+
 }

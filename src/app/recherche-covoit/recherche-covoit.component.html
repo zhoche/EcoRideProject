@@ -236,7 +236,7 @@
               <span>Prix total</span>
               <span>
                 <img src="images/Credit.png" class="credit-icon" alt="€" />
-                <span class="credit-value">5</span>
+                <span class="credit-value">{{ getTotalPrice() }}</span>
               </span>
           
               <!-- Séparateur -->
@@ -245,7 +245,7 @@
               <span>Crédits disponibles</span>
               <span>
                 <img src="images/Credit.png" class="credit-icon" alt="€" />
-                <span class="credit-value available">68</span>
+                <span class="credit-value available">{{ credits }}</span>
               </span>
           
               <button class="btn btn-outline add-credits-btn">
@@ -268,7 +268,11 @@
       <!-- bouton confirmer -->
       <div class="confirm-footer">
         <button class="btn btn-filled back-btn" (click)="goToStep(1)">Retour</button>
-        <button class="btn btn-filled confirm-btn" (click)="confirmerReservation()">Confirmer la réservation</button>
+        <button 
+        class="btn btn-filled confirm-btn" 
+        [disabled]="credits < getTotalPrice()"
+        (click)="confirmerReservation()">Confirmer la réservation
+      </button>
       </div>
     </section>
   </ng-container>
@@ -442,8 +446,8 @@
     </ul>
 
     <!-- Résultats alternatifs si aucun trajet exact -->
-<ul class="result-list" *ngIf="rides.length === 0 && alternativeResults.length > 0">
-  <li
+    <ul class="result-list" *ngIf="rides.length === 0 && isAlternativeResults && alternativeResults.length > 0">
+      <li
     class="result-card"
     *ngFor="let ride of alternativeResults"
     [class.disabled]="ride.availableSeats === 0"
