@@ -37,6 +37,15 @@ class ApiRegisterController extends AbstractController
         $allowedRoles = ['ROLE_USER', 'ROLE_EMPLOYE', 'ROLE_DRIVER'];
         $inputRoles = $data['roles'] ?? ['ROLE_USER'];
         $roles = array_filter($inputRoles, fn($r) => in_array($r, $allowedRoles));
+
+
+        // Sexe
+        $gender = $data['gender'] ?? 'NO';
+
+        if (!in_array($gender, ['F', 'M', 'NO'])) {
+            return new JsonResponse(['error' => 'Genre invalide.'], 400);
+        }
+
     
         // Un conducteur est aussi passager par défaut
         if (in_array('ROLE_DRIVER', $roles) && !in_array('ROLE_USER', $roles)) {
@@ -55,6 +64,7 @@ class ApiRegisterController extends AbstractController
         $user->setEmail($email);
         $user->setPseudo($pseudo);
         $user->setRoles($roles);
+        
     
         // Crédit uniquement pour utilisateurs/passagers/conducteurs
         if (in_array('ROLE_USER', $roles) || in_array('ROLE_DRIVER', $roles)) {

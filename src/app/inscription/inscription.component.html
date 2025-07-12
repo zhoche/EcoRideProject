@@ -6,9 +6,9 @@
         <h4>Décrivez-vous en quelques mots et inscrivez-vous sur EcoRide.</h4>
   
         <form (ngSubmit)="onSubmit()">
-   <!-- Ligne Pseudo -->
+   <!-- Pseudo -->
    <div class="input-row">
-    <div class="input-group">
+    <div class="input-group half">
       <label for="pseudo">Pseudo</label>
       <input
         type="text"
@@ -19,20 +19,19 @@
         required
       />
     </div>
-   
-  </div>
 
-  <!-- Email -->
-  <div class="input-group">
-    <label for="email">Adresse mail</label>
-    <input
-      type="email"
-      id="email"
-      name="email"
-      placeholder="john.doe@gmail.com"
-      [(ngModel)]="email"
-      required
-    />
+     <!-- Mail -->
+    <div class="input-group half">
+      <label for="email">Adresse mail</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="john.doe@gmail.com"
+        [(ngModel)]="email"
+        required
+      />
+    </div>
   </div>
 
   <!-- Mot de passe + consigne -->
@@ -51,6 +50,22 @@
       1 chiffre et 1 caractère spécial.
     </p>
   </div>
+
+    <!-- Sexe -->
+    <div class="gender-selector">
+      <p><strong>Êtes-vous :</strong></p>
+      <div class="role-options">
+        <input type="radio" id="femme" name="sexe" [(ngModel)]="gender" value="F" required>
+        <label for="femme">Une femme</label>
+
+        <input type="radio" id="homme" name="sexe" [(ngModel)]="gender" value="M">
+        <label for="homme">Un homme</label>
+
+        <input type="radio" id="aucun" name="sexe" [(ngModel)]="gender" value="NO">
+        <label for="aucun">Ne se prononce pas</label>
+      </div>
+    </div>
+
 
     <!-- Profil -->
     <div class="role-selector">

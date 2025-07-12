@@ -71,6 +71,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['ride:read'])]
     private bool $isVerified = false;
 
+    #[ORM\Column(length: 2)]
+    private ?string $gender = null;
+
 
 
 
@@ -79,6 +82,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->vehicles = new ArrayCollection();
         $this->ridesAsDriver = new ArrayCollection();
         $this->ridesAsPassenger = new ArrayCollection();
+        $this->gender = 'NO';
     }
 
     public function getUserIdentifier(): string
@@ -279,4 +283,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 }
 
 
+
+public function getGender(): ?string
+{
+    return $this->gender;
+}
+
+public function setGender(string $gender): self
+{
+    $this->gender = $gender;
+    return $this;
+}
+
+public function getGenderLabel(): string
+{
+    return match ($this->gender) {
+        'F' => 'Femme',
+        'M' => 'Homme',
+        default => 'Non renseigné',
+    };
+}
 }

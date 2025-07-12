@@ -15,7 +15,9 @@ export class InscriptionComponent {
   password = '';
   pseudo = '';
   role = 'ROLE_USER';
+  gender: string = 'NO';
   message = '';
+
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -24,7 +26,8 @@ export class InscriptionComponent {
       email: this.email,
       password: this.password,
       pseudo: this.pseudo,
-      roles: [this.role]
+      roles: [this.role],
+      gender: this.gender
     }).subscribe({
       next: () => {
         alert('Votre compte a bien été créé ! ✅');

@@ -311,62 +311,115 @@
   <aside class="filters" [class.open]="showFilters">
     <div class="filters-header">
       <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
-      <a href="#" class="clear-all">Tout effacer</a>
+      <a href="#" class="clear-all" (click)="resetFilters($event)">Tout effacer</a>
     </div>
-
+  
+    <!-- Trier par -->
     <div class="filter-group">
       <h3>Trier par</h3>
       <ul>
         <li>
           <label>
-            <input type="radio" name="sort" checked />
+            <input type="radio" name="sort" [(ngModel)]="filters.sortBy" value="early" />
             <span class="custom-radio"></span>
             Départ le plus tôt
           </label>
         </li>
         <li>
           <label>
-            <input type="radio" name="sort" />
+            <input type="radio" name="sort" [(ngModel)]="filters.sortBy" value="cheap" />
             <span class="custom-radio"></span>
             Prix le plus bas
           </label>
         </li>
         <li>
           <label>
-            <input type="radio" name="sort" />
+            <input type="radio" name="sort" [(ngModel)]="filters.sortBy" value="eco" />
             <span class="custom-radio"></span>
             Voiture électrique
           </label>
         </li>
       </ul>
     </div>
-
+  
+    <!-- Heure de départ -->
     <div class="filter-group">
       <h3>Heure de départ</h3>
       <ul>
-        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> Jusqu’à 12 h00</label></li>
-        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> 12 h00 – 18 h00</label></li>
-        <li><label><input type="radio" name="time" /><span class="custom-radio"></span> Après 18 h00</label></li>
+        <li>
+          <label>
+            <input type="radio" name="time" [(ngModel)]="filters.timeRange" value="morning" />
+            <span class="custom-radio"></span>
+            Jusqu’à 12 h00
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="time" [(ngModel)]="filters.timeRange" value="afternoon" />
+            <span class="custom-radio"></span>
+            12 h00 – 18 h00
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="radio" name="time" [(ngModel)]="filters.timeRange" value="evening" />
+            <span class="custom-radio"></span>
+            Après 18 h00
+          </label>
+        </li>
       </ul>
     </div>
-
+  
+    <!-- Confiance & sécurité -->
     <div class="filter-group">
       <h3>Confiance & sécurité</h3>
       <ul>
-        <li><label><input type="checkbox" name="trust" value="verified" /><span class="custom-checkbox"></span> Profil vérifié</label></li>
-        <li><label><input type="checkbox" name="trust" value="women" /><span class="custom-checkbox"></span> Femmes seulement</label></li>
+        <li>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.verifiedOnly" />
+            <span class="custom-checkbox"></span>
+            Profil vérifié
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.womenOnly" />
+            <span class="custom-checkbox"></span>
+            Femmes seulement
+          </label>
+        </li>
       </ul>
     </div>
-
+  
+    <!-- Services -->
     <div class="filter-group">
       <h3>Services & équipement</h3>
       <ul>
-        <li><label><input type="checkbox" name="service" value="max2" /><span class="custom-checkbox"></span> Max. 2 à l’arrière</label></li>
-        <li><label><input type="checkbox" name="service" value="smoking" /><span class="custom-checkbox"></span> Fumeur autorisé</label></li>
-        <li><label><input type="checkbox" name="service" value="pets" /><span class="custom-checkbox"></span> Animal de compagnie autorisé</label></li>
+        <li>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.services.max2" />
+            <span class="custom-checkbox"></span>
+            Max. 2 à l’arrière
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.services.smoking" />
+            <span class="custom-checkbox"></span>
+            Fumeur autorisé
+          </label>
+        </li>
+        <li>
+          <label>
+            <input type="checkbox" [(ngModel)]="filters.services.pets" />
+            <span class="custom-checkbox"></span>
+            Animal de compagnie autorisé
+          </label>
+        </li>
       </ul>
     </div>
   </aside>
+  
 
   <!-- RESULTATS -->
   <main class="results">
@@ -398,7 +451,7 @@
     <ul class="result-list" *ngIf="searchVilleDepart && searchVilleArrivee">
       <li
         class="result-card"
-        *ngFor="let ride of rides"
+        *ngFor="let ride of getFilteredRides()"
         [class.disabled]="ride.availableSeats === 0"
         (click)="ride.availableSeats > 0 && openTripDetail(ride)">
         <!-- HEADER INFOS -->
@@ -441,6 +494,13 @@
           </div>
           <div class="divider-vertical"></div>
           <div class="extras">{{ ride.extras }}</div>
+          <div class="divider-vertical"></div>
+          <img 
+          *ngIf="ride.isElectric" 
+          src="images/Picto_Eco.svg" 
+          alt="Trajet écologique" 
+          class="eco-icon" 
+        />
         </div>
       </li>
     </ul>

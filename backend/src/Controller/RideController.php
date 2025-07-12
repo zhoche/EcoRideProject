@@ -134,12 +134,13 @@ public function getAllUserRides(EntityManagerInterface $em): JsonResponse
                 'id' => $vehicle->getId(),
                 'brand' => $vehicle->getBrand(),
                 'model' => $vehicle->getModel(),
-                'energy' => $vehicle->getEnergy(),
+                'energy' => $vehicle->isElectric(),
             ] : null,
             'driver' => $ride->getDriver() ? [
                 'id' => $ride->getDriver()->getId(),
                 'pseudo' => $ride->getDriver()->getPseudo(),
                 'email' => $ride->getDriver()->getEmail(),
+                'extras' => $ride->getDriver()->getDriverPreferences() ?? [],
             ] : null,
         ];
     }
@@ -180,7 +181,7 @@ public function getAllUserRides(EntityManagerInterface $em): JsonResponse
 
 //S'inscrire à un trajet
 #[Route('/{ride_id}/register', methods: ['POST'])]
-public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonResponse
+public function registerToRide(int $ride_id, Request $request, EntityManagerInterface $em): JsonResponse
 {
     $user = $this->getUser();
 
@@ -194,11 +195,19 @@ public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonRe
         return $this->json(['error' => 'Trajet non trouvé'], 404);
     }
 
-    if ($ride->getAvailableSeats() <= 0) {
-        return $this->json(['error' => 'Aucune place disponible'], 400);
+    $nbPassagers = 1; // par défaut 1
+    $data = json_decode($request->getContent(), true);
+    if (isset($data['nbPassagers']) && is_numeric($data['nbPassagers'])) {
+        $nbPassagers = (int) $data['nbPassagers'];
     }
 
-    if ($user->getCredits() < 1) {
+    $prixTotal = $ride->getPrice() * $nbPassagers;
+
+    if ($ride->getAvailableSeats() < $nbPassagers) {
+        return $this->json(['error' => 'Pas assez de places disponibles'], 400);
+    }
+
+    if ($user->getCredits() < $prixTotal) {
         return $this->json(['error' => 'Crédits insuffisants'], 400);
     }
 
@@ -207,15 +216,16 @@ public function registerToRide(int $ride_id, EntityManagerInterface $em): JsonRe
     }
 
     $ride->addPassenger($user);
-    $ride->setAvailableSeats($ride->getAvailableSeats() - 1);
-    $user->setCredits($user->getCredits() - 1);
+    $ride->setAvailableSeats($ride->getAvailableSeats() - $nbPassagers);
+    $user->setCredits($user->getCredits() - $prixTotal);
 
     $em->persist($ride);
     $em->persist($user);
     $em->flush();
 
-    return $this->json(['success' => 'Inscription réussie']);
+    return $this->json(['success' => 'Réservation confirmée']);
 }
+
 
 
 
@@ -419,7 +429,11 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
             'driverImage' => $ride->getDriver()?->getImageUrl() ?? 'images/Profil_Base.png',
             'rating' => $ride->getDriver()?->getRating() ?? 4.0,
             'verified' => $ride->getDriver()?->isVerified() ?? false,
-            'extras' => $ride->getExtras() ?? '',
+            'extras' => implode(', ', array_keys(array_filter(
+                $ride->getDriver()?->getDriverPreferences() ?? [],
+                fn($v) => $v
+            ))),
+            'isElectric' => $ride->getVehicle()?->isElectric() ?? false,
         ];
     }, $rides);
 
@@ -451,7 +465,10 @@ public function nextAvailable(Request $request, RideRepository $rideRepository):
             'driverImage' => $ride->getDriver()?->getImageUrl() ?? 'images/Profil_Base.png',
             'rating' => $ride->getDriver()?->getRating() ?? 4.0,
             'verified' => $ride->getDriver()?->isVerified() ?? false,
-            'extras' => $ride->getExtras() ?? '',
+            'extras' => implode(', ', array_keys(array_filter(
+                $ride->getDriver()?->getDriverPreferences() ?? [],
+                fn($v) => $v
+            ))),
             'date' => $ride->getDate()->format('Y-m-d'),
         ];
     }, $rides);

@@ -16,7 +16,7 @@ if (!\class_exists(App_KernelDevDebugContainer::class, false)) {
 
 return new \ContainerVGmBAoq\App_KernelDevDebugContainer([
     'container.build_hash' => 'VGmBAoq',
-    'container.build_id' => '15b3b769',
-    'container.build_time' => 1752261473,
+    'container.build_id' => 'f043b6ea',
+    'container.build_time' => 1752324409,
     'container.runtime_mode' => \in_array(\PHP_SAPI, ['cli', 'phpdbg', 'embed'], true) ? 'web=0' : 'web=1',
 ], __DIR__.\DIRECTORY_SEPARATOR.'ContainerVGmBAoq');

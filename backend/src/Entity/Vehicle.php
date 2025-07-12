@@ -23,8 +23,8 @@ class Vehicle
     #[ORM\Column(length: 255)]
     private ?string $model = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $energy = null;
+    #[ORM\Column(type: 'boolean')]
+    private bool $isElectric = false;
 
     #[ORM\Column(length: 255)]
     private ?string $plateNumber = null;
@@ -67,14 +67,14 @@ class Vehicle
         return $this;
     }
 
-    public function getEnergy(): ?string
+    public function isElectric(): bool
     {
-        return $this->energy;
+        return $this->isElectric;
     }
 
-    public function setEnergy(string $energy): static
+    public function setIsElectric(bool $isElectric): self
     {
-        $this->energy = $energy;
+        $this->isElectric = $isElectric;
         return $this;
     }
 

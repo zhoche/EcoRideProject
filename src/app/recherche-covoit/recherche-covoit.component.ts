@@ -50,6 +50,18 @@ export class RechercheCovoitComponent implements OnInit{
   
   selectedRide: Ride | null = null;
   
+  // Filtres
+  filters = {
+    sortBy: 'early', // 'early' | 'cheap' | 'eco'
+    timeRange: '',   // 'morning' | 'afternoon' | 'evening'
+    verifiedOnly: false,
+    womenOnly: false,
+    services: {
+      max2: false,
+      smoking: false,
+      pets: false
+    }
+  };
 
   // Crédits
   credits: number = 0;
@@ -159,7 +171,7 @@ export class RechercheCovoitComponent implements OnInit{
   // Réservation
   confirmerReservation() {
     const token = localStorage.getItem('token');
-    this.http.post(`/api/rides/${this.rideId}/join`, {}, {
+    this.http.post(`/api/rides/${this.rideId}/register`, {}, {
       headers: { Authorization: `Bearer ${token}` }
     }).subscribe({
       next: () => {
@@ -209,10 +221,7 @@ export class RechercheCovoitComponent implements OnInit{
     }
   }
 
-  // Filtres
-  toggleFilters() {
-    this.showFilters = !this.showFilters;
-  }
+ 
 
   // Passagers
   togglePassengerDropdown() {
@@ -229,6 +238,68 @@ export class RechercheCovoitComponent implements OnInit{
     return this.selectedRide?.price ? this.selectedRide.price * this.selectedPassengers : 0;
   }
 
+
+
+
+   // Filtres
+   toggleFilters() {
+    this.showFilters = !this.showFilters;
+  }
+
+  resetFilters(event: Event) {
+    event.preventDefault(); // ← évite le rechargement de la page
+    this.filters = {
+      sortBy: 'early',
+      timeRange: '',
+      verifiedOnly: false,
+      womenOnly: false,
+      services: { max2: false, smoking: false, pets: false }
+    };
+  }
+
+  getFilteredRides(): Ride[] {
+    let list = [...this.rides];
+  
+    if (this.filters.sortBy === 'eco') {
+      list = list.filter(r => r.isElectric);
+    }
+  
+    list = list.filter(r => {
+      const hour = parseInt(r.departureTime.split('h')[0], 10);
+      if (this.filters.timeRange === 'morning') return hour < 12;
+      if (this.filters.timeRange === 'afternoon') return hour >= 12 && hour < 18;
+      if (this.filters.timeRange === 'evening') return hour >= 18;
+      return true;
+    });
+  
+    if (this.filters.verifiedOnly) {
+      list = list.filter(r => r.verified);
+    }
+  
+    if (this.filters.womenOnly) {
+      list = list.filter(r => r.driver?.gender === 'F');
+    }
+  
+    if (this.filters.services.max2) {
+      list = list.filter(r => r.extras.includes('Max. 2 à l’arrière'));
+    }
+    if (this.filters.services.smoking) {
+      list = list.filter(r => r.extras.includes('Fumeur autorisé'));
+    }
+    if (this.filters.services.pets) {
+      list = list.filter(r => r.extras.includes('Animal de compagnie autorisé'));
+    }
+
+    
+    if (this.filters.sortBy === 'cheap') {
+      list.sort((a, b) => a.price - b.price);
+    } else if (this.filters.sortBy === 'early') {
+      list.sort((a, b) => a.departureTime.localeCompare(b.departureTime));
+    }
+  
+    return list;
+  }
+  
 
 }
 

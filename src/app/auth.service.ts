@@ -109,7 +109,7 @@ export class AuthService {
     localStorage.removeItem('user');
   }
 
-  register(data: { email: string; password: string; pseudo: string; roles: string[] }): Observable<any> {
+  register(data: { email: string; password: string; pseudo: string; roles: string[]; gender: string; }): Observable<any> {
     return this.http.post('http://localhost:8000/api/register', data);
   }
 

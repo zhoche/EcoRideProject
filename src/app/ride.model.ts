@@ -14,4 +14,6 @@ export interface Ride {
     verified: boolean;
     extras: string;
     driver?: any; 
+    isElectric?: boolean;
+
   }

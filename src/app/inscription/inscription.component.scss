@@ -25,20 +25,24 @@
 
     h1 {
       font-size: 2rem;
-      margin: 5px 0 12px;
+      margin: 5px 0 8px;
       color: #333;
     }
 
     h4 {
         font-weight: 400;
+        font-size: 1.2rem;
         color: $color-secondary-2; // gris bleuté
         margin-bottom: $spacing-lg;
         margin-top: $spacing-xs;
       }
 
       .input-row {
+        // display: flex;
+        // gap: 16px;
         display: flex;
-        gap: 16px;
+        gap: 1.5rem;
+        flex-wrap: wrap;
       
         @include respond-to(sm) {
           flex-direction: column;  // passe de row à column
@@ -151,7 +155,9 @@
 }
 
 
-
+.gender-selector {
+  margin-bottom: 1.5rem;
+}
 
 
 
