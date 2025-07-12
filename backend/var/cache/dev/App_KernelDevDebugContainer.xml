@@ -432,28 +432,22 @@
       </call>
     </service>
     <service id="App\Command\CreateRidesCommand" class="App\Command\CreateRidesCommand" autowire="true" autoconfigure="true">
-      <tag name="console.command" command="create:test-rides" description="Crée 10 trajets de test avec crédits simulés." help=""/>
+      <tag name="console.command" command="create:test-rides" description="" help=""/>
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setName">
         <argument>create:test-rides</argument>
       </call>
-      <call method="setDescription">
-        <argument>Crée 10 trajets de test avec crédits simulés.</argument>
-      </call>
     </service>
     <service id="App\Command\CreateUsersCommand" class="App\Command\CreateUsersCommand" autowire="true" autoconfigure="true">
-      <tag name="console.command" command="create:test-users" description="Crée des utilisateurs avec rôles - admin, driver, employe, passenger" help=""/>
+      <tag name="console.command" command="create:test-users" description="" help=""/>
       <tag name="console.command"/>
       <tag name="container.no_preload"/>
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <argument type="service" id="security.user_password_hasher"/>
       <call method="setName">
         <argument>create:test-users</argument>
-      </call>
-      <call method="setDescription">
-        <argument>Crée des utilisateurs avec rôles - admin, driver, employe, passenger</argument>
       </call>
     </service>
     <service id="App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true">
@@ -463,6 +457,18 @@
       <argument type="service" id="doctrine.orm.default_entity_manager"/>
       <call method="setName">
         <argument>create:test-vehicles</argument>
+      </call>
+    </service>
+    <service id="App\Command\UpdateUserImagesCommand" class="App\Command\UpdateUserImagesCommand" autowire="true" autoconfigure="true">
+      <tag name="console.command" command="app:update-user-images" description="Met à jour les images de profil des utilisateurs." help=""/>
+      <tag name="console.command"/>
+      <tag name="container.no_preload"/>
+      <argument type="service" id="doctrine.orm.default_entity_manager"/>
+      <call method="setName">
+        <argument>app:update-user-images</argument>
+      </call>
+      <call method="setDescription">
+        <argument>Met à jour les images de profil des utilisateurs.</argument>
       </call>
     </service>
     <service id="App\Controller\AdminController" class="App\Controller\AdminController" public="true" autowire="true" autoconfigure="true">
@@ -8184,6 +8190,9 @@
     <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".instanceof.App\Command\CreateVehiclesCommand.0.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Command\CreateVehiclesCommand" class="App\Command\CreateVehiclesCommand" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Component\Console\Command\Command.0.App\Command\UpdateUserImagesCommand" class="App\Command\UpdateUserImagesCommand" autowire="true" abstract="true"/>
+    <service id=".instanceof.App\Command\UpdateUserImagesCommand.0.App\Command\UpdateUserImagesCommand" class="App\Command\UpdateUserImagesCommand" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Command\UpdateUserImagesCommand" class="App\Command\UpdateUserImagesCommand" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\AdminController" class="App\Controller\AdminController" autowire="true" autoconfigure="true" abstract="true"/>
@@ -10235,19 +10244,12 @@
       <argument>false</argument>
       <argument type="service_closure" id="App\Command\CreateAvisCommand"/>
     </service>
-    <service id=".App\Command\CreateRidesCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>create:test-rides</argument>
+    <service id=".App\Command\UpdateUserImagesCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
+      <argument>app:update-user-images</argument>
       <argument type="collection"/>
-      <argument>Crée 10 trajets de test avec crédits simulés.</argument>
+      <argument>Met à jour les images de profil des utilisateurs.</argument>
       <argument>false</argument>
-      <argument type="service_closure" id="App\Command\CreateRidesCommand"/>
-    </service>
-    <service id=".App\Command\CreateUsersCommand.lazy" class="Symfony\Component\Console\Command\LazyCommand">
-      <argument>create:test-users</argument>
-      <argument type="collection"/>
-      <argument>Crée des utilisateurs avec rôles - admin, driver, employe, passenger</argument>
-      <argument>false</argument>
-      <argument type="service_closure" id="App\Command\CreateUsersCommand"/>
+      <argument type="service_closure" id="App\Command\UpdateUserImagesCommand"/>
     </service>
     <service id=".console.command.about.lazy" class="Symfony\Component\Console\Command\LazyCommand">
       <argument>about</argument>
@@ -10991,12 +10993,13 @@
     </service>
     <service id="console.command_loader" class="Symfony\Component\Console\CommandLoader\ContainerCommandLoader" public="true">
       <tag name="container.no_preload"/>
-      <argument type="service" id=".service_locator.A59kb25"/>
+      <argument type="service" id=".service_locator.eGnqYed"/>
       <argument type="collection">
         <argument key="create:test-avis">App\Command\CreateAvisCommand</argument>
         <argument key="create:test-rides">App\Command\CreateRidesCommand</argument>
         <argument key="create:test-users">App\Command\CreateUsersCommand</argument>
         <argument key="create:test-vehicles">App\Command\CreateVehiclesCommand</argument>
+        <argument key="app:update-user-images">App\Command\UpdateUserImagesCommand</argument>
         <argument key="about">console.command.about</argument>
         <argument key="assets:install">console.command.assets_install</argument>
         <argument key="cache:clear">console.command.cache_clear</argument>
@@ -11123,13 +11126,14 @@
         <argument key="make:webhook">maker.auto_command.make_webhook</argument>
       </argument>
     </service>
-    <service id=".service_locator.A59kb25" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.eGnqYed" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
         <argument key="App\Command\CreateAvisCommand" type="service_closure" id=".App\Command\CreateAvisCommand.lazy"/>
-        <argument key="App\Command\CreateRidesCommand" type="service_closure" id=".App\Command\CreateRidesCommand.lazy"/>
-        <argument key="App\Command\CreateUsersCommand" type="service_closure" id=".App\Command\CreateUsersCommand.lazy"/>
+        <argument key="App\Command\CreateRidesCommand" type="service_closure" id="App\Command\CreateRidesCommand"/>
+        <argument key="App\Command\CreateUsersCommand" type="service_closure" id="App\Command\CreateUsersCommand"/>
         <argument key="App\Command\CreateVehiclesCommand" type="service_closure" id="App\Command\CreateVehiclesCommand"/>
+        <argument key="App\Command\UpdateUserImagesCommand" type="service_closure" id=".App\Command\UpdateUserImagesCommand.lazy"/>
         <argument key="console.command.about" type="service_closure" id=".console.command.about.lazy"/>
         <argument key="console.command.assets_install" type="service_closure" id=".console.command.assets_install.lazy"/>
         <argument key="console.command.cache_clear" type="service_closure" id=".console.command.cache_clear.lazy"/>

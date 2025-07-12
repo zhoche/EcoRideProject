@@ -86,6 +86,9 @@ class ApiRegisterController extends AbstractController
 
         $user->setGender($gender);
     
+        $user->setImage('Profil_Jerome.png');
+
+        
         $em->persist($user);
         $em->flush();
     

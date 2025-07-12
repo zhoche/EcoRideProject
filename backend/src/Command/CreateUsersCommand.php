@@ -10,10 +10,7 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
-#[AsCommand(
-    name: 'create:test-users',
-    description: 'Crée des utilisateurs avec rôles - admin, driver, employe, passenger',
-)]
+#[AsCommand(name: 'create:test-users')]
 class CreateUsersCommand extends Command
 {
     public function __construct(
@@ -26,47 +23,42 @@ class CreateUsersCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $users = [
-            ['admin@test.com',     'admin',      ['ROLE_ADMIN'], null],
-            ['driver@test.com',    'driver',     ['ROLE_DRIVER'], [
+            ['ericdu19@test.com', 'ericdu19', ['ROLE_DRIVER'], [
                 'Véhicule non-fumeur' => true,
                 'Femmes uniquement' => false,
                 'Animal de compagnie autorisé' => true,
-
-            ]],
-            ['employe@test.com',   'employe',    ['ROLE_EMPLOYE'], null],
-            ['passenger@test.com', 'passenger',  ['ROLE_USER'], null],
-            ['driver2@test.com',   'driver2',    ['ROLE_DRIVER', 'ROLE_USER'], [
+            ], 'M'],
+            ['fabienne@test.com', 'fabienne', ['ROLE_DRIVER', 'ROLE_USER'], [
                 'Véhicule non-fumeur' => false,
                 'Femmes uniquement' => true,
                 'Animal de compagnie autorisé' => true,
-            ]],
-            ['driver3@test.com',   'driver3',    ['ROLE_DRIVER'], [
+            ], 'M'],
+            ['kati@test.com', 'kati9', ['ROLE_DRIVER'], [
                 'Véhicule non-fumeur' => true,
                 'Femmes uniquement' => false,
                 'Animal de compagnie autorisé' => false,
-            ]],
-            ['passenger2@test.com','passenger2', ['ROLE_USER'], null],
+            ], 'F'],
         ];
 
-        foreach ($users as [$email, $pseudo, $roles, $preferences]) {
+        foreach ($users as [$email, $pseudo, $roles, $preferences, $gender]) {
             $user = new User();
-            $user->setEmail($email);
-            $user->setPseudo($pseudo);
-            $user->setRoles($roles);
-            $user->setCredits(in_array('ROLE_ADMIN', $roles) ? 0 : 20);
-            $user->setPassword($this->hasher->hashPassword($user, 'testpass'));
+            $user->setEmail($email)
+                ->setPseudo($pseudo)
+                ->setRoles($roles)
+                ->setCredits(in_array('ROLE_ADMIN', $roles) ? 0 : 20)
+                ->setGender($gender)
+                ->setPassword($this->hasher->hashPassword($user, 'testpass'));
 
-            if (in_array('ROLE_DRIVER', $roles) && $preferences !== null) {
+            if (in_array('ROLE_DRIVER', $roles) && $preferences) {
                 $user->setDriverPreferences($preferences);
             }
 
             $this->em->persist($user);
-            $output->writeln("✅ Utilisateur $email avec rôle(s) " . implode(', ', $roles) . " créé.");
+            $output->writeln("Utilisateur $email créé avec rôles: " . implode(', ', $roles));
         }
 
         $this->em->flush();
-
-        $output->writeln("🎉 Tous les utilisateurs ont été créés avec le mot de passe : testpass");
+        $output->writeln("Tous les utilisateurs ont été créés.");
         return Command::SUCCESS;
     }
 }

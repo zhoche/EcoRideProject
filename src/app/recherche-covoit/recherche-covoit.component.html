@@ -56,7 +56,7 @@
                         alt="★"
                         class="rating-icon"
                       />
-                      <span class="rating-value">4,7</span>
+                      <span class="rating-value">4</span>
                       <span class="reviews">– 43 avis</span>
                     </span>
                     <div class="divider-vertical"></div>
@@ -191,7 +191,7 @@
         <!-- Récapitulatif du trajet -->
         <div class="summary-card recap-trip">
           <h5>Récapitulatif du trajet</h5>
-          <small>Jeudi 20 mai</small>
+          <small>Jeudi 20 octobre</small>
           <!-- on réutilise la même carte verticale -->
           <div class="route-vertical-card">
             <div class="route-vertical">
@@ -483,13 +483,13 @@
         <div class="card-details">
           <div class="driver">
             <div class="avatar-wrapper">
-              <img [src]="ride.driverImage" alt="{{ ride.driverName }}" class="avatar" />
-              <img *ngIf="ride.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
+              <img [src]="ride.driver.image" alt="{{ ride.driver.pseudo }}" class="avatar" />
+              <img *ngIf="ride.driver.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
             </div>
-            <span class="name">{{ ride.driverName }}</span>
+            <span class="name">{{ ride.driver.pseudo }}</span>
             <span class="rating">
               <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-              <span class="rating-value">{{ ride.rating }}</span>
+              <span class="rating-value">{{ ride.driver.rating }}</span>
             </span>
           </div>
           <div class="divider-vertical"></div>
@@ -542,13 +542,13 @@
     <div class="card-details">
       <div class="driver">
         <div class="avatar-wrapper">
-          <img [src]="ride.driverImage" alt="{{ ride.driverName }}" class="avatar" />
-          <img *ngIf="ride.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
+          <img [src]="ride.driver.image" alt="{{ ride.driver.pseudo }}" class="avatar" />
+          <img *ngIf="ride.driver.verified" src="images/Picto_Verifier.svg" alt="Profil vérifié" class="verified-icon" />
         </div>
-        <span class="name">{{ ride.driverName }}</span>
+        <span class="name">{{ ride.driver.pseudo }}</span>
         <span class="rating">
           <img src="images/Picto_Etoile.svg" alt="Étoile" class="rating-icon" />
-          <span class="rating-value">{{ ride.rating }}</span>
+          <span class="rating-value">{{ ride.driver.rating }}</span>
         </span>
       </div>
       <div class="divider-vertical"></div>

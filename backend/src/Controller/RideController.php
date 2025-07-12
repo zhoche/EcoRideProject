@@ -421,24 +421,28 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
             'departureCity' => $ride->getDeparture(),
             'arrivalCity' => $ride->getArrival(),
             'departureTime' => $ride->getDate()->format('H\hi'),
-            'arrivalTime' => (clone $ride->getDate())->modify('+1 hour')->format('H\hi'),         
-            'duration' => '1h00', // ou calcule-le dynamiquement
+            'arrivalTime' => (clone $ride->getDate())->modify('+1 hour')->format('H\hi'),
+            'duration' => '1h00',
             'price' => $ride->getPrice(),
             'availableSeats' => $ride->getAvailableSeats(),
-            'driverName' => $ride->getDriver()?->getName() ?? 'Conducteur inconnu',
-            'driverImage' => $ride->getDriver()?->getImageUrl() ?? 'images/Profil_Base.png',
-            'rating' => $ride->getDriver()?->getRating() ?? 4.0,
-            'verified' => $ride->getDriver()?->isVerified() ?? false,
             'extras' => implode(', ', array_keys(array_filter(
                 $ride->getDriver()?->getDriverPreferences() ?? [],
                 fn($v) => $v
             ))),
             'isElectric' => $ride->getVehicle()?->isElectric() ?? false,
+            'driver' => [
+                'pseudo' => $ride->getDriver()?->getPseudo() ?? 'Anonyme',
+                'image' => $ride->getDriver()?->getImageUrl(),
+                'rating' => $ride->getDriver()?->getRating() ?? 0,
+                'verified' => $ride->getDriver()?->isVerified() ?? false,
+                'gender' => $ride->getDriver()?->getGender() ?? 'NO',
+            ],
         ];
     }, $rides);
 
     return $this->json($rideData);
 }
+
 
 
 #[Route('/next-available', name: 'app_ride_next', methods: ['GET'])]
@@ -461,14 +465,18 @@ public function nextAvailable(Request $request, RideRepository $rideRepository):
             'duration' => '1h00',
             'price' => $ride->getPrice(),
             'availableSeats' => $ride->getAvailableSeats(),
-            'driverName' => $ride->getDriver()?->getName() ?? 'Conducteur inconnu',
-            'driverImage' => $ride->getDriver()?->getImageUrl() ?? 'images/Profil_Base.png',
-            'rating' => $ride->getDriver()?->getRating() ?? 4.0,
-            'verified' => $ride->getDriver()?->isVerified() ?? false,
             'extras' => implode(', ', array_keys(array_filter(
                 $ride->getDriver()?->getDriverPreferences() ?? [],
                 fn($v) => $v
             ))),
+            'isElectric' => $ride->getVehicle()?->isElectric() ?? false,
+            'driver' => [
+                'pseudo' => $ride->getDriver()?->getPseudo() ?? 'Anonyme',
+                'image' => $ride->getDriver()?->getImageUrl(),
+                'rating' => $ride->getDriver()?->getRating() ?? 0,
+                'verified' => $ride->getDriver()?->isVerified() ?? false,
+                'gender' => $ride->getDriver()?->getGender() ?? 'NO',
+            ],
             'date' => $ride->getDate()->format('Y-m-d'),
         ];
     }, $rides);

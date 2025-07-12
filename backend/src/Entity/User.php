@@ -12,6 +12,9 @@ use App\Entity\Ride;
 use App\Entity\Vehicle;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Symfony\Component\Validator\Constraints as Assert;
+
+
 
 
 
@@ -28,18 +31,40 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[Groups(['ride:read'])]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 255, unique: true)]
+    #[Assert\NotBlank(message: "L'adresse email est obligatoire.")]
+    #[Assert\Email(message: "L'adresse email n'est pas valide.")]
     private ?string $email = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: "Le mot de passe est obligatoire.")]
+    #[Assert\Regex(
+        pattern: '/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/',
+        message: "Le mot de passe doit contenir au moins 8 caractères, une lettre, un chiffre et un caractère spécial."
+    )]
     private ?string $password = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['ride:read'])]
+    #[Assert\NotBlank(message: "Le pseudo est obligatoire.")]
+    #[Assert\Length(
+        min: 3,
+        max: 100,
+        minMessage: "Le pseudo doit comporter au moins {{ limit }} caractères.",
+        maxMessage: "Le pseudo ne peut pas dépasser {{ limit }} caractères."
+    )]
     private ?string $pseudo = null;
 
     #[ORM\Column(type: 'json')]
+    #[Assert\NotNull(message: "Les rôles doivent être définis.")]
     private array $roles = [];
+
+    #[ORM\Column(type: 'string', length: 2)]
+    #[Assert\Choice(
+        choices: ['F', 'M', 'NO'],
+        message: "Le genre doit être 'F', 'M' ou 'NO'."
+    )]
+    private ?string $gender = 'NO';
 
     #[ORM\Column(type: 'integer')]
     private int $credits = 20;
@@ -70,9 +95,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'boolean')]
     #[Groups(['ride:read'])]
     private bool $isVerified = false;
-
-    #[ORM\Column(length: 2)]
-    private ?string $gender = null;
 
 
 
@@ -242,7 +264,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function getImageUrl(): string
     {
-        return $this->image ?? 'images/Profil_Base.png';
+        return $this->image ? 'images/' . $this->image : 'images/Profil_Base.png';
     }
 
     public function setImage(?string $image): self

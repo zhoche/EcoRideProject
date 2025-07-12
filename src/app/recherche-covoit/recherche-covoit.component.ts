@@ -273,7 +273,7 @@ export class RechercheCovoitComponent implements OnInit{
     });
   
     if (this.filters.verifiedOnly) {
-      list = list.filter(r => r.verified);
+      list = list.filter(r => r.driver?.verified);
     }
   
     if (this.filters.womenOnly) {
@@ -281,13 +281,13 @@ export class RechercheCovoitComponent implements OnInit{
     }
   
     if (this.filters.services.max2) {
-      list = list.filter(r => r.extras.includes('Max. 2 à l’arrière'));
+      list = list.filter(r => r.extras?.includes('Max. 2 à l’arrière'));
     }
     if (this.filters.services.smoking) {
-      list = list.filter(r => r.extras.includes('Fumeur autorisé'));
+      list = list.filter(r => r.extras?.includes('Fumeur autorisé'));
     }
     if (this.filters.services.pets) {
-      list = list.filter(r => r.extras.includes('Animal de compagnie autorisé'));
+      list = list.filter(r => r.extras?.includes('Animal de compagnie autorisé'));
     }
 
     
