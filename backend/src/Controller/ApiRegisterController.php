@@ -24,11 +24,19 @@ class ApiRegisterController extends AbstractController
     
         $data = json_decode($request->getContent(), true);
     
-        // Validation basique
         if (!isset($data['email'], $data['password'], $data['pseudo'])) {
             return new JsonResponse(['error' => 'Données incomplètes.'], 400);
         }
     
+        $password = $data['password'];
+
+        if (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z\d])[A-Za-z\d\S]{8,}$/', $password)) {
+            return new JsonResponse([
+                'error' => 'Le mot de passe doit contenir au moins 8 caractères, une lettre, un chiffre et un caractère spécial.'
+            ], 400);
+        }
+
+
         // Sanitize (protection XSS / injection)
         $email = filter_var(trim($data['email']), FILTER_SANITIZE_EMAIL);
         $pseudo = htmlspecialchars(trim($data['pseudo']));
@@ -75,6 +83,8 @@ class ApiRegisterController extends AbstractController
     
         $hashedPassword = $passwordHasher->hashPassword($user, $data['password']);
         $user->setPassword($hashedPassword);
+
+        $user->setGender($gender);
     
         $em->persist($user);
         $em->flush();

@@ -80,6 +80,14 @@
       }
     }
 
+  .input-group input.input-valid {
+  border: 2px solid $color-positive !important;
+  }
+
+  .input-group input.input-invalid {
+    border: 2px solid $color-error !important;
+  }
+
     .hint {
       font-size: 0.85rem;
       color: #59616A;
@@ -127,7 +135,16 @@
   }
 
 
-//BOUTONS PROFIL
+//BOUTONS
+
+button.btn-filled:disabled {
+  background-color: $color-secondary-6 !important;
+  color: $color-secondary-2 !important;
+  cursor: not-allowed !important;
+  opacity: 0.7;
+}
+
+
 .role-options {
   display: flex;
   gap: 10px;
@@ -177,6 +194,9 @@
     }
   }
 }
+
+
+
 @include respond-to(sm) {
     .login-page {
       flex-direction: column;

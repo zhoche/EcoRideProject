@@ -24,13 +24,14 @@
     <div class="input-group half">
       <label for="email">Adresse mail</label>
       <input
-        type="email"
-        id="email"
-        name="email"
-        placeholder="john.doe@gmail.com"
-        [(ngModel)]="email"
-        required
-      />
+      type="email"
+      id="email"
+      name="email"
+      placeholder="john.doe@gmail.com"
+      [(ngModel)]="email"
+      required
+      [class.input-invalid]="email.length > 0 && !email.includes('@')"
+    />
     </div>
   </div>
 
@@ -41,9 +42,9 @@
       type="password"
       id="password"
       name="password"
-      placeholder="xxxxxxxxxx"
       [(ngModel)]="password"
-      required
+      (input)="checkPasswordStrength()"
+      [ngClass]="getPasswordInputClass()"
     />
     <p class="hint">
       Il doit comporter au moins 8 caractères dont 1 lettre,
@@ -81,7 +82,7 @@
 
   <!-- Bouton + texte des conditions -->
   <div class="actions">
-    <button type="submit" class="btn btn-filled">Créer mon compte</button>
+    <button type="submit" class="btn btn-filled" [disabled]="!isStrong">Créer mon compte</button>
     <p class="terms">En continuant, vous acceptez les
       <a href="/terms">Conditions d’utilisation</a> et la
       <a href="/privacy">Politique de confidentialité</a> d’EcoRide.
