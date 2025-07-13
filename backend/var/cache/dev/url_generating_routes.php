@@ -43,6 +43,7 @@ return [
     'app_login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], [], []],
     'app_logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
     'redirect_role' => [[], ['_controller' => 'App\\Controller\\UserController::redirectRole'], [], [['text', '/api/redirect-role']], [], [], []],
+    'app_user_getdriveraveragerating' => [['id'], ['_controller' => 'App\\Controller\\UserController::getDriverAverageRating'], [], [['text', '/average-rating'], ['variable', '/', '[^/]++', 'id', true], ['text', '/users']], [], [], []],
     'get_user_vehicles' => [[], ['_controller' => 'App\\Controller\\VehicleController::getUserVehicles'], [], [['text', '/api/vehicles/user']], [], [], []],
     'api_login' => [[], [], [], [['text', '/api/login']], [], [], []],
     'App\Controller\AdminController::getRidesPerDay' => [[], ['_controller' => 'App\\Controller\\AdminController::getRidesPerDay'], [], [['text', '/api/admin/rides-per-day']], [], [], []],
@@ -70,5 +71,6 @@ return [
     'App\Controller\SecurityController::login' => [[], ['_controller' => 'App\\Controller\\SecurityController::login'], [], [['text', '/api/login']], [], [], []],
     'App\Controller\SecurityController::logout' => [[], ['_controller' => 'App\\Controller\\SecurityController::logout'], [], [['text', '/logout']], [], [], []],
     'App\Controller\UserController::redirectRole' => [[], ['_controller' => 'App\\Controller\\UserController::redirectRole'], [], [['text', '/api/redirect-role']], [], [], []],
+    'App\Controller\UserController::getDriverAverageRating' => [['id'], ['_controller' => 'App\\Controller\\UserController::getDriverAverageRating'], [], [['text', '/average-rating'], ['variable', '/', '[^/]++', 'id', true], ['text', '/users']], [], [], []],
     'App\Controller\VehicleController::getUserVehicles' => [[], ['_controller' => 'App\\Controller\\VehicleController::getUserVehicles'], [], [['text', '/api/vehicles/user']], [], [], []],
 ];

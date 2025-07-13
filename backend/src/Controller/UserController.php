@@ -6,6 +6,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\SecurityBundle\Security;
 use App\Entity\User;
+use App\Repository\AvisRepository;
 
 
 class UserController extends AbstractController
@@ -37,5 +38,17 @@ class UserController extends AbstractController
         ]);
     }
 
+
+    #[Route('/users/{id}/average-rating', methods: ['GET'])]
+    
+    public function getDriverAverageRating(User $user, AvisRepository $avisRepo): JsonResponse
+    {
+        $average = $avisRepo->getAverageRatingForDriver($user);
+
+        return $this->json([
+            'driverId' => $user->getId(),
+            'averageRating' => round($average, 1),
+        ]);
+    }
 
 }

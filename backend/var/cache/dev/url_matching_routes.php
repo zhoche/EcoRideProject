@@ -71,6 +71,7 @@ return [
                         .'|delete(*:324)'
                     .')'
                 .')'
+                .'|/users/([^/]++)/average\\-rating(*:365)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -86,8 +87,9 @@ return [
         275 => [[['_route' => 'app_ride_registertoride', '_controller' => 'App\\Controller\\RideController::registerToRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
         296 => [[['_route' => 'app_ride_unregisterfromride', '_controller' => 'App\\Controller\\RideController::unregisterFromRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
         309 => [[['_route' => 'app_ride_updateride', '_controller' => 'App\\Controller\\RideController::updateRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
-        324 => [
-            [['_route' => 'app_ride_deleteride', '_controller' => 'App\\Controller\\RideController::deleteRide'], ['ride_id'], ['POST' => 0], null, false, false, null],
+        324 => [[['_route' => 'app_ride_deleteride', '_controller' => 'App\\Controller\\RideController::deleteRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
+        365 => [
+            [['_route' => 'app_user_getdriveraveragerating', '_controller' => 'App\\Controller\\UserController::getDriverAverageRating'], ['id'], ['GET' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],
     ],

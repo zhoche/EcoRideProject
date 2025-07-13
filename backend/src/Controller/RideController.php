@@ -6,6 +6,7 @@ use App\Entity\Ride;
 use App\Entity\User;
 use App\Entity\Avis;
 use App\Entity\Vehicle;
+use App\Repository\AvisRepository;
 use App\Repository\RideRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -406,7 +407,7 @@ public function giveFeedback(Request $request, EntityManagerInterface $em): Json
 
 //Rechercher un trajet
 #[Route('/search', name: 'app_ride_search', methods: ['GET'])]
-public function searchRides(Request $request, RideRepository $rideRepository): JsonResponse
+public function searchRides(Request $request, RideRepository $rideRepository, AvisRepository $avisRepo): JsonResponse
 {
     $villeDepart = $request->query->get('villeDepart');
     $villeArrivee = $request->query->get('villeArrivee');
@@ -415,7 +416,7 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
 
     $rides = $rideRepository->findAvailableRides($villeDepart, $villeArrivee, $date, $nbPassagers);
 
-    $rideData = array_map(function ($ride) {
+    $rideData = array_map(function ($ride) use ($avisRepo) {
         return [
             'id' => $ride->getId(),
             'departureCity' => $ride->getDeparture(),
@@ -433,7 +434,7 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
             'driver' => [
                 'pseudo' => $ride->getDriver()?->getPseudo() ?? 'Anonyme',
                 'image' => $ride->getDriver()?->getImageUrl(),
-                'rating' => $ride->getDriver()?->getRating() ?? 0,
+                'rating' => round($avisRepo->getAverageRatingForDriver($ride->getDriver()), 1),
                 'verified' => $ride->getDriver()?->isVerified() ?? false,
                 'gender' => $ride->getDriver()?->getGender() ?? 'NO',
             ],
@@ -446,7 +447,7 @@ public function searchRides(Request $request, RideRepository $rideRepository): J
 
 
 #[Route('/next-available', name: 'app_ride_next', methods: ['GET'])]
-public function nextAvailable(Request $request, RideRepository $rideRepository): JsonResponse
+public function nextAvailable(Request $request, RideRepository $rideRepository, AvisRepository $avisRepo): JsonResponse
 {
     $villeDepart = $request->query->get('villeDepart');
     $villeArrivee = $request->query->get('villeArrivee');
@@ -455,7 +456,7 @@ public function nextAvailable(Request $request, RideRepository $rideRepository):
 
     $rides = $rideRepository->findNextAvailableRides($villeDepart, $villeArrivee, $date, $nbPassagers);
 
-    $rideData = array_map(function ($ride) {
+    $rideData = array_map(function ($ride) use ($avisRepo) {
         return [
             'id' => $ride->getId(),
             'departureCity' => $ride->getDeparture(),
@@ -473,7 +474,7 @@ public function nextAvailable(Request $request, RideRepository $rideRepository):
             'driver' => [
                 'pseudo' => $ride->getDriver()?->getPseudo() ?? 'Anonyme',
                 'image' => $ride->getDriver()?->getImageUrl(),
-                'rating' => $ride->getDriver()?->getRating() ?? 0,
+                'rating' => round($avisRepo->getAverageRatingForDriver($ride->getDriver()), 1),
                 'verified' => $ride->getDriver()?->isVerified() ?? false,
                 'gender' => $ride->getDriver()?->getGender() ?? 'NO',
             ],

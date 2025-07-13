@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Avis;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -40,4 +41,16 @@ class AvisRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
+    public function getAverageRatingForDriver(User $driver): ?float
+    {
+    return $this->createQueryBuilder('a')
+        ->select('AVG(a.rating)')
+        ->where('a.driver = :driver')
+        ->andWhere('a.status = :status') 
+        ->setParameter('driver', $driver)
+        ->setParameter('status', 'validé') 
+        ->getQuery()
+        ->getSingleScalarResult();
+}
 }

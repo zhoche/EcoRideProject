@@ -9,3 +9,16 @@ b92079,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPa
 d72d9a,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-24&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752353640,,200,request
 f4095d,127.0.0.1,OPTIONS,http://localhost:8000/api/rides/next-available?date=2025-07-24&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752353640,,200,request
 4f073b,127.0.0.1,GET,http://localhost:8000/api/rides/next-available?date=2025-07-24&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752353640,,200,request
+fe5613,127.0.0.1,OPTIONS,http://localhost:8000/api/rides/list,1752422518,,200,request
+484708,127.0.0.1,GET,http://localhost:8000/api/rides/list,1752422518,,401,request
+6cfa33,127.0.0.1,POST,http://localhost:8000/api/login,1752422531,,200,request
+65fd61,127.0.0.1,GET,http://localhost:8000/api/rides/list,1752422531,,200,request
+3b9b91,127.0.0.1,OPTIONS,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752422543,,200,request
+cf54df,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752422543,,200,request
+f62772,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752422649,,200,request
+106d88,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752423328,,200,request
+b39ada,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752423966,3d9d23,500,request
+3d9d23,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752423966,,500,request
+bdc092,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752424040,03d4f1,500,request
+03d4f1,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752424040,,500,request
+52a54d,127.0.0.1,GET,http://localhost:8000/api/rides/search?date=2025-07-25&nbPassagers=1&villeArrivee=Toulouse&villeDepart=Auch,1752424200,,200,request
