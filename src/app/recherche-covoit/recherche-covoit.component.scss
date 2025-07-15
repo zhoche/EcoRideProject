@@ -30,7 +30,6 @@
             display: flex;
             justify-content: flex-start;
             align-items: baseline;
-            /* margin-bottom: 1rem; */
             gap: 4em;
         }
   
@@ -41,7 +40,6 @@
   
         .clear-all {
           font-size: 0.9rem;
-          color: $color-dark;
           text-decoration: none;
         }
       }
@@ -438,6 +436,11 @@
   }
 
 
+  button.btn.btn-filled.back-btn {
+    background: none;
+    color: $color-secondary-2;
+    font-weight: 300;
+}
 
   //BANDEAU TOP-FOOTER
 .bandeau-blanc-arrondi {
@@ -481,68 +484,64 @@
   }
   
   // MOBILE & TABLET (<= sm)
-  @include respond-to(sm) {
+  @media (max-width: 768px) {
+    aside.filters {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
   
-    // toggle visible
-    .filters-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
+      .filters-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: $color-secondary-1;
+        position: relative;
+        z-index: 2;
+      }
   
       h2 {
         display: flex;
         align-items: center;
         font-size: 1.25rem;
-        .filters-toggle {
-          display: inline-block;    // ← on l’affiche ici
-          margin-left: 0.5rem;
-          font-size: 1.25rem;
-          line-height: 1;
-          transition: transform 0.2s;
-        }
-      }
-      .clear-all {
-        font-size: 0.9rem;
-        color: $color-dark;
-        text-decoration: none;
-      }
-    }
   
-    // sidebar masquée par défaut
-    aside.filters {
-        display: none !important;
+        // .filters-toggle {
+        //   display: inline-block;
+        //   margin-left: 0.5rem;
+        //   font-size: 1.25rem;
+        //   line-height: 1;
+        //   transition: transform 0.2s;
+        //   cursor: pointer;
+        // }
+      }
   
       &.open {
-        display: block !important;
-        position: absolute;
-        top: 4rem;                
-        left: 0;
-        background-color: #888;
-        width: 100%;
-
-        z-index: 999;             
-        max-height: calc(100vh - 4rem);
+        max-height: 2000px;
         overflow-y: auto;
+        background: $color-secondary-1;
       }
     }
-  } 
+  }
   
-  // DESKTOP (>= md) : on recache le toggle et on réaffiche toujours la sidebar
-  @include respond-to(md) {
+  @media screen and (min-width: 769px) {
     .filters-header {
-      .filters-toggle {
-        display: none;
-      }
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+      background: $color-secondary-1;
     }
     aside.filters {
-      display: block !important;
-      position: static !important;
-      width: 260px;
-      background: transparent;
-      box-shadow: none;
-      padding: 0;
-      overflow: visible;
+      // Masquer le contenu par défaut sauf le header
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease;
+  
+      &.open {
+        max-height: 90vh;
+        overflow-y: auto;
+        background: $color-secondary-1;
+        padding: 1rem;
+      }
     }
   }
 
@@ -553,9 +552,3 @@
 
 
 
-
-button.btn.btn-filled.back-btn {
-    background: none;
-    color: $color-secondary-2;
-    font-weight: 300;
-}

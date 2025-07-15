@@ -25,11 +25,13 @@ function computeArrivalTime(start: string, duration: string): string {
   templateUrl: './recherche-covoit.component.html',
   styleUrl: './recherche-covoit.component.scss'
 })
+
+
+
 export class RechercheCovoitComponent implements OnInit{
   // UI
   showTripDetail = false;
   step = 1;
-  showFilters = false;
   isAlternativeResults = false;
   displayedDate: string = '';
   searchVilleDepart = '';
@@ -50,6 +52,7 @@ export class RechercheCovoitComponent implements OnInit{
   
   selectedRide: Ride | null = null;
   
+  isFilterOpen: boolean = true;
   // Filtres
   filters = {
     sortBy: 'early', // 'early' | 'cheap' | 'eco'
@@ -99,7 +102,6 @@ export class RechercheCovoitComponent implements OnInit{
     } 
   }
   
-
 
   capitalizeFirstLetter(str: string): string {
     return str.charAt(0).toUpperCase() + str.slice(1);
@@ -242,8 +244,10 @@ export class RechercheCovoitComponent implements OnInit{
 
 
    // Filtres
-   toggleFilters() {
-    this.showFilters = !this.showFilters;
+   toggleFilters(): void {
+    this.isFilterOpen = !this.isFilterOpen;
+    console.log('📦 Filtres togglés →', this.isFilterOpen);
+
   }
 
   resetFilters(event: Event) {

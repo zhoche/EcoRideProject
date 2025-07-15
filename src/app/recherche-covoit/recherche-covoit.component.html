@@ -308,11 +308,12 @@
 <section class="search-page">
 
   <!-- Sidebar filtres -->
-  <aside class="filters" [class.open]="showFilters">
-    <div class="filters-header">
-      <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
-      <a href="#" class="clear-all" (click)="resetFilters($event)">Tout effacer</a>
-    </div>
+  <aside class="filters" [class.open]="isFilterOpen">
+
+  <div class="filters-header">
+    <h2>Filtres <span class="filters-toggle" (click)="toggleFilters()">▾</span></h2>
+    <a href="#" class="clear-all" (click)="resetFilters($event)">Tout effacer</a>
+  </div>
   
     <!-- Trier par -->
     <div class="filter-group">

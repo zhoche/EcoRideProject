@@ -315,6 +315,8 @@
   &__block {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+
   }
 
   /* Titre au-dessus de la carte */
@@ -453,13 +455,7 @@
     }
   }
 
-  &__history {
-    /* on reprend le style interne de vos cartes */
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    border: none;
-  }
+
 
   &__history-title {
     margin: 0 0 $spacing-sm;
@@ -468,26 +464,21 @@
     color: $color-secondary-2;
   }
 
-  &__chart {
-    flex: 1;                       // prend tout l’espace restant
-    /* dimensions flexibles selon la librairie de graph choisie */
-    min-height: 120px;
-    position: relative;
+}
+
+
+.credits__chart {
+  flex: 1;
+  position: relative;
+  width: 100% !important;
+  height: 300px; 
+  max-width: 100%;
+
+  canvas {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
-
-/* Si vous voulez un placeholder statique en attendant la data, vous pouvez, 
-   par exemple, définir un SVG en background : 
-*/
-/*
-.credits__chart {
-  background: url('assets/images/credits-placeholder.svg') no-repeat center;
-  background-size: contain;
-}
-*/
-
-
-
 
 
 //PREFERENCES
