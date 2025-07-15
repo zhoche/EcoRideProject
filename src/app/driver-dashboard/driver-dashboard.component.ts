@@ -4,6 +4,8 @@ import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { NgChartsModule } from 'ng2-charts';
+import { RideStateService } from '../ride-state.service'; 
+
 
 @Component({
   selector: 'app-driver-dashboard',
@@ -34,7 +36,8 @@ export class DriverDashboardComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private rideService: RideService
+    private rideService: RideService,
+    private rideStateService: RideStateService
   ) {}
 
   ngOnInit(): void {
@@ -62,7 +65,29 @@ export class DriverDashboardComponent implements OnInit {
       },
       error: (err) => console.error('Erreur chargement dashboard', err)
     });
+
   }
+
+
+  onStartRide(rideId: number): void {
+    this.rideStateService.startRide(rideId);
+  }
+
+  
+  terminateRide(rideId: number): void {
+    this.rideService.terminateRide(rideId).subscribe({
+      next: () => {
+        alert("Les passagers ont été notifiés.");
+        this.rideStateService.resetRide(); // ← facultatif : cache les boutons dans le header
+      },
+      error: (err) => {
+        console.error("Erreur de fin de trajet :", err);
+        alert("Impossible de terminer le trajet.");
+      }
+    });
+  }
+
+  
 
   logout() {
     this.authService.logout();

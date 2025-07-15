@@ -25,16 +25,22 @@
     <ul *ngSwitchCase="'passenger'">
         <div class="wrapper">        
             <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
-        
-                  <!-- ARRIVAL ACTIONS -->
-                <div class="arrival-actions">
-                    <button routerLink="/ride-validated" type="button" class="arrival-actions__btn arrival-actions__btn--success">
-                    Je suis bien arrivé(e)
-                    </button>
-                    <button routerLink="/ride-report" type="button" class="arrival-actions__btn arrival-actions__btn--danger">
-                    Signaler un problème
-                    </button>
-                </div>         
+          
+              <!-- ARRIVAL ACTIONS -->
+              <div class="arrival-actions">
+                <button
+                  class="arrival-actions__btn arrival-actions__btn--success"
+                  [routerLink]="['/ride-validated']"
+                  [queryParams]="{ token: 'abc123-token-fake-pour-test' }">
+                  Je suis bien arrivé(e)
+                </button>
+                <button
+                  routerLink="/ride-report"
+                  type="button"
+                  class="arrival-actions__btn arrival-actions__btn--danger">
+                  Signaler un problème
+                </button>
+              </div>
 
 
             <div class="header-text">
@@ -62,6 +68,19 @@
         <div class="wrapper">        
             <a routerLink="/home"><img class="logo" src="images/Logo_Vert.svg" alt="EcoRide Logo"/></a>
         
+
+              <!-- ARRIVAL DRIVER ACTIONS -->
+              <div *ngIf="startedRideId" class="arrival-actions">
+                <button class="arrival-actions__btn arrival-actions__btn--success"
+                (click)="terminateRide(startedRideId)">
+                  Trajet terminé
+                </button>
+                <button routerLink="/ride-report" type="button" class="arrival-actions__btn arrival-actions__btn--danger">
+                Signaler un problème
+                </button>
+            </div>  
+
+
             <div class="header-text">
               <nav class="nav">
               <a routerLink="/recherche-covoit">Rechercher un covoit’</a>

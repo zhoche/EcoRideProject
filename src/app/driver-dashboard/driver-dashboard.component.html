@@ -25,10 +25,9 @@
               <span class="badge badge--success">En cours</span>
             </td>
             <td class="trips__actions">
-                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" />
-                </button>
-                <button data-label="Actions" class="btn-icon btn-icon--edit" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" />
-                </button>
+                <button data-label="Actions" (click)="onStartRide(ride.id)" class="btn-icon btn-icon--go" aria-label="Démarrer"><img src="images/Action_Go.svg" alt="Démarrer" /></button>
+                <button data-label="Actions" class="btn-icon btn-icon--view" aria-label="Voir"><img src="images/Action_Voir.svg" alt="Voir" /></button>
+                <button data-label="Actions" class="btn-icon btn-icon--edit" aria-label="Éditer" disabled><img src="images/Action_Modifier.svg" alt="Éditer" /></button>
             </td>
           </tr>
         </tbody>

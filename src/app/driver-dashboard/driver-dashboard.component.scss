@@ -88,9 +88,14 @@
 .btn-icon {
     padding: 0;
     border: none;
-    cursor: pointer;
+    cursor: default;
     background-color: white;
 
+    &--go:hover {
+      background-color: $color-accent;
+      cursor: pointer;
+      border-radius: $radius-sm;
+    }
   
     img {
       display: block;

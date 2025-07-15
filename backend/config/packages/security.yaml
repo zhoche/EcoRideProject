@@ -46,4 +46,5 @@ security:
     - { path: ^/api/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api, methods: [OPTIONS], roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/rides/feedback/check, roles: PUBLIC_ACCESS }
     - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

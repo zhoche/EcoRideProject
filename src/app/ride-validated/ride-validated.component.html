@@ -14,31 +14,38 @@
     </div>
   
     <!-- Formulaire de feedback -->
-    <form class="ride-validated__form">
+    <form *ngIf="tokenValid" class="ride-validated__form" (ngSubmit)="submitAvis()" >
       <!-- Note par étoiles -->
       <div class="ride-validated__field ride-validated__rating">
         <h5>Notez votre expérience</h5>
         <div class="rating-stars">
-          <!-- Remplacez ces spans par vos SVG ou composants étoiles cliquables -->
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
-          <span class="star">&#9734;</span>
+          <span
+            *ngFor="let star of stars; let i = index"
+            class="star"
+            (click)="selectRating(i + 1)"
+            [class.selected]="i < selectedRating"
+            >&#9733;</span
+          >
         </div>
       </div>
   
       <!-- Commentaire texte -->
       <div class="ride-validated__field">
-        <h5 for="ride-comment">Un mot sur le trajet ?</h5>
-        <textarea id="ride-comment" class="ride-validated__textarea" placeholder='Ex : "Chauffeur ponctuel et agréable, je recommande !"' rows="6"></textarea>
+        <h5>Un mot sur le trajet ?</h5>
+        <textarea
+          [(ngModel)]="comment"
+          name="comment"
+          class="ride-validated__textarea"
+          placeholder='Ex : "Chauffeur ponctuel et agréable, je recommande !"'
+          rows="6"></textarea>
       </div>
   
-      <!-- Actions -->
-      <div class="ride-validated__actions">
-        <button routerLink="/ride-report" type="button" class="btn btn--outline btn--danger ride-validated__btn--problem">Signaler un problème</button>
-        <button type="submit" class="btn btn--solid btn--success ride-validated__btn--submit">Valider et terminer</button>
-      </div>
+
+  <!-- Actions -->
+  <div class="ride-validated__actions">
+    <button routerLink="/ride-report" type="button" class="btn btn--outline btn--danger ride-validated__btn--problem">Signaler un problème</button>
+    <button type="submit" class="btn btn--solid btn--success ride-validated__btn--submit">Valider et terminer</button>
+  </div>
     </form>
   </section>
   

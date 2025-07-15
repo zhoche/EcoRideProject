@@ -39,6 +39,18 @@ class Avis
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $status = null;
 
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
+    private ?string $token = null;
+
+    #[ORM\Column(type: 'boolean')]
+    private bool $isValidated = false;
+
+
+
+
+
+
+
     public function getId(): ?int
     {
         return $this->id;
@@ -111,6 +123,30 @@ class Avis
     {
         $this->status = $status;
 
+        return $this;
+    }
+
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+    
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
+        return $this;
+    }
+
+
+        public function isValidated(): bool
+    {
+        return $this->isValidated;
+    }
+
+    public function setIsValidated(bool $validated): self
+    {
+        $this->isValidated = $validated;
         return $this;
     }
 }

@@ -38,19 +38,23 @@ h1 {
     margin-bottom: $spacing-sm;
   }
 
+
   .rating-stars {
     display: flex;
-    gap: $spacing-xs;
-
+    gap: 0.5rem;
+  
     .star {
       font-size: 2rem;
-      color:  $color-secondary-6;        
+      color: lightgray;
       cursor: pointer;
-      transition: color 0.2s;
+      transition: color 0.3s;
 
-      &:hover,
+      &:hover {
+        color: $color-secondary-4;
+      }
+  
       &.selected {
-        color: $color-accent;   
+        color: $color-secondary-4;
       }
     }
   }

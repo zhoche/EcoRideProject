@@ -32,6 +32,7 @@ return [
         '/api/rides/feedback' => [[['_route' => 'app_ride_givefeedback', '_controller' => 'App\\Controller\\RideController::giveFeedback'], null, ['POST' => 0], null, false, false, null]],
         '/api/rides/search' => [[['_route' => 'app_ride_search', '_controller' => 'App\\Controller\\RideController::searchRides'], null, ['GET' => 0], null, false, false, null]],
         '/api/rides/next-available' => [[['_route' => 'app_ride_next', '_controller' => 'App\\Controller\\RideController::nextAvailable'], null, ['GET' => 0], null, false, false, null]],
+        '/api/rides/feedback/check' => [[['_route' => 'app_ride_checkfeedback', '_controller' => 'App\\Controller\\RideController::checkFeedback'], null, ['GET' => 0], null, false, false, null]],
         '/api/login' => [
             [['_route' => 'app_login', '_controller' => 'App\\Controller\\SecurityController::login'], null, null, null, false, false, null],
             [['_route' => 'api_login'], null, ['POST' => 0], null, false, false, null],
@@ -69,9 +70,10 @@ return [
                             .'|pdate(*:309)'
                         .')'
                         .'|delete(*:324)'
+                        .'|terminate(*:341)'
                     .')'
                 .')'
-                .'|/users/([^/]++)/average\\-rating(*:365)'
+                .'|/users/([^/]++)/average\\-rating(*:382)'
             .')/?$}sDu',
     ],
     [ // $dynamicRoutes
@@ -88,7 +90,8 @@ return [
         296 => [[['_route' => 'app_ride_unregisterfromride', '_controller' => 'App\\Controller\\RideController::unregisterFromRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
         309 => [[['_route' => 'app_ride_updateride', '_controller' => 'App\\Controller\\RideController::updateRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
         324 => [[['_route' => 'app_ride_deleteride', '_controller' => 'App\\Controller\\RideController::deleteRide'], ['ride_id'], ['POST' => 0], null, false, false, null]],
-        365 => [
+        341 => [[['_route' => 'app_ride_terminate', '_controller' => 'App\\Controller\\RideController::terminateRide'], ['id'], ['POST' => 0], null, false, false, null]],
+        382 => [
             [['_route' => 'app_user_getdriveraveragerating', '_controller' => 'App\\Controller\\UserController::getDriverAverageRating'], ['id'], ['GET' => 0], null, false, false, null],
             [null, null, null, null, false, false, 0],
         ],

@@ -65,6 +65,9 @@ class Ride
     #[Groups(['ride:read'])]
     private ?string $extras = null;
 
+    #[ORM\Column(type: 'string', length: 20, options: ['default' => 'en cours'])]
+    private string $status = 'en cours';
+
 
     public function getId(): ?int
     {
@@ -210,6 +213,16 @@ class Ride
     public function setExtras(?string $extras): static
     {
         $this->extras = $extras;
+        return $this;
+    }
+
+
+    public function getStatus(): string {
+        return $this->status;
+    }
+    
+    public function setStatus(string $status): self {
+        $this->status = $status;
         return $this;
     }
 

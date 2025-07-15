@@ -19,6 +19,10 @@ use App\Repository\VehicleRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Bridge\Twig\Mime\TemplatedEmail;
+use Symfony\Component\Uid\Uuid;
+
 
 
 
@@ -367,6 +371,8 @@ public function updateRide(
 #[Route('/feedback', methods: ['POST'])]
 public function giveFeedback(Request $request, EntityManagerInterface $em): JsonResponse
 {
+
+    
     $user = $this->getUser();
     if (!$user) {
         return $this->json(['error' => 'Utilisateur non connecté'], 401);
@@ -484,6 +490,78 @@ public function nextAvailable(Request $request, RideRepository $rideRepository, 
 
     return $this->json($rideData);
 }
+
+
+// Terminer un trajet et envoyer des emails aux passagers
+#[Route('/{id}/terminate', name: 'app_ride_terminate', methods: ['POST'])]
+public function terminateRide(
+    int $id,
+    RideRepository $rideRepo,
+    EntityManagerInterface $em,
+    MailerInterface $mailer
+): JsonResponse {
+    $ride = $rideRepo->find($id);
+
+    if (!$ride) {
+        return $this->json(['error' => 'Trajet non trouvé'], 404);
+    }
+
+    $ride->setStatus('terminé');
+    $em->flush();
+
+    foreach ($ride->getPassengers() as $passenger) {
+        $token = Uuid::v4()->toRfc4122();
+
+        // Crée un avis vide avec le token
+        $avis = new Avis();
+        $avis->setRide($ride);
+        $avis->setPassenger($passenger);
+        $avis->setDriver($ride->getDriver());
+        $avis->setToken($token);
+        $avis->setStatus('à traiter');
+        $avis->setIsValidated(false);
+        $em->persist($avis);
+
+        // Envoie l’email avec le lien vers ride-validated
+        $email = (new TemplatedEmail())
+            ->from('contact@ecoride.com')
+            ->to($passenger->getEmail())
+            ->subject('Merci de confirmer votre trajet EcoRide')
+            ->htmlTemplate('emails/ride_feedback.html.twig')
+            ->context([
+                'ride' => $ride,
+                'passenger' => $passenger,
+                'link' => 'https://ecoride.com/ride-validated?token=' . $token
+            ]);
+
+        $mailer->send($email);
+    }
+
+    $em->flush();
+
+    return $this->json(['success' => 'Trajet terminé. Les passagers ont été notifiés.']);
+}
+
+#[Route('/feedback/check', methods: ['GET'])]
+#[IsGranted('PUBLIC_ACCESS')]
+public function checkFeedback(Request $request, EntityManagerInterface $em): JsonResponse
+{
+    $token = $request->query->get('token');
+
+    $avis = $em->getRepository(Avis::class)->findOneBy(['token' => $token]);
+
+    if (!$avis || $avis->isValidated()) {
+        return $this->json(['error' => 'Token invalide ou déjà utilisé'], 400);
+    }
+
+    return $this->json([
+        'ride_id' => $avis->getRide()->getId(),
+        'passenger' => $avis->getPassenger()->getPseudo()
+    ]);
+}
+
+
+
 
 
 }

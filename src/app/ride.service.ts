@@ -71,4 +71,10 @@ export class RideService {
       }
     });
   }
+
+
+
+  terminateRide(rideId: number) {
+    return this.http.post(`/api/rides/${rideId}/terminate`, {});
+  }
 }
