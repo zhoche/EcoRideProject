@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { DriverDashboardComponent } from './driver-dashboard.component';
+import { DriverDashboardComponent } from '../driver-dashboard/driver-dashboard.component';
 
 describe('DriverDashboardComponent', () => {
   let component: DriverDashboardComponent;

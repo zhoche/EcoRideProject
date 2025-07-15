@@ -73,7 +73,7 @@ export class DriverDashboardComponent implements OnInit {
     this.rideStateService.startRide(rideId);
   }
 
-  
+
   terminateRide(rideId: number): void {
     this.rideService.terminateRide(rideId).subscribe({
       next: () => {
