@@ -23,9 +23,6 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Clear and warmup cache (safe for prod)
-RUN php bin/console cache:clear --env=prod && php bin/console cache:warmup --env=prod
-
 # Set permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
