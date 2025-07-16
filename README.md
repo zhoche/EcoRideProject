@@ -1,5 +1,6 @@
 # Ecorideproject
 
+
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
 **EcoRide** is an eco-friendly ridesharing web application designed to promote responsible mobility between passengers and drivers. The platform facilitates carpooling while encouraging sustainable behaviors and reducing carbon emissions.
 
@@ -35,6 +36,13 @@ This project was generated using [Angular CLI](https://github.com/angular/angula
 | TypeScript    | PHP 8.4      | Composer + npm         |
 | SCSS          | Doctrine ORM | Postman / Thunder Client |
 
+
+### Documentation
+[Lien](documentation/EcoRide_CharteGraphique_2025_HOCHE.pdf)
+[Lien](documentation/EcoRide_MaquettesDesktop_2025_HOCHE.pdf)
+[Lien](documentation/EcoRide_MaquettesMobile_2025_HOCHE.pdf)
+[Lien](documentation/EcoRide_PlanAppWeb_2025_HOCHE.pdf)
+[Lien](documentation/TP_DWWM_Nov:Dec25_copiearendre_HOCHE_Zoe.doc)
 
 
 ## Development server

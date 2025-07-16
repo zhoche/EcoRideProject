@@ -23,7 +23,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-    //{ id: 1, pseudo: 'Alice', password: 'password123', email: 'alice@gmail.com', role: 'user', credits: 20, rideIDs: ["id1", "id2"], vehiculeIDs: ["vehiculeID"], driverPreferences: {fumer: false, animaux: true} },
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

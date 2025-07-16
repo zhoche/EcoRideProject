@@ -20,34 +20,49 @@ class CreateVehiclesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $driver = $this->em->getRepository(User::class)->findOneByRole('ROLE_DRIVER');
-
-        if (!$driver) {
-            $output->writeln('❌ Aucun utilisateur avec le rôle ROLE_DRIVER trouvé.');
-            return Command::FAILURE;
-        }
-
-        $vehicules = [
-            ['Toyota', 'Corolla', 'Hybride'],
-            ['Peugeot', '208', 'Essence'],
-            ['Tesla', 'Model 3', 'Électrique'],
-            ['Renault', 'Clio', 'Diesel'],
+        // Chaque entrée commence par l'email du propriétaire
+        // [ownerEmail, brand, model, plateNumber, isElectric]
+        $vehicles = [
+            ['driver1@example.com', 'Toyota',  'Corolla',  'ABC-123-EF', false],
+            ['driver2@example.com', 'Peugeot', '208',      'GH-456-IJ', false],
+            ['driver3@example.com', 'Tesla',   'Model 3',  'EV-789-KL', true],
+            ['driver4@example.com', 'Renault', 'Clio',     'MN-012-OP', false],
+            ['driver5@example.com', 'Volkswagen',  'ID 3', 'VW-333-ID3',  true],
         ];
 
-        foreach ($vehicules as [$brand, $model, $energy]) {
-            $vehicle = new Vehicle();
-            $vehicle->setBrand($brand)
-                    ->setModel($model)
-                    ->setEnergy($energy)
-                    ->setOwner($driver);
+        foreach ($vehicles as [$ownerEmail, $brand, $model, $plate, $isElectric]) {
+            // 1) Récupération du propriétaire par email
+            $owner = $this->em
+                ->getRepository(User::class)
+                ->findOneBy(['email' => $ownerEmail]);
 
+            if (!$owner) {
+                $output->writeln("<error>Utilisateur “{$ownerEmail}” introuvable, véhicule ignoré.</error>");
+                continue;
+            }
 
-            $this->em->persist($vehicle);
-            $output->writeln("🚗 Véhicule $brand $model ($energy) créé.");
+            // 2) Création et affectation
+            $v = new Vehicle();
+            $v->setOwner($owner)
+              ->setBrand($brand)
+              ->setModel($model)
+              ->setPlateNumber($plate)
+              ->setIsElectric($isElectric);
+
+            $this->em->persist($v);
+
+            $output->writeln(sprintf(
+                '🚗 Véhicule créé : %s %s — immatriculation %s — propriétaire : %s — électrique : %s',
+                $brand,
+                $model,
+                $plate,
+                $ownerEmail,
+                $isElectric ? 'oui' : 'non'
+            ));
         }
 
         $this->em->flush();
-        $output->writeln("✅ Tous les véhicules ont été enregistrés.");
+        $output->writeln('<info>✅ Tous les véhicules valides ont été enregistrés.</info>');
 
         return Command::SUCCESS;
     }

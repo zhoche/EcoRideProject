@@ -25,16 +25,14 @@ class CreateAvisCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
-        $rides = $this->em->getRepository(Ride::class)->findAll();
+        $rides    = $this->em->getRepository(Ride::class)->findAll();
         $allUsers = $this->em->getRepository(User::class)->findAll();
 
-        // Filtrer manuellement les passagers ayant ROLE_USER
-        $passengers = array_filter($allUsers, function (User $user) {
-            return in_array('ROLE_USER', $user->getRoles());
-        });
+        // On ne retient comme passagers que les ROLE_USER
+        $passengers = array_filter($allUsers, fn(User $u) => in_array('ROLE_USER', $u->getRoles()));
 
-        if (!$rides || empty($passengers)) {
-            $output->writeln('❌ Aucun trajet ou passager trouvé.');
+        if (empty($rides) || empty($passengers)) {
+            $output->writeln('❌ Aucun trajet ou passager disponible.');
             return Command::FAILURE;
         }
 
@@ -42,26 +40,42 @@ class CreateAvisCommand extends Command
         $comments = ['Super trajet !', 'Bonne ambiance.', 'Conduite agréable.', 'Un peu de retard.'];
 
         foreach ($rides as $ride) {
+            $driver = $ride->getDriver();
             foreach ($passengers as $passenger) {
-                if ($ride->getDriver()?->getId() === $passenger->getId()) {
+                // On n’émet pas d’avis de passager sur son propre trajet
+                if ($driver && $driver->getId() === $passenger->getId()) {
                     continue;
                 }
 
                 $avis = new Avis();
                 $avis->setRide($ride)
-                     ->setDriver($ride->getDriver())
+                     ->setDriver($driver)
                      ->setPassenger($passenger)
                      ->setRating(rand(3, 5))
                      ->setComment($comments[array_rand($comments)])
-                     ->setStatus($statuses[array_rand($statuses)]);
+                     ->setStatus($statuses[array_rand($statuses)])
+                     // Génère un token aléatoire hexadécimal de 16 caractères
+                     ->setToken(bin2hex(random_bytes(8)))
+                     // Validation aléatoire true/false
+                     ->setIsValidated((bool) rand(0, 1));
 
                 $this->em->persist($avis);
-                $output->writeln("✅ Avis ajouté pour {$passenger->getPseudo()} sur {$ride->getDeparture()} → {$ride->getArrival()}");
+
+                $output->writeln(sprintf(
+                    '✅ Avis #%d:%s → %s par %s (note : %d, statut : %s, validé : %s)',
+                    $avis->getRide()?->getId(),
+                    $ride->getDeparture(),
+                    $ride->getArrival(),
+                    $passenger->getPseudo(),
+                    $avis->getRating(),
+                    $avis->getStatus(),
+                    $avis->isValidated() ? 'oui' : 'non'
+                ));
             }
         }
 
         $this->em->flush();
-        $output->writeln("🎉 Tous les avis ont été enregistrés.");
+        $output->writeln('🎉 Tous les avis ont été enregistrés.');
 
         return Command::SUCCESS;
     }

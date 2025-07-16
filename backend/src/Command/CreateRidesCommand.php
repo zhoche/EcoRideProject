@@ -14,57 +14,86 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'create:test-rides')]
 class CreateRidesCommand extends Command
 {
-    public function __construct(private EntityManagerInterface $em) {
+    public function __construct(private EntityManagerInterface $em)
+    {
         parent::__construct();
     }
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $allUsers = $this->em->getRepository(User::class)->findAll();
-
-        $drivers = array_filter($allUsers, fn(User $user) => in_array('ROLE_DRIVER', $user->getRoles()));
-        
+        $drivers    = array_filter($allUsers, fn(User $u) => in_array('ROLE_DRIVER', $u->getRoles()));
+        $passengers = array_filter($allUsers, fn(User $u) => in_array('ROLE_USER',   $u->getRoles()));
 
         $vehicles = $this->em->getRepository(Vehicle::class)->findAll();
 
-        if (count($drivers) === 0 || count($vehicles) === 0) {
-            $output->writeln('Aucun conducteur ou véhicule disponible.');
+        if (empty($drivers) || empty($vehicles)) {
+            $output->writeln('<error>Aucun conducteur ou véhicule disponible.</error>');
             return Command::FAILURE;
         }
 
-        $villes = [
-            ['Paris', 'Lille'], ['Lyon', 'Grenoble'], ['Bordeaux', 'Toulouse'],
-            ['Nantes', 'Rennes'], ['Nice', 'Marseille'], ['Amiens', 'Rouen'],
-            ['Dijon', 'Strasbourg'], ['Tours', 'Orléans'], ['Avignon', 'Montpellier'],
-            ['Clermont-Ferrand', 'Saint-Étienne']
+        $routes = [
+            ['Paris','Lille'], ['Lyon','Grenoble'], ['Bordeaux','Toulouse'],
+            ['Nantes','Rennes'], ['Nice','Marseille'], ['Amiens','Rouen'],
+            ['Dijon','Strasbourg'], ['Tours','Orléans'], ['Avignon','Montpellier'],
+            ['Clermont-Ferrand','Saint-Étienne'],
         ];
 
         for ($i = 0; $i < 10; $i++) {
-            [$departure, $arrival] = $villes[$i];
-            $driver = $drivers[array_rand($drivers)];
+            [$departure, $arrival] = $routes[$i];
+            $driver  = $drivers[array_rand($drivers)];
             $vehicle = $vehicles[array_rand($vehicles)];
-            if ($vehicle->getOwner() !== $driver) continue;
 
-            $initialSeats = rand(3, 5);
+            if ($vehicle->getOwner() !== $driver) {
+                $vehicle = current(array_filter(
+                    $vehicles,
+                    fn(Vehicle $v) => $v->getOwner() === $driver
+                )) ?: null;
+                if (!$vehicle) {
+                    $output->writeln("<comment>Aucun véhicule de {$driver->getPseudo()} disponible, trajet ignoré.</comment>");
+                    continue;
+                }
+            }
+
+            $initialSeats   = rand(3, 5);
             $availableSeats = rand(1, $initialSeats);
 
-            $ride = new Ride();
-            $ride->setDriver($driver)
+            $ride = (new Ride())
+                ->setDriver($driver)
                 ->setDeparture($departure)
                 ->setArrival($arrival)
                 ->setDate((new \DateTime())->modify("+{$i} days"))
-                ->setAvailableSeats($availableSeats)
                 ->setInitialSeats($initialSeats)
-                ->setPrice(rand(3, 6))
+                ->setAvailableSeats($availableSeats)
+                ->setPrice((float) rand(3, 6))
                 ->setVehicle($vehicle)
-                ->setExtras("Trajet calme avec pauses");
+                ->setExtras('')
+                ->setStatus('en cours');
+
+            shuffle($passengers);
+            foreach (array_slice($passengers, 0, min(2, $availableSeats)) as $p) {
+                if ($p !== $driver) {
+                    $ride->addPassenger($p);
+                }
+            }
 
             $this->em->persist($ride);
-            $output->writeln("Trajet: $departure -> $arrival avec $availableSeats/$initialSeats places");
+            $output->writeln(sprintf(
+                "🚗 Trajet #%d : %s → %s | Places : %d/%d | Véhicule : %s %s | Passagers : %d",
+                $i + 1,
+                $departure,
+                $arrival,
+                $availableSeats,
+                $initialSeats,
+                $vehicle->getBrand(),
+                $vehicle->getModel(),
+                count($ride->getPassengers())
+            ));
         }
 
         $this->em->flush();
-        $output->writeln("10 trajets de test créés avec succès.");
+        $output->writeln('<info>✅ Les 10 trajets de test ont été créés avec succès.</info>');
+
         return Command::SUCCESS;
     }
 }
