@@ -35,6 +35,10 @@ security:
       pattern: ^/(_(profiler|wdt)|css|images|js)/
       security: false
 
+    migrations:      
+      pattern: ^/run-migrations
+      security: false
+
     secured_area:
       pattern: ^/(?!api)
       provider: app_user_provider
@@ -47,4 +51,5 @@ security:
     - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api, methods: [OPTIONS], roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/rides/feedback/check, roles: PUBLIC_ACCESS }
+    - { path: ^/run-migrations, roles: PUBLIC_ACCESS }  
     - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }

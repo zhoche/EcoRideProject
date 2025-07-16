@@ -11,21 +11,22 @@ use Symfony\Component\Routing\Annotation\Route;
 class MigrationController extends AbstractController
 {
     #[Route('/run-migrations', name: 'run_migrations')]
-    public function run(DependencyFactory $migrations): Response
+    public function run(): Response
     {
+        /** @var DependencyFactory $migrations */
+        $migrations = $this->container->get('doctrine.migrations.dependency_factory');
+
         $migrator = $migrations->getMigrator();
         $planCalculator = $migrations->getMigrationPlanCalculator();
         $aliasResolver = $migrations->getVersionAliasResolver();
 
         $latestVersion = $aliasResolver->resolveVersionAlias('latest');
-        /** @var \Traversable $plan */
         $plan = $planCalculator->getPlanUntilVersion($latestVersion);
-        
+
         if (iterator_count($plan) === 0) {
             return new Response('✅ Aucune migration à appliquer.');
         }
 
-        /** @var \Doctrine\Migrations\Metadata\MigrationPlanList $plan */
         $migrator->migrate($plan, new MigratorConfiguration());
 
         return new Response('✅ Migrations exécutées avec succès.');
