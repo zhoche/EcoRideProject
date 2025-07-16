@@ -1,5 +1,3 @@
-# backend/Dockerfile
-
 FROM php:8.2-apache
 
 # Install required PHP extensions
@@ -16,17 +14,19 @@ WORKDIR /var/www/html
 # Copy Symfony project
 COPY . .
 
+# Configure Apache to use public/ as the DocumentRoot
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
+
 # Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions (crée dossier var pour logs/cache)
+# Clear and warmup cache (safe for prod)
+RUN php bin/console cache:clear --env=prod && php bin/console cache:warmup --env=prod
+
+# Set permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
-# Expose port
 EXPOSE 80
-
-# Start Apache
-CMD ["apache2-foreground"]
