@@ -31,4 +31,5 @@ class MigrationController extends AbstractController
     
         return new Response('✅ Migrations exécutées avec succès.');
     }
+    
 }
