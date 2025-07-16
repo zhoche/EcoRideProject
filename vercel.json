@@ -1,0 +1,5 @@
+{
+    "buildCommand": "npm install --legacy-peer-deps && ng build --configuration production",
+    "outputDirectory": "dist/ecorideproject"
+  }
+  
