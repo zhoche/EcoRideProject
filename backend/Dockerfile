@@ -22,6 +22,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
+# Run Symfony migrations
+RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
+
 # Set permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
