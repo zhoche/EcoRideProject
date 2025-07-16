@@ -116,3 +116,4 @@ DATABASE_URL="mysql://root:@127.0.0.1:3306/ecoride"
 
 5. Open http://localhost/phpmyadmin
 
+Déploiement en cours sur Vercel
