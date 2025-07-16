@@ -1,0 +1,13 @@
+# backend/.render.yaml
+
+services:
+  - type: web
+    name: ecoride-back
+    env: docker
+    plan: free
+    rootDir: backend
+    buildCommand: ""
+    startCommand: apache2-foreground
+    envVars:
+      - key: APP_ENV
+        value: prod
