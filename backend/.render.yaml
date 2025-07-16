@@ -5,7 +5,7 @@ services:
     name: ecoride-back
     env: docker
     plan: free
-    rootDir: backend
+    rootDir: .
     buildCommand: ""
     startCommand: apache2-foreground
     envVars:
