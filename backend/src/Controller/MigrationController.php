@@ -20,12 +20,12 @@ class MigrationController extends AbstractController
     #[Route('/run-migrations', name: 'run_migrations')]
     public function run(): Response
     {
-        $migrator = $this->migrations->getMigrator();
+        $migrator      = $this->migrations->getMigrator();
         $planCalculator = $this->migrations->getMigrationPlanCalculator();
-        $aliasResolver = $this->migrations->getVersionAliasResolver();
+        $aliasResolver  = $this->migrations->getVersionAliasResolver();
 
         $latestVersion = $aliasResolver->resolveVersionAlias('latest');
-        $plan = $planCalculator->getPlanUntilVersion($latestVersion);
+        $plan          = $planCalculator->getPlanUntilVersion($latestVersion);
 
         if ($plan->count() === 0) {
             return new Response('✅ Aucune migration à appliquer.');
