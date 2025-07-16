@@ -15,20 +15,20 @@ class MigrationController extends AbstractController
     {
         /** @var DependencyFactory $migrations */
         $migrations = $this->container->get('doctrine.migrations.dependency_factory');
-
+    
         $migrator = $migrations->getMigrator();
         $planCalculator = $migrations->getMigrationPlanCalculator();
         $aliasResolver = $migrations->getVersionAliasResolver();
-
+    
         $latestVersion = $aliasResolver->resolveVersionAlias('latest');
         $plan = $planCalculator->getPlanUntilVersion($latestVersion);
-
-        if (iterator_count($plan) === 0) {
+    
+        if ($plan->count() === 0) {
             return new Response('✅ Aucune migration à appliquer.');
         }
-
+    
         $migrator->migrate($plan, new MigratorConfiguration());
-
+    
         return new Response('✅ Migrations exécutées avec succès.');
     }
 }
