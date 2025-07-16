@@ -22,10 +22,11 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # Install PHP dependencies
 RUN composer install --no-dev --optimize-autoloader
 
-# Run Symfony migrations
-RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration
-
-# Set permissions
+# Set permissions (crée dossier var pour logs/cache)
 RUN mkdir -p var && chown -R www-data:www-data var
 
+# Expose port
 EXPOSE 80
+
+# Start Apache
+CMD ["apache2-foreground"]
