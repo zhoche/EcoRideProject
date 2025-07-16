@@ -11,16 +11,16 @@ RUN a2enmod rewrite
 # Set working directory
 WORKDIR /var/www/html
 
-# Copy Symfony project
+# Install Composer (avant de copier le projet)
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Copy Symfony project (après Composer pour mieux utiliser le cache Docker)
 COPY . .
 
 # Configure Apache to use public/ as the DocumentRoot
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
 
-# Install Composer
-COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
-
-# Install PHP dependencies
+# Install PHP dependencies — cette ligne est très importante
 RUN composer install --no-dev --optimize-autoloader
 
 # Set permissions
