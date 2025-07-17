@@ -23,6 +23,9 @@ export class ConnexionComponent implements OnInit {
     private userApi: UserApiService  
   ) {}
 
+  ngOnInit(): void {
+  }
+
   onSubmit() {
     const credentials = { email: this.email, password: this.password };
 
