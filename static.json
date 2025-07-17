@@ -1,0 +1,7 @@
+{
+    "root": "dist/ecorideproject/browser",
+    "clean_urls": false,
+    "routes": {
+      "/**": "index.html"
+    }
+  }
