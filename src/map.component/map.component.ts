@@ -1,7 +1,7 @@
 import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { environment } from '../app/environement';
+import { environment } from '../environments/environment';
 
 @Component({
   selector: 'app-map',

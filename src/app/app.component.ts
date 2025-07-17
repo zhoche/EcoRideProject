@@ -1,30 +1,29 @@
 // src/app/app.component.ts
 import { Component }          from '@angular/core';
 import { RouterOutlet }       from '@angular/router';
-import { RouterLink, RouterLinkActive} from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { HeaderComponent }    from './shared/header/header.component';
 import { FooterComponent }    from './footer/footer.component';
-import { environment } from '../environments/environment';
-
-
+import { environment }        from '../environments/environment';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [
-    RouterOutlet,     
-    RouterLink,        
-    RouterLinkActive,  
+    RouterOutlet,
+    RouterLink,
+    RouterLinkActive,
     HeaderComponent,
     FooterComponent
   ],
   templateUrl: './app.component.html',
-  styleUrls:   ['./app.component.scss']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
   title = 'EcoRide app';
-  
-}
 
-console.log('ENVIRONMENT 👉 production =', environment.production);
-console.log('ENVIRONMENT 👉 orsApiKey =', environment.orsApiKey);
+  constructor() {
+    console.log('ENVIRONMENT 👉 production =', environment.production);
+    console.log('ENVIRONMENT 👉 orsApiKey =', environment.orsApiKey);
+  }
+}
