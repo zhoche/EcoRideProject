@@ -21,19 +21,13 @@
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
-              "zone.js"
+              "src/polyfills.ts"
             ],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              { "glob": "**/*", "input": "public", "output": "/" }
             ],
-            "stylePreprocessorOptions": {
-              "includePaths": ["src"]
-            },
             "styles": [
               "node_modules/leaflet/dist/leaflet.css",
               "src/styles.scss"
@@ -44,6 +38,23 @@
           },
           "configurations": {
             "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": {
+                "scripts": true,
+                "styles": {
+                  "minify": true,
+                  "inlineCritical": true
+                }
+              },
+              "outputHashing": "all",
+              "sourceMap": false,
+              "aot": true,
+              "extractLicenses": true,
               "budgets": [
                 {
                   "type": "initial",
@@ -55,8 +66,7 @@
                   "maximumWarning": "10kb",
                   "maximumError": "20kb"
                 }
-              ],
-              "outputHashing": "all"
+              ]
             },
             "development": {
               "optimization": false,
@@ -68,40 +78,35 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "ecorideproject:build:production"
-            },
-            "development": {
-              "buildTarget": "ecorideproject:build:development"
-            }
-          },
-          "defaultConfiguration": "development",
           "options": {
             "proxyConfig": "proxy.conf.json"
-          }
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "ecorideproject:build:production"
+            },
+            "development": {
+              "browserTarget": "ecorideproject:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n"
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "ecorideproject:build"
+          }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
+            "polyfills": ["zone.js", "zone.js/testing"],
             "tsConfig": "tsconfig.spec.json",
             "inlineStyleLanguage": "scss",
             "assets": [
-              {
-                "glob": "**/*",
-                "input": "public"
-              }
+              { "glob": "**/*", "input": "public", "output": "/" }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": []
           }
         }

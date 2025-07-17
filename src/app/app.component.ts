@@ -4,6 +4,7 @@ import { RouterOutlet }       from '@angular/router';
 import { RouterLink, RouterLinkActive} from '@angular/router';
 import { HeaderComponent }    from './shared/header/header.component';
 import { FooterComponent }    from './footer/footer.component';
+import { environment } from '../environments/environment';
 
 
 
@@ -22,4 +23,8 @@ import { FooterComponent }    from './footer/footer.component';
 })
 export class AppComponent {
   title = 'EcoRide app';
+  
 }
+
+console.log('ENVIRONMENT 👉 production =', environment.production);
+console.log('ENVIRONMENT 👉 orsApiKey =', environment.orsApiKey);
