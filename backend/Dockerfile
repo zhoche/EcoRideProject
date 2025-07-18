@@ -9,7 +9,7 @@ RUN apt-get update \
 # 2) Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 3) Définir le dossier de travail
+# 3) Définir le répertoire de travail
 WORKDIR /var/www/html
 
 # 4) Copier tout le code du backend
@@ -18,11 +18,11 @@ COPY backend/ ./
 # 5) Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# 6) Configurer Apache pour /public
+# 6) Configurer Apache pour servir public/
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
     /etc/apache2/sites-available/000-default.conf
 
-# 7) Permissions
+# 7) Ajuster les permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
