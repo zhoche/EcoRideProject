@@ -17,19 +17,15 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 
 
-/**
- * @ORM\Entity()
- * @ORM\Table(name="users")
- */
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\Table(name: 'users')]
 #[ORM\HasLifecycleCallbacks]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
 
-
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
+    #[ORM\Column(type: 'integer', name: 'id')]
     #[Groups(['ride:read'])]
     private ?int $id = null;
 
