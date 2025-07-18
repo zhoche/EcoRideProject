@@ -14,6 +14,9 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # 4) Travailler dans /var/www/html
 WORKDIR /var/www/html
 
+# Débogage : liste récursive du contenu de /var/www/html
+RUN ls -R /var/www/html
+
 # 5) Copier et installer les deps
 COPY backend/composer.json backend/composer.lock ./
 RUN composer install --no-dev --optimize-autoloader
