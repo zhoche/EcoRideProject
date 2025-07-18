@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# Allow loading of Symfony Flex & Runtime plugins in CI / root
+# Allow Symfony plugins during root, non-interactive install
 ENV COMPOSER_ALLOW_PLUGINS="symfony/flex true symfony/runtime true"
 
 # 1) OS & extensions + Apache rewrite
