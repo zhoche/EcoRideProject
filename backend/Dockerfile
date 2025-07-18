@@ -12,10 +12,10 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # 3) Définir le dossier de travail
 WORKDIR /var/www/html
 
-# 4) Copier tout le code du backend (y compris composer.json)
+# 4) Copier tout le code du backend
 COPY backend/ ./
 
-# 5) Installer les dépendances PHP dans ./vendor
+# 5) Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
 # 6) Configurer Apache pour /public
