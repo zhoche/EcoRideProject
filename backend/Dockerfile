@@ -1,29 +1,31 @@
 FROM php:8.2-apache
 
-# Install required PHP extensions
-RUN apt-get update && apt-get install -y \
-    git zip unzip libpq-dev \
-    && docker-php-ext-install pdo pdo_pgsql
+# 1) OS & extensions
+RUN apt-get update \
+ && apt-get install -y git zip unzip libpq-dev \
+ && docker-php-ext-install pdo pdo_pgsql
 
-# Enable Apache mod_rewrite
+# 2) Apache rewrite
 RUN a2enmod rewrite
 
-# Set working directory
-WORKDIR /var/www/html
-
-# Install Composer (avant de copier le projet)
+# 3) Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# Copy Symfony project (après Composer pour mieux utiliser le cache Docker)
-COPY . .
+# 4) Travailler dans /var/www/html
+WORKDIR /var/www/html
 
-# Configure Apache to use public/ as the DocumentRoot
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' /etc/apache2/sites-available/000-default.conf
-
-# Install PHP dependencies — cette ligne est très importante
+# 5) Copier et installer les deps
+COPY backend/composer.json backend/composer.lock ./
 RUN composer install --no-dev --optimize-autoloader
 
-# Set permissions
+# 6) Copier tout le code du backend
+COPY backend/ ./
+
+# 7) Configurer Apache pour /public
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
+    /etc/apache2/sites-available/000-default.conf
+
+# 8) Permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
