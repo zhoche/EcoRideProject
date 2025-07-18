@@ -24,6 +24,9 @@ RUN composer install --no-dev --optimize-autoloader
 # 6) Copier tout le code du backend
 COPY backend/ ./
 
+# DEBUG 2️⃣ : vérifier que vendor/ existe et contient autoload_runtime.php
+RUN ls -R /var/www/html
+
 # 7) Configurer Apache pour /public
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
     /etc/apache2/sites-available/000-default.conf
