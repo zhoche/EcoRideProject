@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# Allow loading of Symfony Flex & Runtime plugins in CI / root
+ENV COMPOSER_ALLOW_PLUGINS="symfony/flex true symfony/runtime true"
+
 # 1) OS & extensions + Apache rewrite
 RUN apt-get update \
  && apt-get install -y git zip unzip libpq-dev \
@@ -15,10 +18,8 @@ WORKDIR /var/www/html
 # 4) Copy your entire backend
 COPY backend/ ./
 
-# 5) Allow needed Composer plugins and install deps
-RUN composer config --global allow-plugins.symfony/flex true \
- && composer config --global allow-plugins.symfony/runtime true \
- && composer install --no-dev --optimize-autoloader
+# 5) Install deps (plugins will now load)
+RUN composer install --no-dev --optimize-autoloader
 
 # 6) Configure Apache to serve public/
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
