@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# 0) Forcer Symfony en prod
+# 0) Forcer Symfony en prod (pour PHP et CLI)
 ENV APP_ENV=prod
 ENV APP_DEBUG=0
 
@@ -8,11 +8,11 @@ ENV APP_DEBUG=0
 ENV COMPOSER_ALLOW_SUPERUSER=1
 ENV COMPOSER_ALLOW_PLUGINS="symfony/flex true symfony/runtime true"
 
-# 2) OS & extensions + Apache rewrite
+# 2) OS & extensions + Apache rewrite + mod_env
 RUN apt-get update \
  && apt-get install -y git zip unzip libpq-dev \
  && docker-php-ext-install pdo pdo_pgsql \
- && a2enmod rewrite
+ && a2enmod rewrite env
 
 # 3) Installer Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
@@ -29,8 +29,8 @@ RUN composer install --no-dev --optimize-autoloader
 # DEBUG : lister vendor après install
 RUN ls -R /var/www/html/vendor
 
-# 7) Configurer Apache pour servir public/
-RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
+# 7) Configurer Apache pour servir public/ + SetEnv
+RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public\n    # set Symfony env to prod\n    SetEnv APP_ENV prod\n    SetEnv APP_DEBUG 0|' \
     /etc/apache2/sites-available/000-default.conf
 
 # 8) Permissions
