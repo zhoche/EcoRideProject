@@ -15,14 +15,17 @@ WORKDIR /var/www/html
 # 4) Copier tout le code du backend
 COPY backend/ ./
 
-# 5) Installer les dépendances PHP
+# 5) Autoriser le plugin symfony/flex
+RUN composer config --global allow-plugins.symfony/flex true
+
+# 6) Installer les dépendances PHP
 RUN composer install --no-dev --optimize-autoloader
 
-# 6) Configurer Apache pour servir public/
+# 7) Configurer Apache pour servir public/
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
     /etc/apache2/sites-available/000-default.conf
 
-# 7) Ajuster les permissions
+# 8) Ajuster les permissions
 RUN mkdir -p var && chown -R www-data:www-data var
 
 EXPOSE 80
