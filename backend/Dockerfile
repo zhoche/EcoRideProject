@@ -22,6 +22,9 @@ COPY backend/ ./
 # 5) Installer les dépendances (plugins seront chargés)
 RUN composer install --no-dev --optimize-autoloader
 
+# DEBUG : lister vendor après install
+RUN ls -R /var/www/html/vendor
+
 # 6) Configurer Apache pour servir public/
 RUN sed -i 's|DocumentRoot /var/www/html|DocumentRoot /var/www/html/public|' \
     /etc/apache2/sites-available/000-default.conf
