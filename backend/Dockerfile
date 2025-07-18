@@ -1,6 +1,6 @@
 FROM php:8.2-apache
 
-# 1) OS & PHP extensions + Apache rewrite
+# 1) OS & extensions + Apache rewrite
 RUN apt-get update \
  && apt-get install -y git zip unzip libpq-dev \
  && docker-php-ext-install pdo pdo_pgsql \
@@ -12,11 +12,12 @@ COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 # 3) Set working dir
 WORKDIR /var/www/html
 
-# 4) Copy your entire backend (including composer.json & lock)
+# 4) Copy your entire backend
 COPY backend/ ./
 
-# 5) Allow symfony/flex plugin & install deps (this generates vendor/autoload_runtime.php)
+# 5) Allow needed Composer plugins and install deps
 RUN composer config --global allow-plugins.symfony/flex true \
+ && composer config --global allow-plugins.symfony/runtime true \
  && composer install --no-dev --optimize-autoloader
 
 # 6) Configure Apache to serve public/
