@@ -56,8 +56,6 @@ export class InscriptionComponent {
 
 
   //MOT DE PASSE
-
-
   isStrong = false;
 
   checkPasswordStrength() {

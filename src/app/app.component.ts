@@ -23,7 +23,5 @@ export class AppComponent {
   title = 'EcoRide app';
 
   constructor() {
-    console.log('ENVIRONMENT 👉 production =', environment.production);
-    console.log('ENVIRONMENT 👉 orsApiKey =', environment.orsApiKey);
   }
 }
