@@ -44,7 +44,7 @@ export class AuthService {
 
   login(credentials: { email: string; password: string }): Observable<{ token: string }> {
     return this.http.post<{ token: string }>(
-      '/api/login',
+      'https://ecoride-back-xm7y.onrender.com/api/login',
       credentials
     ).pipe(
       tap(response => {
