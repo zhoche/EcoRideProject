@@ -25,7 +25,7 @@ services:
       - key: DATABASE_URL
         value: postgresql://ecoride_user:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com:5432/ecoride_0lz5
       - key: JWT_PASSPHRASE
-        value: Lia1nora2!15071995!
+        value: 2025EcoRideHoche
       - key: JWT_PRIVATE_KEY_PATH
         value: /etc/secrets/jwt_private.pem
       - key: JWT_PUBLIC_KEY_PATH
