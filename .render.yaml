@@ -1,10 +1,10 @@
 services:
   - type: web
+    env: php    
     name: ecoride-back
-    env: php
     plan: free
-    rootDir: backend        
-    docRoot: public        
+    rootDir: backend
+    docRoot: public
     buildCommand: "composer install --no-dev --optimize-autoloader"
     startCommand: "php -S 0.0.0.0:$PORT -t public"
     envVars:
