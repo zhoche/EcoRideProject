@@ -1,1 +1,1 @@
-web: npx http-server ./dist/ecorideproject/browser -p $PORT
+web: npm run start:prod
