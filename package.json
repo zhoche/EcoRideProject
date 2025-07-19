@@ -10,7 +10,7 @@
     "ng": "ng",
     "build": "ng build --configuration=production",
     "heroku-postbuild": "npm run build",
-    "start:prod": "serve -s dist/ecorideproject -l $PORT",
+    "start:prod": "serve -s dist/ecorideproject/browser -l $PORT",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
