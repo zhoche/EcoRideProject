@@ -3,6 +3,8 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { JwtPayload, jwtDecode } from 'jwt-decode';
+import { environment } from '../environments/environment';
+
 
 
 
@@ -28,6 +30,11 @@ export class AuthService {
   private userSubject = new BehaviorSubject<User | null>(null);
   readonly user$: Observable<User | null> = this.userSubject.asObservable();
 
+
+  private readonly base = `${environment.apiUrl}/api`;
+
+
+
   constructor(private http: HttpClient, private router: Router) {
     const storedUser = localStorage.getItem('user');
     if (storedUser && storedUser !== 'undefined') {
@@ -43,8 +50,7 @@ export class AuthService {
   }
 
   login(credentials: { email: string; password: string }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(
-      'https://ecoride-back-xm7y.onrender.com/api/login',
+    return this.http.post<{ token: string }>(`${this.base}/login`,
       credentials
     ).pipe(
       tap(response => {
@@ -110,7 +116,7 @@ export class AuthService {
   }
 
   register(data: { email: string; password: string; pseudo: string; roles: string[]; gender: string; }): Observable<any> {
-    return this.http.post('https://ecoride-back-xm7y.onrender.com/api/register', data);
+    return this.http.post(`${this.base}/register`, data);
   }
 
   getToken(): string | null {
