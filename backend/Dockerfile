@@ -45,5 +45,4 @@ RUN composer install --no-dev --optimize-autoloader
 EXPOSE 80
 CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
 
-EXPOSE 80
-CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
+
