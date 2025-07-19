@@ -1,19 +1,25 @@
-# 1) Base PHP CLI (inclut php -S) et extensions
 FROM php:8.2-cli
 
-# 2) Installer les dépendances système et l’extension PostgreSQL
+# Install system dependencies and PostgreSQL extension
 RUN apt-get update \
-    && apt-get install -y libpq-dev unzip \
+    && apt-get install -y libpq-dev unzip git \
     && docker-php-ext-install pdo pdo_pgsql
 
-# 3) Installer Composer
+# Install Composer
 COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
-# 4) Copier le code et installer les dépendances PHP
+# Prepare work directory
 WORKDIR /var/www/html
-COPY backend/ ./
+
+# Copy composer files first for better cache utilization
+COPY backend/composer.json backend/composer.lock ./
+
+# Install PHP dependencies before copying application source
 RUN composer install --no-dev --optimize-autoloader
 
-# 5) Exposer le port 80 et démarrer le serveur PHP intégré
+# Now copy the rest of your application code ("backend" here)
+COPY backend/ ./
+
+# Expose port and run PHP's built-in server
 EXPOSE 80
 CMD ["php", "-S", "0.0.0.0:80", "-t", "public"]
