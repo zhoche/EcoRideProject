@@ -9,7 +9,8 @@ use Doctrine\Common\Collections\Collection;
 use App\Entity\User;
 use App\Entity\Vehicle;
 use Symfony\Component\Serializer\Annotation\Groups;
-
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 #[ORM\Entity(repositoryClass: RideRepository::class)]
 class Ride
@@ -54,7 +55,19 @@ class Ride
     #[Groups(['ride:read'])]
     private ?Vehicle $vehicle = null;
 
-    #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'ridesAsPassenger')]
+    #[ORM\ManyToMany(
+        targetEntity: User::class,
+        inversedBy: 'ridesAsPassenger'
+    )]
+    #[ORM\JoinTable(
+        name: 'ride_user',
+        joinColumns: [
+            new JoinColumn(name: 'ride_id', referencedColumnName: 'id', onDelete: 'CASCADE')
+        ],
+        inverseJoinColumns: [
+            new JoinColumn(name: 'user_id', referencedColumnName: 'id', onDelete: 'CASCADE')
+        ]
+    )]
     #[Groups(['ride:read'])]
     private Collection $passengers;
 
