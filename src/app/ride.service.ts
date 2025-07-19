@@ -1,11 +1,18 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
 import { SearchParams } from '../search-params/search-params.model';
 import { Ride } from './ride.model';
 
+
 @Injectable({ providedIn: 'root' })
 export class RideService {
+
+  private api = `${environment.apiUrl}/api`;
+
+
+
   constructor(
     private http: HttpClient,
     private authService: AuthService
@@ -22,7 +29,7 @@ export class RideService {
       rides: any[]; 
       preferences: string[];
       creditHistory: { date: string; value: number }[];
-    }>('https://ecoride-back-xm7y.onrender.com/api/rides/list', {
+    }>(`${this.api}/rides/list`, {
       headers,
       withCredentials: false 
     });
@@ -37,7 +44,7 @@ export class RideService {
     });
   
     return this.http.post(
-      'https://ecoride-back-xm7y.onrender.com/api/rides/new-ride',
+      `${this.api}/rides/new-ride`,
       data,
       { headers }
     );
@@ -50,7 +57,7 @@ export class RideService {
     date: string;
     nbPassagers: number;
   }) {
-    return this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/rides/search', {
+    return this.http.get<any[]>(`${this.api}/rides/search`, {
       params: {
         villeDepart: params.villeDepart,
         villeArrivee: params.villeArrivee,
@@ -62,7 +69,7 @@ export class RideService {
 
 
   searchNextAvailableRides(params: SearchParams) {
-    return this.http.get<Ride[]>('https://ecoride-back-xm7y.onrender.com/api/rides/next-available', {
+    return this.http.get<Ride[]>(`${this.api}/rides/next-available`, {
       params: {
         villeDepart: params.villeDepart,
         villeArrivee: params.villeArrivee,
@@ -75,6 +82,6 @@ export class RideService {
 
 
   terminateRide(rideId: number) {
-    return this.http.post(`/api/rides/${rideId}/terminate`, {});
+    return this.http.post(`${this.api}/rides/${rideId}/terminate`, {});
   }
 }

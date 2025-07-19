@@ -451,7 +451,7 @@ public function searchRides(Request $request, RideRepository $rideRepository, Av
 }
 
 
-
+// Trouver le prochain trajet disponible
 #[Route('/next-available', name: 'app_ride_next', methods: ['GET'])]
 public function nextAvailable(Request $request, RideRepository $rideRepository, AvisRepository $avisRepo): JsonResponse
 {
