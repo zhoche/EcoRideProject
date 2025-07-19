@@ -52,4 +52,6 @@ security:
     - { path: ^/api, methods: [OPTIONS], roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/rides/feedback/check, roles: PUBLIC_ACCESS }
     - { path: ^/run-migrations, roles: PUBLIC_ACCESS }  
+    - { path: ^/$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api, roles: IS_AUTHENTICATED_FULLY }
+
