@@ -51,7 +51,7 @@ fetchEmployees(): void {
     next: suspended => {
       this.suspendedEmails = suspended;
 
-      this.http.get<any[]>('http://localhost:8000/api/admin/employee-list', {
+      this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/admin/employee-list', {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
       }).subscribe({
         next: data => {
@@ -95,7 +95,7 @@ deleteEmployee(id: number): void {
   const confirmed = confirm('Êtes-vous sûr de vouloir supprimer ce compte employé ?');
 
   if (confirmed) {
-    this.http.delete(`http://localhost:8000/api/admin/employee-delete/${id}`, {
+    this.http.delete(`https://ecoride-back-xm7y.onrender.com/api/admin/employee-delete/${id}`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

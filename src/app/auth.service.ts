@@ -110,7 +110,7 @@ export class AuthService {
   }
 
   register(data: { email: string; password: string; pseudo: string; roles: string[]; gender: string; }): Observable<any> {
-    return this.http.post('http://localhost:8000/api/register', data);
+    return this.http.post('https://ecoride-back-xm7y.onrender.com/api/register', data);
   }
 
   getToken(): string | null {

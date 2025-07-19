@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ReviewService {
-  private baseUrl = 'http://localhost:8000/api/employe';
+  private baseUrl = 'https://ecoride-back-xm7y.onrender.com/api/employe';
 
   constructor(private http: HttpClient) {}
 

@@ -29,7 +29,7 @@ export class RideValidatedComponent implements OnInit {
   }
 
   checkTokenValidity(token: string): void {
-    this.http.get<any>(`http://localhost:8000/api/rides/feedback/check?token=${token}`).subscribe({
+    this.http.get<any>(`https://ecoride-back-xm7y.onrender.com/api/rides/feedback/check?token=${token}`).subscribe({
       next: (res) => {
         this.rideId = res.ride_id;
         this.passengerName = res.passenger;
@@ -58,7 +58,7 @@ export class RideValidatedComponent implements OnInit {
       comment: this.comment
     };
 
-    this.http.post('http://localhost:8000/api/rides/feedback', avisPayload).subscribe({
+    this.http.post('https://ecoride-back-xm7y.onrender.com/api/rides/feedback', avisPayload).subscribe({
       next: () => alert('Merci pour votre retour !'),
       error: () => alert('Erreur lors de l’envoi de votre avis.')
     });

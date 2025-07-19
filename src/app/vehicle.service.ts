@@ -13,6 +13,6 @@ export class VehicleService {
       Authorization: `Bearer ${token}`
     });
 
-    return this.http.get<any[]>('http://localhost:8000/api/vehicles/user', { headers });
+    return this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/vehicles/user', { headers });
   }
 }

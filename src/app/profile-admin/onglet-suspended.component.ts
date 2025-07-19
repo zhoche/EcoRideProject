@@ -41,7 +41,7 @@ export class OngletSuspendedComponent implements OnInit {
 
     const payload = { pseudo, email };
 
-    this.http.post('http://localhost:8000/api/admin/suspended-user', payload, {
+    this.http.post('https://ecoride-back-xm7y.onrender.com/api/admin/suspended-user', payload, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
@@ -60,7 +60,7 @@ export class OngletSuspendedComponent implements OnInit {
   }
 
   fetchSuspendedAccounts(): void {
-    this.http.get<any[]>('http://localhost:8000/api/admin/suspended-users-list', {
+    this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/admin/suspended-users-list', {
       headers: {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }

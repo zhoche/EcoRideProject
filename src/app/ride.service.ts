@@ -22,7 +22,7 @@ export class RideService {
       rides: any[]; 
       preferences: string[];
       creditHistory: { date: string; value: number }[];
-    }>('http://localhost:8000/api/rides/list', {
+    }>('https://ecoride-back-xm7y.onrender.com/api/rides/list', {
       headers,
       withCredentials: false 
     });
@@ -37,7 +37,7 @@ export class RideService {
     });
   
     return this.http.post(
-      'http://localhost:8000/api/rides/new-ride',
+      'https://ecoride-back-xm7y.onrender.com/api/rides/new-ride',
       data,
       { headers }
     );
@@ -50,7 +50,7 @@ export class RideService {
     date: string;
     nbPassagers: number;
   }) {
-    return this.http.get<any[]>('http://localhost:8000/api/rides/search', {
+    return this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/rides/search', {
       params: {
         villeDepart: params.villeDepart,
         villeArrivee: params.villeArrivee,
@@ -62,7 +62,7 @@ export class RideService {
 
 
   searchNextAvailableRides(params: SearchParams) {
-    return this.http.get<Ride[]>('http://localhost:8000/api/rides/next-available', {
+    return this.http.get<Ride[]>('https://ecoride-back-xm7y.onrender.com/api/rides/next-available', {
       params: {
         villeDepart: params.villeDepart,
         villeArrivee: params.villeArrivee,
