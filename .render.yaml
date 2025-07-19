@@ -1,12 +1,32 @@
 services:
-  - type: web
-    env: php    
-    name: ecoride-back
+  - name: ecoride-back
+    type: web
+    env: docker
     plan: free
-    rootDir: backend
-    docRoot: public
-    buildCommand: "composer install --no-dev --optimize-autoloader"
-    startCommand: "php -S 0.0.0.0:$PORT -t public"
+
+    # Le contexte de build (où se trouve votre Dockerfile)
+    rootDir: .
+
+    # Indique à Render où trouver votre Dockerfile
+    dockerfilePath: backend/Dockerfile
+    # (optionnel si vous n’avez pas besoin d’un contexte différent)
+    dockerBuildContext: .
+
+    # On laisse le Dockerfile gérer le build & le démarrage
+    buildCommand: ""
+    startCommand: ""
+
+    # Vos variables d’environnement à passer au conteneur
     envVars:
       - key: APP_ENV
         value: prod
+      - key: APP_SECRET
+        value: 2d86de76613ded171aa3869dfefb6dfb
+      - key: DATABASE_URL
+        value: postgresql://ecoride_user:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com:5432/ecoride_0lz5
+      - key: JWT_PASSPHRASE
+        value: Lia1nora2!15071995!
+      - key: JWT_PRIVATE_KEY_PATH
+        value: /etc/secrets/jwt_private.pem
+      - key: JWT_PUBLIC_KEY_PATH
+        value: /etc/secrets/jwt_public.pem
