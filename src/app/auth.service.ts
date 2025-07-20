@@ -1,26 +1,18 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { environment } from '../environments/environment';
-
-
-
 
 export interface User {
   id: number;
   email: string;
   role: 'admin' | 'driver' | 'employe' | 'passenger' | 'guest';
+  pseudo: string;
+  imageUrl: string | null;
+  isVerified: boolean;
 }
-
-
-interface CustomJwtPayload {
-  id: number;
-  email: string;
-  roles: string[];
-}
-
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -28,12 +20,9 @@ export class AuthService {
   readonly isLoggedIn$ = this._isLoggedIn.asObservable();
 
   private userSubject = new BehaviorSubject<User | null>(null);
-  readonly user$: Observable<User | null> = this.userSubject.asObservable();
-
+  readonly user$ = this.userSubject.asObservable();
 
   private readonly base = `${environment.apiUrl}/api`;
-
-
 
   constructor(private http: HttpClient, private router: Router) {
     const storedUser = localStorage.getItem('user');
@@ -41,85 +30,53 @@ export class AuthService {
       try {
         this.userSubject.next(JSON.parse(storedUser));
         this._isLoggedIn.next(true);
-      } catch (e) {
-        console.error('Erreur de parsing user localStorage:', e);
-        localStorage.removeItem('user'); 
+      } catch {
+        localStorage.removeItem('user');
       }
+    } else if (this.getToken()) {
+      // si on a un token mais pas d'user en localStorage, on le recharge
+      this.loadCurrentUser().subscribe();
     }
-    
   }
 
-  login(credentials: { email: string; password: string }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.base}/login`,
-      credentials
-    ).pipe(
-      tap(response => {
-        const { token } = response; 
-        const payload: CustomJwtPayload = jwtDecode(token);
-  
-        const role = this.extractRole(payload.roles);
-        const user: User = {
-          id: payload.id,
-          email: payload.email,
-          role
-        };
-  
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+  /** Récupère le user complet */
+  loadCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.base}/me`).pipe(
+      tap(user => {
         this.userSubject.next(user);
         this._isLoggedIn.next(true);
+        localStorage.setItem('user', JSON.stringify(user));
       })
     );
   }
-  
-  private extractRole(roles: string[]): User['role'] {
-    if (roles.includes('ROLE_ADMIN')) return 'admin';
-    if (roles.includes('ROLE_DRIVER')) return 'driver';
-    if (roles.includes('ROLE_EMPLOYE')) return 'employe';
-    if (roles.includes('ROLE_USER')) return 'passenger';
-    return 'guest';
+
+  /**
+   * Se logue, stocke le token, puis fetch le user complet
+   */
+  login(credentials: { email: string; password: string }): Observable<User> {
+    return this.http
+      .post<{ token: string }>(`${this.base}/login`, credentials)
+      .pipe(
+        tap(res => localStorage.setItem('token', res.token)),
+        switchMap(() => this.loadCurrentUser())
+      );
   }
 
-  
-  redirectUserAfterLogin(): void {
-    const user = this.userSubject.value;
-  
-    if (!user) {
-      console.error("Utilisateur non connecté");
-      return;
-    }
-  
-    switch (user?.role) {
-      case 'passenger':
-        this.router.navigate(['/profile-passenger']);
-        break;
-      case 'driver':
-        this.router.navigate(['/profile-driver']);
-        break;
-      case 'employe':
-        this.router.navigate(['/profile-employe']);
-        break;
-      case 'admin':
-        this.router.navigate(['/profile-admin']);
-        break;
-      default:
-        this.router.navigate(['/']);
-    }
-  }
-  
-
-  logout() {
+  logout(): void {
     this.userSubject.next(null);
     this._isLoggedIn.next(false);
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-  }
-
-  register(data: { email: string; password: string; pseudo: string; roles: string[]; gender: string; }): Observable<any> {
-    return this.http.post(`${this.base}/register`, data);
+    this.router.navigate(['/connexion']);
   }
 
   getToken(): string | null {
     return localStorage.getItem('token');
+  }
+
+  redirectUserAfterLogin(): void {
+    const user = this.userSubject.value;
+    if (!user) return;
+    this.router.navigate([`/profile-${user.role}`]);
   }
 }
