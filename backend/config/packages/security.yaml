@@ -51,6 +51,8 @@ security:
       stateless: false
 
   access_control:
+    - { path: ^/api/geocode,   roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/api/directions, roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/register,             roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api/login,                roles: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: ^/api, methods: [OPTIONS],  roles: IS_AUTHENTICATED_ANONYMOUSLY }
