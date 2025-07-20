@@ -106,17 +106,14 @@ Chaque application peut fonctionner indépendamment en local ou être déployée
 ### Back-end (Symfony)
 
 1. Se positionner dans le dossier `backend`
-   ```bash
    cd ../backend
-   ```
+
 2. Installer les dépendances PHP via Composer
-   ```bash
    composer install
-   ```
+
 3. Copier et adapter le fichier d’environnement
-   ```bash
    cp .env .env.local
-   ```
+
    Dans votre `.env.local`, configurez notamment :
    ```dotenv
    # Environnement
@@ -142,11 +139,8 @@ Chaque application peut fonctionner indépendamment en local ou être déployée
    php bin/console doctrine:database:create
    php bin/console doctrine:migrations:migrate
    ```
-5. Charger les fixtures (facultatif)
-   ```bash
-   php bin/console doctrine:fixtures:load
-   ```
-6. Lancer le serveur Symfony
+
+5. Lancer le serveur Symfony
    ```bash
    symfony server:start --port=8000
    ```
