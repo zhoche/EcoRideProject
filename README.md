@@ -88,27 +88,20 @@ Chaque application peut fonctionner indépendamment en local ou être déployée
 
 ### Front-end (Angular)
 
-1. Cloner le dépôt et se positionner dans le dossier `frontend`
-   ```bash
+1. Cloner le dépôt et se positionner dans le dossier racine du projet 
    git clone https://github.com/zhoche/EcoRideProject.git 
-   cd ecoride-project/frontend
-   ```
+   cd EcoRideProject
+
 2. Installer les dépendances
-   ```bash
    npm install
-   ```
-3. Configurer l’URL de l’API dans `src/environments/environment.ts`
-   ```ts
-   export const environment = {
-     production: false,
-     apiUrl: 'https://ecoride-back-xm7y.onrender.com'
-   };
-   ```
-4. Lancer le serveur de développement
-   ```bash
-   ng serve
-   ```
-5. Accéder à l’application : `http://localhost:4200`
+
+3. Générer le build de production
+   npm run build
+
+4. Démarrer le serveur Node
+   npm run start
+
+5. Ouvrir l’application dans votre navigateur (par défaut le serveur écoute sur le port 8080): `http://localhost:8080`
 
 ### Back-end (Symfony)
 
