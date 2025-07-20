@@ -1,15 +1,19 @@
 nelmio_cors:
   defaults:
     allow_credentials: true
-    allow_origin: ['*']
+    allow_origin: 
+      - 'https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com'
+      - '*'
     allow_headers: ['Content-Type', 'Authorization']
     allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
     max_age: 3600
 
   paths:
     '^/api/':
-      allow_origin: ['*']
+      allow_origin: 
+        - 'https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com'
+        - '*'
+      allow_credentials: true
       allow_headers: ['Content-Type', 'Authorization']
       allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
       max_age: 3600
-      origin_regex: false
