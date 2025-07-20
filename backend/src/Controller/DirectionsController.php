@@ -12,25 +12,35 @@ class DirectionsController extends AbstractController
     public function __construct(private HttpClientInterface $client) {}
 
     #[Route('/api/directions', name: 'api_directions', methods: ['POST'])]
-    public function directions(Request $request): JsonResponse
+    public function directions(Request $request, HttpClientInterface $client): JsonResponse
     {
-        $data = json_decode($request->getContent(), true);
-        if (!isset($data['coordinates'])) {
-            return $this->json(['error' => 'Bad payload'], 400);
-        }
-
-        $response = $this->client->request('POST', 'https://api.openrouteservice.org/v2/directions/driving-car/geojson', [
-            'headers' => [
-                'Authorization' => $this->getParameter('env(ORS_API_KEY)'),
-                'Content-Type'  => 'application/json',
-            ],
-            'json' => $data,
-        ]);
-
-        if (200 !== $response->getStatusCode()) {
-            return $this->json(['error' => 'ORS code '.$response->getStatusCode()], $response->getStatusCode());
-        }
-
-        return $this->json($response->toArray());
+    $payload = json_decode($request->getContent(), true);
+    if (!isset($payload['coordinates']) || count($payload['coordinates']) !== 2) {
+        return $this->json(['error' => 'Mauvais payload'], 400);
     }
+
+    [$start, $end] = $payload['coordinates'];
+    $coords = sprintf(
+        '%F,%F;%F,%F',
+        $start[0], $start[1],
+        $end[0],   $end[1]
+    );
+
+    $response = $client->request('GET', "https://router.project-osrm.org/route/v1/driving/{$coords}", [
+        'query' => ['overview' => 'full', 'geometries' => 'geojson']
+    ]);
+
+    if (200 !== $response->getStatusCode()) {
+        return $this->json(['error' => 'OSRM a renvoyé '.$response->getStatusCode()], $response->getStatusCode());
+    }
+
+    $data = $response->toArray();
+    if (empty($data['routes'])) {
+        return $this->json(['error' => 'Aucun itinéraire trouvé'], 404);
+    }
+
+    // Renvoie directement le GeoJSON de la route
+    return $this->json($data['routes'][0]['geometry']);
+}
+
 }

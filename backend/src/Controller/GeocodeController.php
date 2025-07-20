@@ -14,23 +14,38 @@ class GeocodeController extends AbstractController
     }
 
     #[Route('/api/geocode', name: 'api_geocode', methods: ['GET'])]
-    public function geocode(Request $request): JsonResponse
+    public function geocode(Request $request, HttpClientInterface $client): JsonResponse
     {
         $text = $request->query->get('text');
         if (!$text) {
             return $this->json(['error' => 'Paramètre text manquant'], 400);
         }
-
-        $apiKey = $this->getParameter('env(ORS_API_KEY)');
-        $response = $this->client->request('GET', 'https://api.openrouteservice.org/geocode/search', [
-            'headers' => ['Authorization' => $apiKey],
-            'query'   => ['text' => $text],
+    
+        $response = $client->request('GET', 'https://nominatim.openstreetmap.org/search', [
+            'query' => [
+                'q'      => $text,
+                'format' => 'json',
+                'limit'  => 1,
+            ],
+            'headers' => [
+                'User-Agent' => 'EcoRide/1.0 (+https://ecoride.com)'
+            ]
         ]);
-
+    
         if (200 !== $response->getStatusCode()) {
-            return $this->json(['error' => 'ORS a renvoyé le code '.$response->getStatusCode()], $response->getStatusCode());
+            return $this->json(['error' => 'Nominatim a renvoyé '.$response->getStatusCode()], $response->getStatusCode());
         }
-
-        return $this->json($response->toArray());
+    
+        $data = $response->toArray();
+        if (empty($data)) {
+            return $this->json(['error' => 'Aucun résultat'], 404);
+        }
+    
+        // Nominatim renvoie lat/lon en chaîne
+        return $this->json([
+            'lat' => (float)$data[0]['lat'],
+            'lon' => (float)$data[0]['lon'],
+        ]);
     }
+    
 }

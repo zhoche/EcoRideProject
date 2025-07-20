@@ -1,4 +1,4 @@
-import { Component, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges } from '@angular/core';
 import * as L from 'leaflet';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
@@ -19,33 +19,28 @@ export class MapComponent implements AfterViewInit, OnChanges {
   constructor(private http: HttpClient) {}
 
   async ngAfterViewInit() {
-    this.map = L.map('map').setView([43.6, 1.44], 9); 
-  
+    this.map = L.map('map').setView([43.6, 1.44], 9);
+
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; OpenStreetMap'
     }).addTo(this.map);
-  
+
     if (this.departure && this.arrival) {
       const coords = await this.fetchCoordinates(this.departure, this.arrival);
-      if (coords) this.drawRoute(this.map, coords.start, coords.end);
+      if (coords) {
+        this.drawRoute(this.map, coords.start, coords.end);
+      }
     }
   }
-  
-  
 
   ngOnChanges() {
     if (this.map && this.departure && this.arrival) {
       this.fetchCoordinates(this.departure, this.arrival).then(coords => {
-        if (coords) this.drawRoute(this.map!, coords.start, coords.end);
+        if (coords) {
+          this.drawRoute(this.map!, coords.start, coords.end);
+        }
       });
     }
-  }
-
-  private async drawIfCoordsReady() {
-    if (!this.map || !this.departure || !this.arrival) return;
-
-    const coords = await this.fetchCoordinates(this.departure, this.arrival);
-    if (coords) this.drawRoute(this.map, coords.start, coords.end);
   }
 
   async fetchCoordinates(
@@ -54,46 +49,49 @@ export class MapComponent implements AfterViewInit, OnChanges {
   ): Promise<{ start: number[]; end: number[] } | null> {
     try {
       const resStart: any = await this.http
-        .get(`${environment.apiUrl}/api/geocode`, { params: { text: start } })
+        .get<{ lat: number; lon: number }>(
+          `${environment.apiUrl}/api/geocode`,
+          { params: { text: start } }
+        )
         .toPromise();
-  
+
       const resEnd: any = await this.http
-        .get(`${environment.apiUrl}/api/geocode`, { params: { text: end } })
+        .get<{ lat: number; lon: number }>(
+          `${environment.apiUrl}/api/geocode`,
+          { params: { text: end } }
+        )
         .toPromise();
-  
-      const startCoords = resStart.features[0].geometry.coordinates;
-      const endCoords   = resEnd.features[0].geometry.coordinates;
-  
+
+      const startCoords = [resStart.lon, resStart.lat];
+      const endCoords   = [resEnd.lon,   resEnd.lat];
+
       return { start: startCoords, end: endCoords };
     } catch (err) {
       console.error('Erreur géocodage', err);
       return null;
     }
   }
-  
 
   async drawRoute(map: L.Map, start: number[], end: number[]) {
     try {
       // Appel au proxy Symfony
-      const response: any = await this.http
+      const geojson: any = await this.http
         .post(`${environment.apiUrl}/api/directions`, { coordinates: [start, end] })
         .toPromise();
-  
-      // Supprime le tracé précédent
+
+      // Supprime l’ancien tracé
       if (this.routeLayer) {
-        this.map?.removeLayer(this.routeLayer);
+        map.removeLayer(this.routeLayer);
       }
-  
+
       // Ajoute le nouveau tracé
-      this.routeLayer = L.geoJSON(response, {
+      this.routeLayer = L.geoJSON(geojson, {
         style: { color: 'blue', weight: 4 }
       }).addTo(map);
-  
+
       map.fitBounds(this.routeLayer.getBounds());
     } catch (err) {
       console.error('Erreur tracé itinéraire', err);
     }
   }
-  
-  
 }
