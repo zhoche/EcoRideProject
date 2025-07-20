@@ -1,127 +1,213 @@
-# Ecorideproject
+# EcoRide
 
+**EcoRide** est une application web de covoiturage éco‑responsable conçue pour favoriser la mobilité durable entre passagers et conducteurs, réduire l’empreinte carbone et encourager des comportements respectueux de l’environnement.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.10.
-**EcoRide** is an eco-friendly ridesharing web application designed to promote responsible mobility between passengers and drivers. The platform facilitates carpooling while encouraging sustainable behaviors and reducing carbon emissions.
+---
 
-## Features
-### User Profiles
-- 4 types of users: **passenger**, **driver**, **employee**, and **admin**
-- Role-based access and customized dashboards
-- Authentication via login/register
-- Session persistence using `localStorage`
+## Table des matières
 
-### Authentication & Security
-- Custom login and registration forms (Angular frontend)
-- Backend validation using Symfony
-- API route protection with **AuthGuard**
-- Secure role-based redirection
+1. [Fonctionnalités](#fonctionnalités)
+2. [Stack technique](#stack-technique)
+3. [Architecture du projet](#architecture-du-projet)
+4. [Prérequis](#prérequis)
+5. [Installation et configuration](#installation-et-configuration)
+   - [Front-end (Angular)](#front-end-angular)
+   - [Back-end (Symfony)](#back-end-symfony)
+   - [Base de données](#base-de-données)
+6. [Comptes de connexion](#comptes-de-connexion)
+7. [Déploiement](#déploiement)
+8. [Documentation supplémentaire](#documentation-supplémentaire)
+9. [Contributions et bonnes pratiques Git](#contributions-et-bonnes-pratiques-git)
 
-### Front-End
-- Built with **Angular**
-- Responsive UI with SCSS
-- Thunder Client integration for API tests
+---
 
-### Back-End
-- Built with **Symfony 6**
-- Doctrine ORM for database operations
-- RESTful routes: `GET` and `POST` for `/api/rides`
-- Data validation using Symfony's Validator component
+## Fonctionnalités
 
-### Tech Stack
+- **4 types d’utilisateurs** : *passager*, *conducteur*, *employé* et *administrateur*
 
-| Frontend      | Backend      | Tools & Other         |
-|---------------|--------------|------------------------|
-| Angular 18    | Symfony 6    | Git + GitHub           |
-| TypeScript    | PHP 8.4      | Composer + npm         |
-| SCSS          | Doctrine ORM | Postman / Thunder Client |
+- **Inscription & authentification** : création de compte, login sécurisé, gestion de session via `localStorage`
 
+- **Recherche et filtrage** de trajets :
 
-### Documentation
-[Lien](documentation/EcoRide_CharteGraphique_2025_HOCHE.pdf)
-[Lien](documentation/EcoRide_MaquettesDesktop_2025_HOCHE.pdf)
-[Lien](documentation/EcoRide_MaquettesMobile_2025_HOCHE.pdf)
-[Lien](documentation/EcoRide_PlanAppWeb_2025_HOCHE.pdf)
-[Lien](documentation/TP_DWWM_Nov:Dec25_copiearendre_HOCHE_Zoe.doc)
+  - Recherche par ville et date
+  - Filtres par aspect écologique (véhicule électrique)
+  - Préférences
 
+- **Gestion des trajets** :
 
-## Development server
+  - Vue liste et détails complets (places restantes, avis, modèle de véhicule, préférences)
+  - Participation au covoiturage avec validation des crédits
+  - Historique, démarrage et clôture de trajet
 
-To start a local development server, run:
+- **Espace Conducteur** : ajout/modification de véhicules, saisie de trajets, suivi des places disponibles, historique
 
-```bash
-ng serve
+- **Espace Passager** : suivi des participations, validation de trajet et dépôt d’avis
+
+- **Espace Employé** : modération des avis et gestion des incidents
+
+- **Espace Administrateur** : création de comptes employés, suspension de comptes, statistiques et graphiques (trajets/jour, crédits gagnés)
+
+---
+
+## Stack technique
+
+| Côté client     | Côté serveur | Base de données    | Outils et autres |
+| --------------- | ------------ | ------------------ | ---------------- |
+| Angular 19.2    | Symfony 6    | MySQL / PostgreSQL | Git, GitHub      |
+| TypeScript      | PHP 8.4      | MongoDB (NoSQL)    | Composer, npm    |
+| SCSS Responsive | Doctrine ORM |                    | Thunder Client   |
+
+---
+
+## Architecture du projet
+
+Le code est organisé en trois dossiers principaux :
+
+```
+/ecoride-project
+├── frontend       # Application Angular
+├── backend        # API Symfony 6 + Doctrine
+└── database       # Scripts SQL 
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Chaque application peut fonctionner indépendamment en local ou être déployée sur des plateformes dédiées.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Prérequis
 
-```bash
-ng generate component component-name
-```
+- Angular CLI (installé globalement via `npm install -g @angular/cli`, nécessite `npm` et `Node.js` en arrière-plan)
+- PHP >= 8.4
+- Composer
+- Symfony CLI ou serveur web local (Apache)
+- Base de données : MySQL ou PostgreSQL
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## Installation et configuration
 
-## Building
+### Front-end (Angular)
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-
-
-## Backend Installation (Symfony)
-
-1. Navigate to the backend folder:
+1. Cloner le dépôt et se positionner dans le dossier `frontend`
    ```bash
-   cd backend
+   git clone https://github.com/zhoche/EcoRideProject.git 
+   cd ecoride-project/frontend
+   ```
+2. Installer les dépendances
+   ```bash
+   npm install
+   ```
+3. Configurer l’URL de l’API dans `src/environments/environment.ts`
+   ```ts
+   export const environment = {
+     production: false,
+     apiUrl: 'https://ecoride-back-xm7y.onrender.com'
+   };
+   ```
+4. Lancer le serveur de développement
+   ```bash
+   ng serve
+   ```
+5. Accéder à l’application : `http://localhost:4200`
 
+### Back-end (Symfony)
 
-2. Install PHP dependencies via Composer:
-bash
-Copier
-Modifier
-composer install
+1. Se positionner dans le dossier `backend`
+   ```bash
+   cd ../backend
+   ```
+2. Installer les dépendances PHP via Composer
+   ```bash
+   composer install
+   ```
+3. Copier et adapter le fichier d’environnement
+   ```bash
+   cp .env .env.local
+   ```
+   Dans votre `.env.local`, configurez notamment :
+   ```dotenv
+   # Environnement
+   APP_ENV=prod
+   APP_SECRET=2d86de76613ded171aa3869dfefb6dfb
 
+   # Connexion à la base PostgreSQL sur Render
+   DATABASE_URL="postgresql://ecoride_user:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com:5432/ecoride_0lz5"
 
-3. Configure your database connection in the .env file. For example, using XAMPP and phpMyAdmin:
+   # Transport Messenger
+   MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0
 
-env
-Copier
-Modifier
-DATABASE_URL="mysql://root:@127.0.0.1:3306/ecoride"
+   # CORS
+   CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
 
-4. Start XAMPP, and ensure Apache and MySQL services are running.
+   # JWT
+   JWT_PASSPHRASE=2025EcoRideHoche
+   JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
+   JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
+   ```
+4. Créer la base de données et exécuter les migrations
+   ```bash
+   php bin/console doctrine:database:create
+   php bin/console doctrine:migrations:migrate
+   ```
+5. Charger les fixtures (facultatif)
+   ```bash
+   php bin/console doctrine:fixtures:load
+   ```
+6. Lancer le serveur Symfony
+   ```bash
+   symfony server:start --port=8000
+   ```
 
-5. Open http://localhost/phpmyadmin
+### Base de données
 
-Déploiement en cours sur Vercel
+Les scripts SQL et fixtures se trouvent dans le dossier sql. Vous pouvez importer les fichiers `avis.sql`, `user.sql`, `ride.sql` et `vehicule.sql` via votre SGBD.
+
+---
+
+## Comptes de connexion
+
+Pour vous connecter rapidement avec chaque profil, utilisez les comptes suivants :
+
+| Profil             | Email                                                  | Mot de passe  |
+| ------------------ | ------------------------------------------------------ | ------------- |
+| **Passenger**      | [passenger@example.com](mailto\:passenger@example.com) | Testpass1234! |
+| **Driver**         | [driver1@example.com](mailto\:driver1@example.com)     | Testpass1234! |
+| **Employé**        | [employee2@example.com](mailto\:employee2@example.com) | Testpass1234! |
+| **Administrateur** | [admin@ecoride.local](mailto\:admin@ecoride.local)     | Admin1234!    |
+
+---
+
+## Déploiement
+
+- **Front-end** : déployé sur Heroku ([**https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com/home**](https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com/home))
+- **Back-end** : déployé sur Render ([**https://ecoride-back-xm7y.onrender.com**](https://ecoride-back-xm7y.onrender.com)) via un conteneur Docker
+- **Base de données** : hébergée sur Render (postgresql://ecoride\_user:[fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com](mailto\:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com)/ecoride\_0lz5)
+
+---
+
+## Documentation supplémentaire
+
+- [Charte graphique](documentation/EcoRide_CharteGraphique_2025_HOCHE.pdf)
+- [Maquettes Desktop](documentation/EcoRide_MaquettesDesktop_2025_HOCHE.pdf)
+- [Maquettes Mobile](documentation/EcoRide_MaquettesMobile_2025_HOCHE.pdf)
+- [Plan de l’application](documentation/EcoRide_PlanAppWeb_2025_HOCHE.pdf)
+- [TP DWWM (Nov-Déc 25)](documentation/TP_DWWM_NovDec25_copiearendre_HOCHE_Zoe.doc)
+
+---
+
+## Contributions et bonnes pratiques Git
+
+1. **Branches** :
+   - `main` : version stable en production
+   - `develop` : intégration des nouvelles fonctionnalités
+   - `feature/*` : chaque nouvelle US ou ticket
+2. **Workflow** :
+   - Créer une branche `feature/xxx` depuis `develop`
+   - Committer et pusher régulièrement
+   - Ouvrir une Pull Request vers `develop`
+   - Revue de code, tests et merge
+   - Après validation de `develop`, merge sur `main`
+
+Merci d’accompagner chaque PR d’une description claire et de liens vers le document de gestion Notion si nécessaire : [**https://www.notion.so/EcoRide-1d78f19f15ce80608311c334835dd259?source=copy\_link**](https://www.notion.so/EcoRide-1d78f19f15ce80608311c334835dd259?source=copy_link).
+
+---
