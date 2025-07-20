@@ -1,15 +1,18 @@
 <?php
-// src/Controller/GeocodeController.php
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpClient\HttpClient;
+use Symfony\Contracts\HttpClient\HttpClientInterface;  // remplace HttpClient
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 
 class GeocodeController extends AbstractController
 {
+    public function __construct(private HttpClientInterface $client)
+    {
+    }
+
     #[Route('/api/geocode', name: 'api_geocode', methods: ['GET'])]
     public function geocode(Request $request): JsonResponse
     {
@@ -18,19 +21,16 @@ class GeocodeController extends AbstractController
             return $this->json(['error' => 'Paramètre text manquant'], 400);
         }
 
-        $client = HttpClient::create();
         $apiKey = $this->getParameter('env(ORS_API_KEY)');
-        $url = 'https://api.openrouteservice.org/geocode/search';
-        $response = $client->request('GET', $url, [
+        $response = $this->client->request('GET', 'https://api.openrouteservice.org/geocode/search', [
             'headers' => ['Authorization' => $apiKey],
             'query'   => ['text' => $text],
         ]);
 
         if (200 !== $response->getStatusCode()) {
-            return $this->json(['error' => 'Erreur ORS'], $response->getStatusCode());
+            return $this->json(['error' => 'ORS a renvoyé le code '.$response->getStatusCode()], $response->getStatusCode());
         }
 
-        $data = $response->toArray();
-        return $this->json($data);
+        return $this->json($response->toArray());
     }
 }

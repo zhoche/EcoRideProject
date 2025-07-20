@@ -48,41 +48,38 @@ export class MapComponent implements AfterViewInit, OnChanges {
     if (coords) this.drawRoute(this.map, coords.start, coords.end);
   }
 
-  async fetchCoordinates(start: string, end: string): Promise<{ start: number[]; end: number[] } | null> {
-    const key = environment.orsApiKey;
-    const url = `https://api.openrouteservice.org/geocode/search`;
-
+  async fetchCoordinates(
+    start: string,
+    end: string
+  ): Promise<{ start: number[]; end: number[] } | null> {
     try {
-      const resStart: any = await this.http.get(url, {
-        params: { api_key: key, text: start }
-      }).toPromise();
-
-      const resEnd: any = await this.http.get(url, {
-        params: { api_key: key, text: end }
-      }).toPromise();
-
+      const resStart: any = await this.http
+        .get(`${environment.apiUrl}/api/geocode`, { params: { text: start } })
+        .toPromise();
+  
+      const resEnd: any = await this.http
+        .get(`${environment.apiUrl}/api/geocode`, { params: { text: end } })
+        .toPromise();
+  
       const startCoords = resStart.features[0].geometry.coordinates;
-      const endCoords = resEnd.features[0].geometry.coordinates;
-
+      const endCoords   = resEnd.features[0].geometry.coordinates;
+  
       return { start: startCoords, end: endCoords };
     } catch (err) {
       console.error('Erreur géocodage', err);
       return null;
     }
   }
+  
 
   async drawRoute(map: L.Map, start: number[], end: number[]) {
-    const key = environment.orsApiKey;
-    const url = 'https://api.openrouteservice.org/v2/directions/driving-car/geojson';
-  
     try {
-      const response: any = await this.http.post(url, {
-        coordinates: [start, end]
-      }, {
-        headers: { Authorization: key }
-      }).toPromise();
+      // Appel au proxy Symfony
+      const response: any = await this.http
+        .post(`${environment.apiUrl}/api/directions`, { coordinates: [start, end] })
+        .toPromise();
   
-      // Supprime le tracé précédent si présent
+      // Supprime le tracé précédent
       if (this.routeLayer) {
         this.map?.removeLayer(this.routeLayer);
       }
@@ -97,5 +94,6 @@ export class MapComponent implements AfterViewInit, OnChanges {
       console.error('Erreur tracé itinéraire', err);
     }
   }
+  
   
 }
