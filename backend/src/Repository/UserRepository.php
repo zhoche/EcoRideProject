@@ -32,13 +32,11 @@ class UserRepository extends ServiceEntityRepository
      */
     public function findEmployes(): array
     {
-        // On récupère d'abord tous les utilisateurs
-        $all = $this->findAll();
-
-        // Puis on filtre ceux qui ont bien ROLE_EMPLOYE dans leur tableau de rôles
-        return array_filter(
-            $all,
+        $filtered = array_filter(
+            $this->findAll(),
             fn(User $u) => in_array('ROLE_EMPLOYE', $u->getRoles(), true)
         );
+    
+        return array_values($filtered);
     }
 }
