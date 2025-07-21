@@ -1,11 +1,11 @@
 <?php
+// src/Repository/UserRepository.php
 
 namespace App\Repository;
 
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-
 
 class UserRepository extends ServiceEntityRepository
 {
@@ -18,20 +18,27 @@ class UserRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('u')
             ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"' . $role . '"%') // % "ROLE_DRIVER" %
+            ->setParameter('role', '%"' . $role . '"%')
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
-            
     }
-    
+
+    /**
+     * Retourne tous les users ayant ROLE_EMPLOYE,
+     * en filtrant **en PHP** pour éviter le LIKE sur du jsonb.
+     *
+     * @return User[]
+     */
     public function findEmployes(): array
     {
+        // On récupère d'abord tous les utilisateurs
+        $all = $this->findAll();
+
+        // Puis on filtre ceux qui ont bien ROLE_EMPLOYE dans leur tableau de rôles
         return array_filter(
-            $this->findAll(),
+            $all,
             fn(User $u) => in_array('ROLE_EMPLOYE', $u->getRoles(), true)
         );
     }
-    
-
 }
