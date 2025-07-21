@@ -1,6 +1,7 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
+  "defaultProject": "ecorideproject",
   "newProjectRoot": "projects",
   "projects": {
     "ecorideproject": {
@@ -82,14 +83,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "buildTarget": "ecorideproject:build:development",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "ecorideproject:build:production"
+              "buildTarget": "ecorideproject:build:production"
             },
             "development": {
-              "browserTarget": "ecorideproject:build:development"
+              "buildTarget": "ecorideproject:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +99,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ecorideproject:build"
+            "buildTarget": "ecorideproject:build"
           }
         },
         "test": {

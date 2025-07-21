@@ -70,6 +70,16 @@ export class AuthService {
     this.router.navigate(['/connexion']);
   }
 
+  register(data: {
+    email: string;
+    password: string;
+    pseudo: string;
+    roles: string[];
+    gender: string;
+  }): Observable<any> {
+    return this.http.post<any>(`${this.base}/register`, data);
+  }
+  
   getToken(): string | null {
     return localStorage.getItem('token');
   }
