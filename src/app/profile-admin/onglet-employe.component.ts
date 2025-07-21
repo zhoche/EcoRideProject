@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpClientModule } from '@angular/common/http';
 import { ReviewService } from '../review.service';
-
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-onglet-employe',
@@ -12,14 +12,17 @@ import { ReviewService } from '../review.service';
   styleUrls: ['./onglet-employe.component.scss'],
   imports: [CommonModule, ReactiveFormsModule, HttpClientModule]
 })
-
-
 export class OngletEmployeComponent implements OnInit {
   employeeForm!: FormGroup;
   employees: any[] = [];
   selectedReview: any;
   suspendedEmails: string[] = [];
 
+  private api = `${environment.apiUrl}/api`;
+
+  private headers = new HttpHeaders({
+    Authorization: `Bearer ${localStorage.getItem('token')}`
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -27,90 +30,77 @@ export class OngletEmployeComponent implements OnInit {
     private reviewService: ReviewService
   ) {}
 
+  ngOnInit(): void {
+    this.employeeForm = this.fb.group({
+      email:    ['', [Validators.required, Validators.email]],
+      password: ['', Validators.required],
+      pseudo:   ['', Validators.required]
+    });
 
-ngOnInit(): void {
-  this.employeeForm = this.fb.group({
-    email: ['', [Validators.required, Validators.email]],
-    password: ['', Validators.required],
-    pseudo: ['', Validators.required]
-  });
+    this.fetchEmployees();
+  }
 
-  this.fetchEmployees();
-}
+  onSelectReview(review: any) {
+    this.selectedReview = review;
+  }
 
+  fetchEmployees(): void {
+    // 1) On récupère d'abord la liste des emails suspendus
+    this.http.get<string[]>(`${this.api}/admin/suspended-emails`, { headers: this.headers })
+      .subscribe({
+        next: suspended => {
+          this.suspendedEmails = suspended;
 
-onSelectReview(review: any) {
-  this.selectedReview = review;
-}
-
-
-fetchEmployees(): void {
-  this.http.get<string[]>('/api/admin/suspended-emails', {
-    headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-  }).subscribe({
-    next: suspended => {
-      this.suspendedEmails = suspended;
-
-      this.http.get<any[]>('https://ecoride-back-xm7y.onrender.com/api/admin/employee-list', {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      }).subscribe({
-        next: data => {
-          this.employees = data.map(user => ({
-            ...user,
-            createdAt: user.createdAt ? new Date(user.createdAt) : null
-            // status: this.suspendedEmails.includes(user.email) ? 'suspendu' : 'actif' // optionnel
-          }));
+          // 2) Puis la liste des employés
+          this.http.get<any[]>(`${this.api}/admin/employee-list`, { headers: this.headers })
+            .subscribe({
+              next: data => {
+                this.employees = data.map(user => ({
+                  ...user,
+                  createdAt: user.createdAt ? new Date(user.createdAt) : null,
+                  status: this.suspendedEmails.includes(user.email) ? 'suspendu' : 'actif'
+                }));
+              },
+              error: err => console.error('Erreur employés :', err)
+            });
         },
-        error: err => console.error('Erreur employés :', err)
+        error: err => console.error('Erreur emails suspendus :', err)
       });
-    },
-    error: err => console.error('Erreur emails suspendus :', err)
-  });
-}
+  }
 
+  onSubmit(): void {
+    if (!this.employeeForm.valid) return;
 
-
-onSubmit(): void {
-  if (this.employeeForm.valid) {
-    const formData = {
+    const payload = {
       ...this.employeeForm.value,
-      roles: ['ROLE_EMPLOYE'], 
+      roles:   ['ROLE_EMPLOYE'],
       credits: 0
     };
 
-    this.http.post('/api/register', formData).subscribe({
-      next: () => {
-        alert('✅ Compte employé créé !');
-        this.employeeForm.reset();
-        this.fetchEmployees();
-      },
-      error: () => alert('❌ Une erreur est survenue.')
-    });
+    this.http.post(`${this.api}/register`, payload, { headers: this.headers })
+      .subscribe({
+        next: () => {
+          alert('✅ Compte employé créé !');
+          this.employeeForm.reset();
+          this.fetchEmployees();
+        },
+        error: () => alert('❌ Une erreur est survenue.')
+      });
   }
-}
 
+  deleteEmployee(id: number): void {
+    if (!confirm('Êtes-vous sûr de vouloir supprimer ce compte employé ?')) return;
 
-
-deleteEmployee(id: number): void {
-  const confirmed = confirm('Êtes-vous sûr de vouloir supprimer ce compte employé ?');
-
-  if (confirmed) {
-    this.http.delete(`https://ecoride-back-xm7y.onrender.com/api/admin/employee-delete/${id}`, {
-      headers: {
-        Authorization: `Bearer ${localStorage.getItem('token')}`
-      }
-    }).subscribe({
-      next: () => {
-        alert('🗑️ Compte employé supprimé avec succès');
-        this.fetchEmployees();
-      },
-      error: err => {
-        console.error('Erreur lors de la suppression :', err);
-        alert('❌ Une erreur est survenue');
-      }
-    });
+    this.http.delete(`${this.api}/admin/employee-delete/${id}`, { headers: this.headers })
+      .subscribe({
+        next: () => {
+          alert('🗑️ Compte employé supprimé avec succès');
+          this.fetchEmployees();
+        },
+        error: err => {
+          console.error('Erreur lors de la suppression :', err);
+          alert('❌ Une erreur est survenue');
+        }
+      });
   }
-}
-
-
 }
