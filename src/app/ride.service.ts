@@ -7,6 +7,12 @@ import { Ride } from './ride.model';
 import { map } from 'rxjs/operators';
 
 
+
+function stripImages(path: string): string {
+  return path.replace(/^(\/?images\/)+/, '');
+}
+
+
 @Injectable({ providedIn: 'root' })
 export class RideService {
 
@@ -52,6 +58,7 @@ export class RideService {
   }
 
 
+
   searchRides(params: {
     villeDepart: string;
     villeArrivee: string;
@@ -68,19 +75,19 @@ export class RideService {
         }
       })
       .pipe(
-        map(rides =>
-          rides.map(r => {
-            const raw = r.driver.image.replace(/^\/?images\/?/, '')
-            return {
-              ...r,
-              driver: {
-                ...r.driver,
-                image: `/images/${raw}`
-              }
+      map(rides =>
+        rides.map(r => {
+          const raw = stripImages(r.driver.image);
+          return {
+            ...r,
+            driver: {
+              ...r.driver,
+              image: `/images/${raw}`
             }
-          })
-        )
-      );
+          };
+        })
+      )
+    );
   }
 
 
@@ -97,14 +104,14 @@ export class RideService {
       .pipe(
         map(rides =>
           rides.map(r => {
-            const raw = r.driver.image.replace(/^\/?images\/?/, '')
+            const raw = stripImages(r.driver.image);
             return {
               ...r,
               driver: {
                 ...r.driver,
                 image: `/images/${raw}`
               }
-            }
+            };
           })
         )
       );
