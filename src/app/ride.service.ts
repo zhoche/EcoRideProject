@@ -69,15 +69,16 @@ export class RideService {
       })
       .pipe(
         map(rides =>
-          rides.map(r => ({
-            ...r,
-            driver: {
-              ...r.driver,
-              image: r.driver.image.startsWith('/')
-                ? r.driver.image
-                : `/images/${r.driver.image}`
+          rides.map(r => {
+            const raw = r.driver.image.replace(/^\/?images\/?/, '')
+            return {
+              ...r,
+              driver: {
+                ...r.driver,
+                image: `/images/${raw}`
+              }
             }
-          }))
+          })
         )
       );
   }
@@ -95,15 +96,16 @@ export class RideService {
       })
       .pipe(
         map(rides =>
-          rides.map(r => ({
-            ...r,
-            driver: {
-              ...r.driver,
-              image: r.driver.image.startsWith('/')
-                ? r.driver.image
-                : `/images/${r.driver.image}`
+          rides.map(r => {
+            const raw = r.driver.image.replace(/^\/?images\/?/, '')
+            return {
+              ...r,
+              driver: {
+                ...r.driver,
+                image: `/images/${raw}`
+              }
             }
-          }))
+          })
         )
       );
   }
