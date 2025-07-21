@@ -3,7 +3,7 @@ nelmio_cors:
     allow_credentials: true
     allow_origin: 
       - 'https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com'
-      - 'http://localhost:54518'
+      - 'http://localhost:56807'
       - '*'
     allow_headers: ['Content-Type', 'Authorization']
     allow_methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS']
@@ -13,7 +13,7 @@ nelmio_cors:
     '^/api/':
       allow_origin: 
         - 'https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com'
-        - 'http://localhost:54518'
+        - 'http://localhost:56807'
         - '*'
       allow_credentials: true
       allow_headers: ['Content-Type', 'Authorization']

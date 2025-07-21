@@ -1,5 +1,9 @@
 @use 'styles' as *;
 
+:host {
+  display: block;
+  box-sizing: border-box;
+}
 
 //TABLE DRIVES
 
@@ -250,20 +254,11 @@
     border-radius: $radius-lg;
     padding: $spacing-lg;
     box-shadow: 0 1px 4px rgba($color-dark, 0.05);
-    flex: 1;               // pour remplir le bloc si nécessaire
+    flex: 1;               
     display: flex;
     flex-direction: column;
   }
 }
-
-/* Responsive : colonnes → une seule */
-@media (max-width: $breakpoint-lg) {
-  .overview-cards {
-    grid-template-columns: 1fr;
-  }
-}
-
-
 
 
 //REVIEWS
@@ -374,7 +369,6 @@
   }
 
   &__history {
-    /* on reprend le style interne de vos cartes */
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -389,22 +383,11 @@
   }
 
   &__chart {
-    flex: 1;                       // prend tout l’espace restant
-    /* dimensions flexibles selon la librairie de graph choisie */
+    flex: 1;                     
     min-height: 120px;
     position: relative;
   }
 }
-
-/* Si vous voulez un placeholder statique en attendant la data, vous pouvez, 
-   par exemple, définir un SVG en background : 
-*/
-/*
-.credits__chart {
-  background: url('assets/images/credits-placeholder.svg') no-repeat center;
-  background-size: contain;
-}
-*/
 
 
 
@@ -419,7 +402,7 @@
 
 
   &__list {
-    flex: 1;               // la liste prend tout l’espace disponible
+    flex: 1;             
     overflow-y: auto; 
     list-style: none;
     margin: 0;
@@ -489,3 +472,20 @@
 }
 
 
+@media (max-width: $breakpoint-md) {
+  .overview-cards {
+    display: grid;                
+    grid-template-columns: 1fr;   
+    gap: $spacing-lg;     
+    margin: $spacing-xl 0;
+
+    width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+  }
+
+  .overview-cards__block {
+    width: 100%;                  
+    margin: 0;                    
+  }
+}
