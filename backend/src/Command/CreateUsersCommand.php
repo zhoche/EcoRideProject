@@ -25,39 +25,7 @@ class CreateUsersCommand extends Command
         // [email, pseudo, roles, preferences|null, gender, imageUrl|null, rating, isVerified]
         $users = [
             // EMPLOYEE
-            ['employee2@example.com', 'employee2', ['ROLE_EMPLOYEE'], null, 'M', 'images/Profil_Employe.png', null, true],
-
-            // DRIVER / USER
-            ['driver1@example.com', 'jerome', ['ROLE_DRIVER','ROLE_USER'], [
-                'Véhicule non-fumeur'          => true,
-                'Femmes uniquement'            => false,
-                'Animal de compagnie autorisé' => true,
-            ], 'M', 'images/Profil_Jerome.png', 4.5, true],
-            ['driver2@example.com', 'rosalie', ['ROLE_DRIVER','ROLE_USER'], [
-                'Véhicule non-fumeur'          => false,
-                'Femmes uniquement'            => true,
-                'Animal de compagnie autorisé' => false,
-            ], 'F', 'images/Profil_Passager-Conducteur.png', 4, false],
-            ['driver3@example.com', 'francky', ['ROLE_DRIVER','ROLE_USER'], [
-                'Véhicule non-fumeur'          => true,
-                'Femmes uniquement'            => false,
-                'Animal de compagnie autorisé' => false,
-            ], 'M', 'images/Profil_Francky.png', 4, true],
-            ['driver4@example.com', 'kati', ['ROLE_DRIVER','ROLE_USER'], [
-                'Véhicule non-fumeur'          => false,
-                'Femmes uniquement'            => false,
-                'Animal de compagnie autorisé' => true,
-            ], 'F', 'images/Profil_Kati.png', 5, true],
-            ['driver5@example.com', 'anthony', ['ROLE_DRIVER','ROLE_USER'], [
-                'Véhicule non-fumeur'          => false,
-                'Femmes uniquement'            => false,
-                'Animal de compagnie autorisé' => true,
-            ], 'F', 'images/Profil_Anthony.png', 5, true],
-
-            // USER
-            ['passenger@example.com', 'kati', ['ROLE_USER'], null, 'F', 'images/Profil_Kati.png', 5, true],
-            ['passenger2@example.com', 'alicia', ['ROLE_USER'], null, 'F', 'images/Profil_Alicia.png', 5, true],
-
+            ['employee1@example.com', 'employee1', ['ROLE_EMPLOYE'], null, 'M', 'images/Profil_Employe.png', null, true],
         ];
 
         foreach ($users as [

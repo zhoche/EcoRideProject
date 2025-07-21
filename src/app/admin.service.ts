@@ -1,23 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../environments/environment';
 
-@Injectable({
-  providedIn: 'root'
-})
+interface TotalCredits { totalCredits: number; }
+interface DailyCredits { date: string; credits: number; }
+interface DailyRides   { date: string; total: number; }
+
+@Injectable({ providedIn: 'root' })
 export class AdminService {
+  // <-- ici on récupère l'URL de l'API depuis les environment
+  private api = environment.apiUrl;
 
   constructor(private http: HttpClient) {}
 
-  getTotalCredits(): Observable<{ totalCredits: number }> {
-    return this.http.get<{ totalCredits: number }>('/api/admin/credits-earned-total');
+  getTotalCredits(): Observable<TotalCredits> {
+    return this.http.get<TotalCredits>(
+      `${this.api}/api/admin/credits-earned-total`
+    );
   }
 
-  getCreditsPerDay(): Observable<{ date: string, credits: number }[]> {
-    return this.http.get<{ date: string, credits: number }[]>('/api/admin/credits-earned-per-day');
+  getCreditsPerDay(): Observable<DailyCredits[]> {
+    return this.http.get<DailyCredits[]>(
+      `${this.api}/api/admin/credits-earned-per-day`
+    );
   }
 
-  getRidesPerDay(): Observable<{ date: string, total: number }[]> {
-    return this.http.get<{ date: string, total: number }[]>('/api/admin/rides-per-day');
+  getRidesPerDay(): Observable<DailyRides[]> {
+    return this.http.get<DailyRides[]>(
+      `${this.api}/api/admin/rides-per-day`
+    );
   }
 }
