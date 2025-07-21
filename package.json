@@ -7,6 +7,7 @@
     "npm": "10.x"
   },
   "scripts": {
+    "start": "ng serve ecorideproject",
     "ng": "ng",
     "build": "ng build --configuration=production",
     "heroku-postbuild": "npm run build",

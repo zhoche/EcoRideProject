@@ -30,24 +30,23 @@
       <table class="suspended__table">
         <thead class="suspended__head">
           <tr>
-            <th>Pseudo</th>
-            <th>Email</th>
-            <th>Date de suspension de compte</th>
-            <th>Role</th>
-            <th>Actions</th>
+            <th data-label="Pseudo">Pseudo</th>
+            <th data-label="Email">Email</th>
+            <th data-label="Date de suspension">Date de suspension</th>
+            <th data-label="Rôle">Rôle</th>
+            <th data-label="Actions">Actions</th>
           </tr>
         </thead>
         <tbody class="suspended__body">
           <tr *ngFor="let user of suspendedAccounts">
-            <td>{{ user.pseudo }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.suspendedAt ? (user.suspendedAt | date:'dd/MM/yyyy') : 'N/A' }}</td>
-            <td>{{ user.role }}</td>
-            <td>
-              <button class="btn-icon btn-icon--edit">
+            <td data-label="Pseudo">{{ user.pseudo }}</td>
+            <td data-label="Email">{{ user.email }}</td>
+            <td data-label="Date de suspension"> {{ user.suspendedAt ? (user.suspendedAt | date:'dd/MM/yyyy') : 'N/A' }}</td>
+            <td data-label="Rôle">{{ user.role }}</td>
+            <td data-label="Actions" class="suspended__actions">
+              <button class="btn-icon btn-icon--edit" disabled>
                 <img src="images/Action_Modifier.svg" alt="Modifier" />
               </button>
-            </td>
           </tr>
         </tbody>
       </table>

@@ -26,40 +26,45 @@
 
 <!-- TABLEAU EMPLOYÉS -->
 <section class="employees">
-    <h2 class="employeeForm__title">Comptes employés</h2>
-    <div class="employees__wrapper">
-      <table class="employees__table">
-        <thead class="employees__head">
-          <tr>
-            <th data-label="Pseudo">Pseudo</th>
-            <th data-label="Email">Email</th>
-            <th data-label="Date de création">Date de création de compte</th>
-            <th data-label="Status">Status</th>
-            <th data-label="Actions">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="employees__body">
-          <tr *ngFor="let user of employees">
-            <td>{{ user.pseudo }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.createdAt ? (user.createdAt | date:'dd/MM/yyyy') : 'N/A' }}</td>
-            <td>
-                <span class="badge" 
-                      [ngClass]="suspendedEmails.includes(user.email) ? 'badge--suspended' : 'badge--active'">
-                  {{ suspendedEmails.includes(user.email) ? 'Suspendu' : 'Actif' }}
-                </span>
-              </td>
-            <td>
-              <button class="btn-icon btn-icon--edit" (click)="onSelectReview(user)">
-                <img src="images/Action_Modifier.svg" alt="Modifier"/>
-              </button>
-              <button class="btn-icon btn-icon--delete" (click)="deleteEmployee(user.id)">
-                <img src="images/Action_Supprimer.svg" alt="Supprimer"/>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
+  <h2 class="employeeForm__title">Comptes employés</h2>
+  <div class="employees__wrapper">
+    <table class="employees__table">
+      <thead class="employees__head">
+        <tr>
+          <th data-label="Pseudo">Pseudo</th>
+          <th data-label="Email">Email</th>
+          <th data-label="Date de création">Date de création de compte</th>
+          <th data-label="Status">Status</th>
+          <th data-label="Actions">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="employees__body">
+        <tr *ngFor="let user of employees">
+          <td data-label="Pseudo">{{ user.pseudo }}</td>
+          <td data-label="Email">{{ user.email }}</td>
+          <td data-label="Date de création">
+            {{ user.createdAt ? (user.createdAt | date:'dd/MM/yyyy') : 'N/A' }}
+          </td>
+          <td data-label="Status">
+            <span class="badge" 
+                  [ngClass]="suspendedEmails.includes(user.email) 
+                    ? 'badge--suspended' 
+                    : 'badge--active'">
+              {{ suspendedEmails.includes(user.email) ? 'Suspendu' : 'Actif' }}
+            </span>
+          </td>
+          <td data-label="Actions" class="employees__actions">
+            <button class="btn-icon btn-icon--edit" (click)="onSelectReview(user)">
+              <img src="images/Action_Modifier.svg" alt="Modifier"/>
+            </button>
+            <button class="btn-icon btn-icon--delete" (click)="deleteEmployee(user.id)">
+              <img src="images/Action_Supprimer.svg" alt="Supprimer"/>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
   
