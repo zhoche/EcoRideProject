@@ -27,11 +27,11 @@ class UserRepository extends ServiceEntityRepository
     
     public function findEmployes(): array
     {
-        return $this->createQueryBuilder('u')
-            ->where('u.roles LIKE :role')
-            ->setParameter('role', '%"ROLE_EMPLOYE"%')
-            ->getQuery()
-            ->getResult();
+        return array_filter(
+            $this->findAll(),
+            fn(User $u) => in_array('ROLE_EMPLOYE', $u->getRoles(), true)
+        );
     }
+    
 
 }

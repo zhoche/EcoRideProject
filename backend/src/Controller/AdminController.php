@@ -11,6 +11,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\UserRepository;
 use App\Entity\SuspendedUser;
 use App\Repository\SuspendedUserRepository;
+use Psr\Log\LoggerInterface;
 
 
 
@@ -18,6 +19,11 @@ use App\Repository\SuspendedUserRepository;
 #[Route('/api/admin')]
 class AdminController extends AbstractController
 {
+
+
+    public function __construct(private LoggerInterface $logger) {}
+
+
 
     #[Route('/rides-per-day', name: 'admin_rides_per_day', methods: ['GET'])]
     public function getRidesPerDay(EntityManagerInterface $em): JsonResponse
@@ -74,21 +80,29 @@ public function getTotalCreditsEarned(EntityManagerInterface $em): JsonResponse
 
 
 #[Route('/employee-list', name: 'api_employees_list', methods: ['GET'])]
-public function getEmployees(UserRepository $userRepository): JsonResponse
-{
-    $employees = $userRepository->findEmployes();
+    public function getEmployees(UserRepository $userRepository): JsonResponse
+    {
+        try {
+            $employees = $userRepository->findEmployes();
+        } catch (\Throwable $e) {
+            $this->logger->error('Erreur findEmployes: '.$e->getMessage(), [
+                'exception' => $e,
+            ]);
+            return $this->json(['error' => 'Internal Server Error'], 500);
+        }
 
-    $data = array_map(function ($user) {
-        return [
-            'id' => $user->getId(),
-            'email' => $user->getEmail(),
-            'pseudo' => $user->getPseudo(),
-            'createdAt' => $user->getCreatedAt()?->format('Y-m-d'),
-        ];
-    }, $employees);
+        // Mapping vers le format JSON attendu par le front
+        $data = array_map(fn($u) => [
+            'id'        => $u->getId(),
+            'email'     => $u->getEmail(),
+            'pseudo'    => $u->getPseudo(),
+            'createdAt' => $u->getCreatedAt()?->format('Y-m-d'),
+        ], $employees);
 
-    return $this->json($data);
-}
+        return $this->json($data);
+    }
+
+
 
 
 
