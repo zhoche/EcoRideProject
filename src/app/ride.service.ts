@@ -73,7 +73,9 @@ export class RideService {
             ...r,
             driver: {
               ...r.driver,
-              image: `/images/${r.driver.image}`
+              image: r.driver.image.startsWith('/')
+                ? r.driver.image
+                : `/images/${r.driver.image}`
             }
           }))
         )
@@ -97,7 +99,9 @@ export class RideService {
             ...r,
             driver: {
               ...r.driver,
-              image: `/images/${r.driver.image}`
+              image: r.driver.image.startsWith('/')
+                ? r.driver.image
+                : `/images/${r.driver.image}`
             }
           }))
         )
