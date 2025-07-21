@@ -73,6 +73,13 @@
 
 // TABLEAU DES COMPTES SUSPENDUS
 .suspended {
+  &__title {
+    margin-bottom: $spacing-md;
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-dark;
+  }
+
   &__wrapper {
     background-color: white;
     border-radius: $radius-lg;
@@ -85,7 +92,6 @@
     width: 100%;
     border-collapse: separate;
     border-spacing: 0;
-    background-color: $color-secondary-1;
   }
 
   &__head th {
@@ -97,17 +103,84 @@
     text-align: left;
   }
 
-  &__body tr:not(:last-child) {
-    border-bottom: 1px solid $color-secondary-6;
+  &__body tr {
+    &:not(:last-child) {
+      border-bottom: 1px solid $color-secondary-6;
+    }
+    td {
+      padding: $spacing-md $spacing-lg;
+      font-size: 14px;
+      color: $color-dark;
+      vertical-align: middle;
+      border-top: 1px solid $color-secondary-6;
+      background-color: white;
+    }
   }
 
-  &__body td {
-    padding: $spacing-md $spacing-lg;
-    font-size: 14px;
-    color: $color-dark;
-    vertical-align: middle;
-    border-top: 1px solid $color-secondary-6;
-    background-color: white;
+  &__actions {
+    display: flex;
+    gap: $spacing-sm;
+  }
+}
+
+// RESPONSIVE SAME AS .trips AND .employees
+@media (max-width: $breakpoint-md) {
+  .suspended {
+    width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+
+    &__wrapper {
+      overflow: hidden;
+      box-sizing: border-box;
+    }
+
+    &__table {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      table-layout: fixed;
+      border-collapse: separate;
+    }
+
+    &__head {
+      display: block;
+      height: 0;
+      overflow: hidden;
+    }
+
+    &__body {
+      display: block;
+      width: 100%;
+
+      tr {
+        display: block;
+      }
+
+      td {
+        display: flex;
+        flex-grow: 1;
+        flex-shrink: 1;
+        flex-basis: 0%;
+        flex-wrap: wrap;
+        min-width: 0;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+
+        &:before {
+          content: attr(data-label);
+          font-weight: 600;
+          color: $color-dark;
+          flex: 1;
+        }
+      }
+
+      span.badge,
+      td.suspended__actions {
+        flex: 0 0 auto;
+      }
+    }
   }
 }
 
@@ -119,17 +192,14 @@
   background-color: white;
   display: inline-flex;
   align-items: center;
-
   img {
     width: 2rem;
     height: 2rem;
   }
-
   &--disabled {
     opacity: 0.5;
     cursor: default;
   }
-
   &:hover:not(.btn-icon--disabled) {
     opacity: 0.8;
   }

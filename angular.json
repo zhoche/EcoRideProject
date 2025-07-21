@@ -86,10 +86,10 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "ecorideproject:build:production"
+              "buildTarget": "ecorideproject:build:production"
             },
             "development": {
-              "browserTarget": "ecorideproject:build:development"
+              "buildTarget": "ecorideproject:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -97,7 +97,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ecorideproject:build"
+            "buildTarget": "ecorideproject:build"
           }
         },
         "test": {
