@@ -9,26 +9,26 @@ interface DailyRides   { date: string; total: number; }
 
 @Injectable({ providedIn: 'root' })
 export class AdminService {
-  // <-- ici on récupère l'URL de l'API depuis les environment
-  private api = environment.apiUrl;
+
+  private api = `${environment.apiUrl}/api`;
 
   constructor(private http: HttpClient) {}
 
   getTotalCredits(): Observable<TotalCredits> {
     return this.http.get<TotalCredits>(
-      `${this.api}/api/admin/credits-earned-total`
+      `${this.api}/admin/credits-earned-total`
     );
   }
 
   getCreditsPerDay(): Observable<DailyCredits[]> {
     return this.http.get<DailyCredits[]>(
-      `${this.api}/api/admin/credits-earned-per-day`
+      `${this.api}/admin/credits-earned-per-day`
     );
   }
 
   getRidesPerDay(): Observable<DailyRides[]> {
     return this.http.get<DailyRides[]>(
-      `${this.api}/api/admin/rides-per-day`
+      `${this.api}/admin/rides-per-day`
     );
   }
 }
