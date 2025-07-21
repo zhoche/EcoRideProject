@@ -54,7 +54,7 @@
 | Côté client     | Côté serveur | Base de données    | Outils et autres |
 | --------------- | ------------ | ------------------ | ---------------- |
 | Angular 19.2    | Symfony 6    | MySQL / PostgreSQL | Git, GitHub      |
-| TypeScript      | PHP 8.4      | MongoDB (NoSQL)    | Composer, npm    |
+| TypeScript      | PHP 8.4      |                    | Composer, npm    |
 | SCSS Responsive | Doctrine ORM |                    | Thunder Client   |
 
 ---
@@ -65,7 +65,7 @@ Le code est organisé en trois dossiers principaux :
 
 ```
 /ecoride-project
-├── frontend       # Application Angular
+├── src       # Application Angular
 ├── backend        # API Symfony 6 + Doctrine
 └── database       # Scripts SQL 
 ```
@@ -89,61 +89,52 @@ Chaque application peut fonctionner indépendamment en local ou être déployée
 ### Front-end (Angular)
 
 1. Cloner le dépôt et se positionner dans le dossier racine du projet 
+
+```bash
    git clone https://github.com/zhoche/EcoRideProject.git 
    cd EcoRideProject
+```
 
 2. Installer les dépendances
+```bash
    npm install
+```
 
 3. Générer le build de production
+```bash
    npm run build
+```
 
 4. Démarrer le serveur Node
+```bash
    npm run start
+```
 
 5. Ouvrir l’application dans votre navigateur (par défaut le serveur écoute sur le port 8080): `http://localhost:8080`
 
 ### Back-end (Symfony)
 
+> Le client Symfony CLI est recommandé pour simplifier la gestion du serveur et des commandes. Et doit être installé via ce lien : [Symfony CLI](https://symfony.com/download).
+
 1. Se positionner dans le dossier `backend`
-   cd ../backend
+```bash
+   cd backend
+```
 
 2. Installer les dépendances PHP via Composer
+```bash
    composer install
+```
 
 3. Copier et adapter le fichier d’environnement
+```bash
    cp .env .env.local
+```
 
-   Dans votre `.env.local`, configurez notamment :
-   ```dotenv
-   # Environnement
-   APP_ENV=prod
-   APP_SECRET=2d86de76613ded171aa3869dfefb6dfb
-
-   # Connexion à la base PostgreSQL sur Render
-   DATABASE_URL="postgresql://ecoride_user:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com:5432/ecoride_0lz5"
-
-   # Transport Messenger
-   MESSENGER_TRANSPORT_DSN=doctrine://default?auto_setup=0
-
-   # CORS
-   CORS_ALLOW_ORIGIN='^https?://(localhost|127\.0\.0\.1)(:[0-9]+)?$'
-
-   # JWT
-   JWT_PASSPHRASE=2025EcoRideHoche
-   JWT_SECRET_KEY=%kernel.project_dir%/config/jwt/private.pem
-   JWT_PUBLIC_KEY=%kernel.project_dir%/config/jwt/public.pem
-   ```
-4. Créer la base de données et exécuter les migrations
-   ```bash
-   php bin/console doctrine:database:create
-   php bin/console doctrine:migrations:migrate
-   ```
-
-5. Lancer le serveur Symfony
-   ```bash
-   symfony server:start --port=8000
-   ```
+4. Lancer le serveur Symfony
+```bash
+symfony server:start --port=8000
+```
 
 ### Base de données
 
@@ -168,7 +159,7 @@ Pour vous connecter rapidement avec chaque profil, utilisez les comptes suivants
 
 - **Front-end** : déployé sur Heroku ([**https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com/home**](https://zh-ecoride-frontend-7b5170b8d71e.herokuapp.com/home))
 - **Back-end** : déployé sur Render ([**https://ecoride-back-xm7y.onrender.com**](https://ecoride-back-xm7y.onrender.com)) via un conteneur Docker
-- **Base de données** : hébergée sur Render (postgresql://ecoride\_user:[fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com](mailto\:fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com)/ecoride\_0lz5)
+- **Base de données** : hébergée sur Render (postgresql://ecoride\_user:[fpfkEILKgZzmqs0jHCakmSvJKW7VPinV@dpg-d1ro52p5pdvs73ec3i5g-a.frankfurt-postgres.render.com]
 
 ---
 
