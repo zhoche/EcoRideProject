@@ -4,6 +4,7 @@ import { environment } from '../environments/environment';
 import { AuthService } from './auth.service';
 import { SearchParams } from '../search-params/search-params.model';
 import { Ride } from './ride.model';
+import { map } from 'rxjs/operators';
 
 
 @Injectable({ providedIn: 'root' })
@@ -57,26 +58,50 @@ export class RideService {
     date: string;
     nbPassagers: number;
   }) {
-    return this.http.get<any[]>(`${this.api}/rides/search`, {
-      params: {
-        villeDepart: params.villeDepart,
-        villeArrivee: params.villeArrivee,
-        date: params.date,
-        nbPassagers: params.nbPassagers.toString()
-      }
-    });
+    return this.http
+      .get<Ride[]>(`${this.api}/rides/search`, {
+        params: {
+          villeDepart: params.villeDepart,
+          villeArrivee: params.villeArrivee,
+          date: params.date,
+          nbPassagers: params.nbPassagers.toString()
+        }
+      })
+      .pipe(
+        map(rides =>
+          rides.map(r => ({
+            ...r,
+            driver: {
+              ...r.driver,
+              image: `/images/${r.driver.image}`
+            }
+          }))
+        )
+      );
   }
 
 
   searchNextAvailableRides(params: SearchParams) {
-    return this.http.get<Ride[]>(`${this.api}/rides/next-available`, {
-      params: {
-        villeDepart: params.villeDepart,
-        villeArrivee: params.villeArrivee,
-        date: params.date,
-        nbPassagers: params.nbPassagers.toString()
-      }
-    });
+    return this.http
+      .get<Ride[]>(`${this.api}/rides/next-available`, {
+        params: {
+          villeDepart: params.villeDepart,
+          villeArrivee: params.villeArrivee,
+          date: params.date,
+          nbPassagers: params.nbPassagers.toString()
+        }
+      })
+      .pipe(
+        map(rides =>
+          rides.map(r => ({
+            ...r,
+            driver: {
+              ...r.driver,
+              image: `/images/${r.driver.image}`
+            }
+          }))
+        )
+      );
   }
 
 
